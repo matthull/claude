@@ -1,0 +1,55 @@
+# Transient/session data
+todos.md
+todo.md
+TODO.md
+session-*.md
+*.tmp
+*.swp
+*.bak
+.DS_Store
+
+# Cache and temporary files
+cache/
+tmp/
+temp/
+*.cache
+
+# Editor files
+*~
+.*.sw[op]
+.idea/
+.vscode/
+
+# Log files
+*.log
+logs/
+
+# Environment-specific
+*.local
+*.private
+.env
+
+# Build artifacts
+*.pyc
+__pycache__/
+node_modules/
+dist/
+build/
+
+# Session/state files
+.last-*
+.current-*
+state/
+sessions/
+
+# Personal/sensitive
+secrets/
+credentials/
+tokens/
+
+.credentials.json
+
+projects/
+todos/
+statsig/
+shell-snapshots/

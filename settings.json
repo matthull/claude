@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/home/matt/code/village)",
+      "Edit(/home/matt/code/musashi)"
+    ]
+  },
+  "model": "opus",
+  "env": {
+    "USE_BUILTIN_RIPGREP": "0"
+  }
+}
