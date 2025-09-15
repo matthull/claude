@@ -1,5 +1,9 @@
 # Personal Claude Code Workflow
 
+## CRITICAL: Git Commit Rules
+**Claude MUST NEVER create git commits directly. Only the user creates commits via the `/commit` command.**
+This is an absolute rule with no exceptions. Always show changes for review, then wait for the user to run `/commit`.
+
 ## Preferred Development Process
 
 @~/.claude/guidance/development-process/tdd-human-review-cycle.md
@@ -35,9 +39,12 @@
 - **Critical Thinking:** Challenge assumptions and identify potential issues with proposed changes
 
 **Commit Process:**
-- **Always pause before commits** - Show `git diff --color=always` and ask for verification
-- **Never commit without approval** - Wait for user confirmation before proceeding
-- **Apply to all commits** - Not just TDD session squashes, but every single commit
+- **NEVER CREATE COMMITS DIRECTLY** - Claude must NEVER run `git commit` commands
+- **User controls all commits** - Only the user creates commits via `/commit` command
+- **Review workflow**: Show changes → User reviews → User runs `/commit` → Commit created
+- **Always show diffs first** - Use `git diff --color=always` to show what will be committed
+- **Wait for explicit approval** - User must explicitly say to proceed or run `/commit`
+- **No exceptions** - This applies to ALL commits, always, without exception
 
 ## Modular Guidance Library
 

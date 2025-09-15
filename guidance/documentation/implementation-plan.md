@@ -15,89 +15,17 @@ Implementation plans detail HOW to build a feature through concrete steps, testi
 ## Document Structure
 
 ### Required Frontmatter
-```yaml
----
-type: implementation-plan
-status: draft|approved|in-progress|complete
-project: {project-name}
-task: {task-name}
-created: YYYY-MM-DD
----
-```
+Type: implementation-plan, status (draft/approved/in-progress/complete), project, task, and created date.
 
 ### Required Sections
-```markdown
-# Implementation Plan: {Feature Name}
-
-## Overview
-What we're implementing and why (10 lines max).
-Link to requirements being addressed.
-
-## Technical Approach
-Key technical decisions (20 lines max):
-- Architecture pattern chosen
-- Technology/library selections
-- Integration approach
-- Trade-offs accepted
-
-## Implementation Phases
-Break into manageable phases (1-3 day chunks):
-
-### Phase 1: {Foundation}
-**Goal**: What this phase accomplishes
-**Success Criteria**: How we know it's done
-
-Steps:
-1. **Step Name**
-   - What: Specific action
-   - Outcome: Expected result
-   - Tests: How to verify
-   
-2. **Next Step**
-   - What: Action
-   - Outcome: Result
-   - Tests: Verification
-
-### Phase 2: {Core Feature}
-[Similar structure]
-
-## Testing Strategy
-How we'll verify correctness:
-- Unit tests: What to test
-- Integration tests: Key scenarios
-- Manual testing: UI/UX verification
-- Performance testing: If applicable
-
-## Rollout Plan
-How this gets deployed:
-- Feature flags: Yes/No and approach
-- Database migrations: Required changes
-- Rollback strategy: How to undo
-- Monitoring: What to watch
-```
+- **Overview**: What and why (10 lines max), link to requirements
+- **Technical Approach**: Key decisions, patterns, technology choices, trade-offs (20 lines max)
+- **Implementation Phases**: 1-3 day chunks with goals, success criteria, and specific steps
+- **Testing Strategy**: Unit, integration, manual, and performance test approaches
+- **Rollout Plan**: Deployment approach, feature flags, migrations, rollback strategy
 
 ### Optional Sections
-```markdown
-## Risk Mitigation
-| Risk | Probability | Impact | Mitigation |
-|------|------------|--------|------------|
-| Risk 1 | High/Med/Low | High/Med/Low | Strategy |
-
-## Dependencies
-- External services needed
-- Team coordination required
-- Infrastructure changes
-
-## Performance Considerations
-- Expected load
-- Optimization opportunities
-- Caching strategy
-
-## Security Considerations
-- Authentication/authorization
-- Data validation
-- Audit requirements
-```
+Risk Mitigation table, Dependencies list, Performance Considerations, and Security Considerations as needed.
 
 ## Writing Guidelines
 
@@ -181,30 +109,9 @@ How this gets deployed:
 - Mark phase as partially complete
 
 ## Common Patterns
-
-### Backend-First Pattern
-```markdown
-Phase 1: Data layer and models
-Phase 2: Business logic and services
-Phase 3: API endpoints
-Phase 4: Frontend integration
-```
-
-### Feature Flag Pattern
-```markdown
-Phase 1: Implementation behind flag
-Phase 2: Testing with flag enabled
-Phase 3: Gradual rollout
-Phase 4: Flag removal
-```
-
-### Migration Pattern
-```markdown
-Phase 1: Parallel implementation
-Phase 2: Data migration scripts
-Phase 3: Cutover and verification
-Phase 4: Cleanup old code
-```
+- **Backend-First**: Data layer → Business logic → API → Frontend
+- **Feature Flag**: Implement → Test with flag → Gradual rollout → Remove flag
+- **Migration**: Parallel implementation → Migration scripts → Cutover → Cleanup
 
 ## Quality Checklist
 

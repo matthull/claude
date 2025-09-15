@@ -68,7 +68,7 @@ Smart loading of guidance modules - either by search query or by specific number
 **Implementation:** Query mode uses direct tools (no Task delegation) for speed
 
 ### bundle
-Load pre-configured guidance bundles based on context descriptor.
+Load pre-configured guidance bundles based on context descriptor, with project bundles overriding global ones.
 
 **Parameters:**
 - **Descriptor**: Natural language describing desired context (e.g., "ruby", "frontend", "therapy")
@@ -81,25 +81,36 @@ Load pre-configured guidance bundles based on context descriptor.
 ```
 
 **Examples:**
-- `/guidance bundle rails` → Loads technique/rails.md and all parent bundles
+- `/guidance bundle rails` → Loads technique/rails.md (project first, then global)
 - `/guidance bundle coding` → Loads domain/coding.md and foundation/software-dev.md
 - `/guidance bundle therapy` → Loads foundation/therapeutic.md
-- `/guidance bundle frontend react` → Loads appropriate frontend/React bundles
-- `/guidance bundle list` → Shows hierarchy of all bundles
+- `/guidance bundle architecture` → Loads project version if exists, else global
+- `/guidance bundle list` → Shows hierarchy of all bundles (both project and global)
 
 **Implementation:**
 The LLM interprets the natural language descriptor and selects the most appropriate bundle based on context. If the descriptor is ambiguous, suggests running `/guidance bundle list` to see available options.
 
+**Bundle Resolution Order:**
+1. Check project bundles first: `.claude/guidance/bundles/{layer}/{name}.md`
+2. Fall back to global bundles: `~/.claude/guidance/bundles/{layer}/{name}.md`
+3. If project bundle exists, use it exclusively (it can @-reference the global version)
+
 When loading a bundle:
-1. Load the selected bundle file
-2. Recursively load all parent bundles (via @-references)
-3. Load all directly included guidance modules
-4. Report what was loaded and total estimated context usage
+1. Search for bundle in project first, then global
+2. Load the selected bundle file
+3. Recursively load all parent bundles (via @-references)
+4. Load all directly included guidance modules
+5. Report what was loaded and total estimated context usage
 
 **Bundle List Format:**
 ```
 Available Guidance Bundles:
 
+PROJECT BUNDLES (.claude/guidance/bundles/):
+Practice:
+  architecture*      - Project-specific architecture [overrides global]
+
+GLOBAL BUNDLES (~/.claude/guidance/bundles/):
 Foundation (top-level contexts):
   software-dev        - All software development work
   personal-assistant  - General assistant tasks
@@ -118,10 +129,13 @@ Practice (specific methodologies):
   frontend          - Client-side dev [inherits: coding]
   testing           - Test strategies [inherits: coding]
   database          - Data persistence [inherits: coding]
+  architecture      - System design patterns [inherits: coding]
 
 Technique (specific tools/approaches):
   ruby-dev          - Ruby patterns [inherits: backend]
   rails             - Rails framework [inherits: ruby-dev]
+
+* = Project bundle overrides global bundle with same name
 ```
 
 ## Subagent Prompt Templates

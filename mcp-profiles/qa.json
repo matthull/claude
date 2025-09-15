@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "gemini-bridge": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["gemini-bridge"],
+      "env": {}
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "puppeteer": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "env": {}
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(find:*)",
+      "Read(//home/matt/code/musashi/.claude/guidance/**)",
+      "Bash(while read file)",
+      "Bash(done)",
+      "Bash(sort:*)",
+      "mcp__gemini-bridge__consult_gemini_with_files",
+      "mcp__gemini-bridge__consult_gemini"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

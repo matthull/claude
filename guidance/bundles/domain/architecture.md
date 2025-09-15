@@ -14,4 +14,5 @@ System design, architectural decisions, and planning.
 
 ## Direct Includes
 - @../../documentation/requirements.md
+- @../../architecture/cross-layer-impact.md
 # Future: @../../documentation/architecture-decisions.md

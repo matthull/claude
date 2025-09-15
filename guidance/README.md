@@ -74,14 +74,38 @@ Bundles aggregate related guidance through a 4-layer hierarchy for loading commo
 
 ### Bundle Files
 Bundles aggregate related guidance through @-references:
-- Located in: `bundles/foundation/`, `bundles/domain/`, `bundles/practice/`, `bundles/technique/`
+- **Global bundles**: Located in `~/.claude/guidance/bundles/{layer}/`
+- **Project bundles**: Located in `.claude/guidance/bundles/{layer}/`
 - Inherit from parent layers automatically
 - Include relevant individual guidance modules
 - Load with: `/guidance bundle <descriptor>` or direct @-reference
 
+### Bundle Resolution (Project Override)
+When loading a bundle, the system checks in this order:
+1. **Project bundle first**: `.claude/guidance/bundles/{layer}/{name}.md`
+2. **Global bundle fallback**: `~/.claude/guidance/bundles/{layer}/{name}.md`
+3. **Project bundles override global**: If both exist, only the project bundle loads
+
+Project bundles can reference their global counterpart as a parent:
+```markdown
+# .claude/guidance/bundles/practice/architecture.md
+---
+type: bundle
+layer: practice
+parent: domain/coding.md
+---
+
+## Global Architecture Principles
+@~/.claude/guidance/bundles/practice/architecture.md
+
+## Project-Specific Architecture
+@.claude/guidance/architecture/service-patterns.md
+```
+
 ### Examples
-- `/guidance bundle rails` → Loads full Rails stack (technique → practice → domain → foundation)
-- `@~/.claude/guidance/bundles/domain/coding.md` → Loads coding domain + foundation
+- `/guidance bundle rails` → Checks project first, then global
+- `/guidance bundle architecture` → Loads project version if exists (which can include global)
+- `@.claude/guidance/bundles/practice/architecture.md` → Direct project bundle reference
 - `/guidance bundle therapy` → Loads therapeutic foundation
 
 ## Creating Effective Guidance Modules

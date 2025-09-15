@@ -26,24 +26,8 @@ Code review is a systematic examination of source code intended to find bugs, im
 ## Communication Style
 
 ### When Reviewing Code
-
-#### Be Specific
-```markdown
-# Bad
-"This could be better"
-
-# Good
-"This nested loop is O(n²). Consider using a hash map for O(n) lookup"
-```
-
-#### Be Constructive
-```markdown
-# Bad
-"Wrong way to do this"
-
-# Good
-"This works, but using a guard clause would reduce nesting and improve readability"
-```
+- **Be Specific**: Not "This could be better" but "This nested loop is O(n²). Consider a hash map for O(n) lookup"
+- **Be Constructive**: Not "Wrong way" but "This works, but a guard clause would reduce nesting"
 
 #### Provide Context
 - Explain **why** something is important
