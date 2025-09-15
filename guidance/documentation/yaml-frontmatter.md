@@ -75,9 +75,3 @@ context_hints:
 - Redundant information
 - Using for temporary files
 
-## Benefits
-- Instant document classification (40% faster comprehension)
-- Clear dependency tracking
-- Status visibility without reading
-- Enables automation
-- Better context management

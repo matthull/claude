@@ -61,9 +61,3 @@ Explicit documentation of what's NOT being done to prevent scope creep and maint
 - Not documenting scope decisions
 - Scope creep through documentation
 
-## Benefits
-- Clear boundaries maintained
-- Stakeholder alignment
-- Focused execution
-- Documented decisions
-- Prevents feature creep

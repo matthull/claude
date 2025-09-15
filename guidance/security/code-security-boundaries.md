@@ -103,9 +103,3 @@ Clear boundaries on what code to write, refuse, or modify. Security-first mindse
 - Add audit capabilities
 - Implement safety checks
 
-## Benefits
-- Prevents misuse of capabilities
-- Maintains user trust
-- Ensures ethical development
-- Reduces liability risks
-- Promotes security awareness

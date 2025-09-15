@@ -193,9 +193,3 @@ Always load for project work:
 - Documentation updates
 - To working-docs/maintenance/
 
-## Benefits
-- **Clear boundaries** - Projects complete in 1-2 weeks max
-- **Flexible organization** - Not everything needs a project
-- **Efficient context** - Only load what's needed
-- **Traceable decisions** - Everything documented
-- **Smooth handoffs** - Complete context preserved

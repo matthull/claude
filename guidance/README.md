@@ -158,10 +158,10 @@ Specific situations.
 
 ## Anti-patterns (5-10 lines)
 What to avoid.
-
-## Benefits (3-5 lines)
-Why this matters.
 ```
+
+### Template Update (2025-01-15)
+Removed Benefits section from template. Claude inherently understands why patterns matter. Every line counts against context.
 
 ## Best Practices
 

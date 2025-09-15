@@ -137,9 +137,3 @@ Minimal template plus:
 - Specs for trivial changes
 - Analysis paralysis
 
-## Benefits
-- Shared understanding before coding
-- Reduced rework and surprises
-- Clear scope and boundaries
-- Better effort estimation
-- Traceable requirements

@@ -83,13 +83,6 @@ A disciplined approach to implementing features through small, reviewable steps 
 - Proceeding despite uncertainty or errors
 - Batching unrelated changes together
 
-## Benefits
-- **Reduced risk** - Small changes easier to debug
-- **Better review** - Focused changes easier to understand
-- **Clean history** - Atomic commits tell clear story
-- **Faster recovery** - Easy to identify problem commits
-- **Continuous progress** - Steady advancement without big breaks
-
 ## References
 - Continuous Delivery principles
 - Trunk-based development practices

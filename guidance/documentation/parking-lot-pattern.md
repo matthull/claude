@@ -58,9 +58,3 @@ Systematic capture of ideas and questions that arise during work without deraili
 - Treating as commitments
 - Not documenting disposal decisions
 
-## Benefits
-- Ideas never lost
-- Current work stays focused
-- Clear prioritization
-- AI-parseable structure
-- Systematic review process

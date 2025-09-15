@@ -60,12 +60,6 @@ name: {subcommand}
 [Full prompt for this specific subcommand]
 ```
 
-## Benefits
-- **Context Efficiency**: Only loads the ~50-100 lines needed for one subcommand instead of 500+ lines for all subcommands
-- **Maintainability**: Each subcommand prompt is isolated and can be modified independently
-- **Scalability**: Easy to add new subcommands without bloating the main command
-- **Clarity**: Clear separation of concerns between routing and implementation
-
 ## When to Apply
 Use this pattern when:
 - A command has 3+ subcommands

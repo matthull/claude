@@ -58,9 +58,3 @@ Break monolithic documents into focused, modular components with clear hierarchy
 - Manual index maintenance
 - Orphan documents without clear home
 
-## Benefits
-- Efficient context loading
-- Easier maintenance
-- Clear ownership
-- Better version control
-- Focused updates

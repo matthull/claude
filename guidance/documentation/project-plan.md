@@ -174,9 +174,3 @@ Technical decisions → Reference in architecture
 - **archived** - No longer active
 
 
-## Benefits
-- **Central coordination** - Single source of project truth
-- **Quick orientation** - Current status at a glance
-- **Historical context** - Learn from past tasks
-- **Efficient updates** - Structured format for changes
-- **Clear progress** - Task history shows momentum

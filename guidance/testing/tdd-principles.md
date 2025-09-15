@@ -176,20 +176,6 @@ end
 - Prevents regression
 - Living documentation
 
-## When Not to Use TDD
-
-### Exploratory Code
-- Prototypes and spikes
-- Learning new technology
-- UI experimentation
-- Performance optimization
-
-### Legacy Code Strategy
-1. Write characterization tests first
-2. Add tests for new features
-3. Add tests when fixing bugs
-4. Gradually increase coverage
-
 ## Common Challenges
 
 ### "TDD is Slow"

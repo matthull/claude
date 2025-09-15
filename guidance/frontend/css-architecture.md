@@ -65,9 +65,3 @@ Maintainable, scalable CSS architecture that avoids specificity wars and promote
 - Component styles affecting siblings
 - Mixing concerns (layout in components)
 
-## Benefits
-- Predictable cascade behavior
-- Easy to maintain and extend
-- Consistent design application
-- Better performance (efficient selectors)
-- Easier testing and debugging

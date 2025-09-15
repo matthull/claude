@@ -159,10 +159,3 @@ Structured approach to creating, tracking, and completing development tasks with
 - Skipping blocked state
 - Incomplete tasks marked done
 
-## Benefits
-- Clear work visibility
-- Better estimation
-- Reduced context switching
-- Improved collaboration
-- Traceable progress
-- Predictable delivery

@@ -152,9 +152,3 @@ Requirements inform task goals, task completion updates project plan, session in
 - Business objective
 - Days to 1-2 weeks
 
-## Benefits
-- **Clear focus** - One deliverable at a time
-- **Branch alignment** - Git and docs stay synchronized
-- **Flexible workflow** - Phases adapt to task needs
-- **Context preservation** - Complete handoff capability
-- **Project integration** - Tasks feed project learning

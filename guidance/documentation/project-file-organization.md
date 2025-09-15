@@ -85,8 +85,6 @@ ls working-docs/projects/*/[!archive]*
 find working-docs/projects -name "*-handoff.md"
 ```
 
-## Benefits
-
 ### For Humans
 - Predictable locations
 - Clear ownership

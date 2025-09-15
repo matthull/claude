@@ -171,10 +171,3 @@ Collaborate on solution
 - Under-explaining
 - Showing off knowledge
 
-## Benefits
-- Better collaboration
-- Faster problem solving
-- Mutual respect
-- Knowledge sharing
-- Team growth
-- Reduced friction

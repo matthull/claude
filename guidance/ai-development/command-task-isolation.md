@@ -142,8 +142,6 @@ Safety Checks:
 - **Time saved**: 28+ seconds per search
 - **Decision**: Fast response worth minor context usage
 
-## Benefits
-
 ### When Using Task Tool
 - Main context stays clean for heavy operations
 - Complex multi-step workflows isolated

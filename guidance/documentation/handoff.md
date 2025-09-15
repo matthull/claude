@@ -144,9 +144,3 @@ working-docs/projects/{project}/{task}/handoff.md
 - Vague pointers
 - Stale information kept
 
-## Benefits
-- **Quick orientation** - Git state + pointer
-- **No duplication** - Session log has context
-- **Always fresh** - Deleted after use
-- **Lightweight** - Minimal overhead
-- **Clear workflow** - Simple resume process

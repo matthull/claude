@@ -217,9 +217,3 @@ version: 2.0  # Major changes
 - Update completion checkboxes
 - Note any discovered requirements
 
-## Benefits
-- **Clear expectations** - Unambiguous success criteria
-- **User focus** - Stories center on value
-- **Flexible structure** - Decompose as needed
-- **Efficient context** - Load only what's relevant
-- **Traceable implementation** - Requirements → tasks → code

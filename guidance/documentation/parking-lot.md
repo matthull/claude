@@ -171,9 +171,3 @@ Parking Lot Item: "Fix performance issue"
 - Keep descriptions concise
 - Update priorities as context changes
 
-## Benefits
-- **Context preservation** - Nothing gets lost
-- **Deferred decision making** - Decide when ready
-- **Reduced cognitive load** - Park it and continue
-- **Efficient context usage** - Load only when needed
-- **Traceable ideas** - Know where items originated
