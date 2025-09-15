@@ -56,6 +56,13 @@ category: testing
 - Critical paths need multiple test layers
 - Regression tests for bug fixes
 
+### Mocking Guidelines
+- **Only mock at system boundaries** - External APIs, not your own code
+- **Use real objects** - Factories and fixtures over doubles
+- **See detailed guidance:** 
+  - `@.claude/guidance/testing/mocking-guidelines.md` - Core principles
+  - `@.claude/guidance/testing/rails-mocking-examples.md` - Rails patterns
+
 ### Test Execution Environment
 - All tests run inside Docker containers
 - Consistent environment across team

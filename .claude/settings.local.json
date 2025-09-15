@@ -10,7 +10,11 @@
       "mcp__gemini-bridge__consult_gemini_with_files",
       "mcp__gemini-bridge__consult_gemini",
       "Bash(tree:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(grep:*)",
+      "Read(//home/matt/code/musashi/spec/services/seismic/**)",
+      "Read(//home/matt/code/musashi/.claude/**)",
+      "Read(//home/matt/.local/bin/**)"
     ],
     "deny": [],
     "ask": []
