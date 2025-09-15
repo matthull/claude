@@ -8,7 +8,9 @@
       "Bash(done)",
       "Bash(sort:*)",
       "mcp__gemini-bridge__consult_gemini_with_files",
-      "mcp__gemini-bridge__consult_gemini"
+      "mcp__gemini-bridge__consult_gemini",
+      "Bash(tree:*)",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []

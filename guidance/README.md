@@ -9,6 +9,7 @@ Concise, universal development principles for AI-assisted development.
 - **Language-agnostic** (no code samples)
 - **Framework-independent** (patterns, not implementations)
 - **Immediately actionable** (what to do, what to avoid)
+- **Grouped by usage** - Related guidance that gets loaded together should live in the same file
 
 ## Global vs Project Guidance
 
@@ -115,7 +116,8 @@ parent: domain/coding.md
 - **Clear patterns** - What to do and what to avoid
 - **Concise guidance** - Every line counts against context
 - **Single focus** - One principle per module
-- **Direct instructions** - Tell Claude WHAT to do, not why
+- **Grouped by usage** - Guidance loaded together should live together
+- **Direct instructions** - See @~/.claude/guidance/ai-development/instruction-clarity.md
 - **Action-oriented** - Focus on specific actions and stop points
 
 ### What NOT to Include
@@ -206,26 +208,6 @@ find .claude/guidance -name "*.md" -type f 2>/dev/null | sort
 # Bundles
 find ~/.claude/guidance/bundles -name "*.md" -type f | sort
 ```
-
-### Quick Reference (Key Modules)
-
-#### Core Development
-- `development-process/incremental-implementation.md` - Step-by-step workflow
-- `development-process/tdd-human-review-cycle.md` - TDD with review gates
-- `testing/testing-strategy.md` - Comprehensive testing approach
-- `communication/balanced-analysis.md` - Critical thinking & pros/cons
-
-#### Quality & Safety
-- `git/commit-verification-workflow.md` - Commit quality standards
-- `code-quality/error-handling.md` - Error handling principles
-- `security/validation-and-authorization.md` - Input validation & access
-- `security/code-security-boundaries.md` - Security boundaries
-
-#### Architecture & Documentation
-- `documentation/project-file-organization.md` - Directory structure
-- `documentation/requirements.md` - Requirements documentation
-- `frontend/css-architecture.md` - CSS best practices
-- `ai-development/command-task-isolation.md` - Task delegation patterns
 
 ---
 *Remember: Every line counts against context. Be ruthlessly concise.*
