@@ -18,6 +18,8 @@ Musashi-specific frontend patterns using Vue.js within a Rails application conte
 All project-specific Vue.js patterns and guidelines:
 @../../vue/component-patterns.md
 @../../vue/styling-patterns.md
+@../../vue/frontend-testing.md
+@../../frontend-libraries.md
 
 ### Rails-Vue Integration
 Patterns for integrating Vue.js within the Rails asset pipeline:

@@ -132,11 +132,20 @@ category: rails
 - Test custom methods thoroughly
 
 ### Testing Strategies
-- Use fixtures for typical test data
-- Use factories for edge cases
+- **CRITICAL: Add fixtures for new models** - See fixture-based-testing.md
+- Use fixtures for typical test data (defined in fixture_builder.rb)
+- Use factories for edge cases only
 - Test the public interface, not implementation
 - Mock external dependencies
 - Keep tests fast and isolated
+
+### New Model Checklist
+When creating a new model:
+1. Create the model class
+2. Write the migration
+3. **Add fixture(s) to `spec/support/fixture_builder.rb`** ← REQUIRED
+4. Create factory in `spec/factories/`
+5. Write model specs using fixtures
 
 ## Common Anti-patterns
 

@@ -27,6 +27,17 @@ Rails Model → API Controller → Jbuilder View → Vue Component → User Inte
 - Provide computed fields that Vue would otherwise need to calculate
 - Use consistent naming conventions (camelCase vs snake_case boundaries)
 
+### API Response Format - Snake Case
+- **CRITICAL**: API responses use Ruby's snake_case format exclusively
+- There is NO translation layer on the frontend to convert to camelCase
+- Frontend code must always access API data using snake_case keys
+- Examples:
+  - `response.user_name` NOT `response.userName`
+  - `data.created_at` NOT `data.createdAt`
+  - `item.is_active` NOT `item.isActive`
+- This applies to all API responses: JSON, jbuilder views, error messages
+- Component props and internal state can use camelCase, but API data access must use snake_case
+
 ### Frontend-Friendly Patterns
 - Design API responses around UI needs, not database structure
 - Group related data logically for component consumption

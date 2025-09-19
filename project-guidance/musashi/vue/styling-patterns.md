@@ -41,10 +41,10 @@ category: vue
 ## Sass Best Practices
 
 ### Variable Usage
-- Use Sass variables from centralized files
+- Use Sass variables from `_variables.sass`
 - Never hardcode colors directly
 - Follow hierarchical variable system
-- Use most specific variable available
+- Use most specific variable available (e.g., `$border-color` over `$ueLightGray`)
 - Document custom variables
 
 ### Variable Hierarchy
@@ -199,16 +199,21 @@ category: vue
 ## Anti-patterns to Avoid
 
 ### CSS Smells
-- Using !important for specificity wars
+- Using !important (use CSS layers for 3rd party overrides if needed)
 - Inline styles in templates
-- Global styles from components
+- Global styles from components (always use `scoped` directive in Vue components)
 - Hardcoded dimensions
+- Hardcoded color values (always use sass variables from _variables.sass)
+- Hardcoded margins in component templates (let parent context control spacing)
+- HTML tag selectors (target classes instead)
+- Deep selectors (prefer `.save-button` over `.content div .buttons button#save`)
 - Magic numbers without explanation
 - Overly nested selectors
 - Duplicate style definitions
 - Browser-specific hacks
 - Absolute positioning for layout
 - Fixed pixel values for responsive design
+- Bottom margins (prefer top margins for spacing)
 
 ### Maintenance Issues
 - Undocumented workarounds

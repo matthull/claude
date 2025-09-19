@@ -14,7 +14,14 @@
       "Bash(grep:*)",
       "Read(//home/matt/code/musashi/spec/services/seismic/**)",
       "Read(//home/matt/code/musashi/.claude/**)",
-      "Read(//home/matt/.local/bin/**)"
+      "Read(//home/matt/.local/bin/**)",
+      "WebFetch(domain:www.reddit.com)",
+      "Read(//home/matt/code/crouton-claude/**)",
+      "Read(//home/matt/code/village/.claude/**)",
+      "WebFetch(domain:docs.claude.com)",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(claude-code --help)"
     ],
     "deny": [],
     "ask": []

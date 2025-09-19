@@ -68,39 +68,48 @@ Smart loading of guidance modules - either by search query or by specific number
 **Implementation:** Query mode uses direct tools (no Task delegation) for speed
 
 ### bundle
-Load pre-configured guidance bundles based on context descriptor, with project bundles overriding global ones.
+Load pre-configured guidance bundles based on context descriptors, with project bundles overriding global ones. Supports loading multiple bundles at once.
 
 **Parameters:**
-- **Descriptor**: Natural language describing desired context (e.g., "ruby", "frontend", "therapy")
+- **Descriptors**: One or more natural language descriptors describing desired contexts (e.g., "ruby", "frontend", "therapy")
 - **list**: Special parameter to show all available bundles
 
 **Usage:**
 ```
-/guidance bundle <descriptor>    # Load bundle matching descriptor
-/guidance bundle list            # Show all available bundles
+/guidance bundle <descriptor>              # Load single bundle matching descriptor
+/guidance bundle <descriptor1> <descriptor2> ...  # Load multiple bundles
+/guidance bundle list                      # Show all available bundles
 ```
 
 **Examples:**
 - `/guidance bundle rails` → Loads technique/rails.md (project first, then global)
-- `/guidance bundle coding` → Loads domain/coding.md and foundation/software-dev.md
+- `/guidance bundle frontend backend` → Loads both frontend and backend bundles with their parent bundles
+- `/guidance bundle coding testing` → Loads domain/coding.md and practice/testing.md with their foundations
 - `/guidance bundle therapy` → Loads foundation/therapeutic.md
-- `/guidance bundle architecture` → Loads project version if exists, else global
+- `/guidance bundle architecture devops database` → Loads all three bundles in parallel
 - `/guidance bundle list` → Shows hierarchy of all bundles (both project and global)
 
 **Implementation:**
-The LLM interprets the natural language descriptor and selects the most appropriate bundle based on context. If the descriptor is ambiguous, suggests running `/guidance bundle list` to see available options.
+The LLM interprets the natural language descriptors and selects the most appropriate bundles based on context. For multiple bundles, load them in parallel using multiple Read tool calls in a single message. If any descriptor is ambiguous, suggests running `/guidance bundle list` to see available options.
 
 **Bundle Resolution Order:**
 1. Check project bundles first: `.claude/guidance/bundles/{layer}/{name}.md`
 2. Fall back to global bundles: `~/.claude/guidance/bundles/{layer}/{name}.md`
 3. If project bundle exists, use it exclusively (it can @-reference the global version)
 
-When loading a bundle:
-1. Search for bundle in project first, then global
-2. Load the selected bundle file
-3. Recursively load all parent bundles (via @-references)
+When loading bundles:
+1. For each descriptor, search for bundle in project first, then global
+2. Load all selected bundle files IN PARALLEL (multiple Read tools in one message)
+3. Recursively load all parent bundles (via @-references) - deduplicate if shared parents
 4. Load all directly included guidance modules
 5. Report what was loaded and total estimated context usage
+
+**Multiple Bundle Loading:**
+- Parse all descriptors from the command
+- Resolve each descriptor to its bundle file path
+- Use parallel Read tool calls to load all bundles simultaneously
+- Deduplicate any shared parent bundles to avoid loading the same content twice
+- Report total bundles loaded and estimated context size
 
 **Bundle List Format:**
 ```

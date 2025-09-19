@@ -14,6 +14,15 @@ Implementation plans detail HOW to build a feature through concrete steps, testi
 
 ## Document Structure
 
+### Canonical Implementation File
+**CRITICAL**: Always maintain `implementation.md` as the single source of truth for the current implementation plan. Draft versions (e.g., `implementation-v2.md`, `implementation-parallel.md`) may be created for exploration, but all final decisions MUST flow back to `implementation.md`.
+
+### File Management Rules
+- **implementation.md** - The canonical, current plan (always keep updated)
+- **implementation-{variant}.md** - Draft explorations (temporary)
+- **Archive draft versions** after decisions are made
+- **Never maintain multiple "active" plans** - consolidate to implementation.md
+
 ### Required Frontmatter
 Type: implementation-plan, status (draft/approved/in-progress/complete), project, task, and created date.
 
@@ -86,6 +95,14 @@ Risk Mitigation table, Dependencies list, Performance Considerations, and Securi
 - Note deviations from plan
 - Document discovered complexity
 - Update estimates if needed
+- **Consolidate draft versions** into implementation.md when decisions are made
+
+### Draft Version Workflow
+1. **Create draft** for exploration (e.g., `implementation-parallel.md`)
+2. **Compare approaches** side-by-side if needed
+3. **Make decision** based on analysis
+4. **Merge into implementation.md** - incorporate chosen approach
+5. **Archive draft** to `archive/` directory or delete if not valuable
 
 ## Phase Management
 

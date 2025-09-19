@@ -19,9 +19,13 @@ All project-specific Rails patterns and conventions:
 @../../rails/api-patterns.md
 @../../rails/backend-testing.md
 @../../rails/background-jobs.md
+@../../rails/crud-controllers.md
 @../../rails/fixture-based-testing.md
 @../../rails/models.md
 @../../rails/service-objects.md
+@../../backend-patterns.md
+@../../testing-patterns.md
+@../../docker-commands.md
 
 ### Rails-Vue Integration (Backend Side)
 Backend patterns for supporting Vue.js frontend:

@@ -83,7 +83,7 @@ Work with parts during daily life (not just sessions):
 - Pay attention to how it affects you
 - Build awareness throughout day
 
-## Step 3: Unblending from a Protector (Chapter 6)
+## Step 3: Unblending from Target Protector (Chapter 6)
 
 ### Seat of Consciousness Model
 - Psychic space determining identity, choices, feelings, perceptions
@@ -178,6 +178,94 @@ Watch for:
 3. **Emotional heat returning**
 4. **Buying into beliefs again**
 
+## Step 4: Unblending from Concerned Part (Chapter 7)
+
+### Understanding Concerned Parts
+**Definition:** Parts with negative (or non-Self) feelings toward target part
+
+**Key Insights:**
+- Aware of how target part causes trouble
+- Natural to dislike problematic parts
+- When blended, prevents approaching target from Self
+- Concerned parts are also protectors
+- Creates protector vs. protector conflict
+
+### Checking for Self
+"How do I feel toward this target part right now?"
+
+**In Self:** Curiosity, openness, compassion, acceptance
+**Not in Self:** Anger, judgment, fear, negativity = concerned part blended
+
+**Additional check:** "Is it okay for target to show up any way it needs?"
+- Fixed view = not openly curious
+- Investment in negative image = judgment
+
+**Important:** Don't force "right" attitude - check genuine feelings first
+
+### Process for Unblending from Concerned Parts
+
+**Initial approach:**
+1. Access concerned part and ask about worries
+2. Listen respectfully to concerns
+3. Understand negative attitudes toward target
+4. Show sympathy for concerns
+5. Ask to step aside just for session
+
+**If Won't Step Aside - Progressive Steps:**
+
+**Step 1: Explain Value**
+- Stepping aside allows healing target part
+- Fulfills concerned part's agenda (stopping problems)
+- Reference goal capacities
+- Shows how it serves protective purpose
+
+**Step 2: Reassure About Fears**
+- Ask: "What are you afraid would happen?"
+- Common fear: target will take over and cause damage
+- Understand like protecting loved one from danger
+- Provide reassurances:
+  - You have unblending techniques if needed
+  - Only for this session
+  - Can blend again after if needed
+  - Will get to know concerned part too
+
+**Step 3: Update Age/Capacities**
+- Parts may think you're a child
+- Ask: "How old do you think I am?"
+- Show current age and life accomplishments
+- Demonstrate adult capacities
+- Updates part about who you really are
+
+**Step 4: Make Concerned Part Target**
+- If still won't step aside, needs attention
+- Switch focus to concerned part
+- Get to know its full role
+- May do complete session on it
+- Can return to original target later
+
+### Special Types of Concerned Parts
+
+**Positively blended:**
+- Admiring target so much you miss problems
+- Example: loving how part stands up to boss, ignoring job risk
+- Still need separation for Self perspective
+
+**Frightened parts:**
+- Ask to move to safe room during work
+- Visualize target through protective window
+- Creates containment to reduce fear
+
+### Classifications Clarified
+**Intrinsic types:**
+- Protector (protecting against pain)
+- Exile (in pain)
+
+**Functional roles:**
+- Target part (chosen focus)
+- Concerned part (has concerns about target)
+
+Any protector can be concerned part; either type can be target
+
 ## Key Principles
 
 ### Self vs. Parts
@@ -220,9 +308,240 @@ Watch for:
 - Try different unblending technique
 - Return to earlier step if needed
 
+## Step 5: Getting to Know a Protector (Chapter 8)
+
+### Core Understanding
+- Every part doing its best to help you
+- Even dysfunctional parts trying to protect
+- Misguided but protective intentions
+- Understanding brings compassion and transformation
+
+### Three Therapeutic Approaches
+1. **Intellectual analysis** (aerial photo) - Figure out from knowledge, limited healing
+2. **Emotional immersion** (diving in) - Become the part, risk getting lost
+3. **IFS approach** (lake edge) - Inhabit Self, direct contact without merging
+
+### Discovery Process
+
+**Basic Questions:**
+- "What do you hope to accomplish by playing this role?"
+- "What are you afraid would happen if you didn't do this?"
+- "What emotions are you afraid of if you didn't perform your role?"
+
+**Additional Questions:**
+- What do you feel?
+- What are you concerned about?
+- What is your role/what do you do?
+- What makes you so [angry/sad/etc]?
+- How long have you been doing this?
+- What caused you to take on this role?
+- How do you feel about your role?
+
+### Four Types of Protector Intentions
+1. **Protection from External Harm** - Keep exile from being hurt by others
+2. **Protection from Internal Pain** - Block feeling exile's emotions
+3. **Compensation for Pain** - Get something to override exile's pain
+4. **Fear of Another Part** - Prevent another part's destructive action
+
+### Access Channels
+
+**Body/Emotions:**
+- Notice size, shape, boundaries
+- Material (rubber, ice, fire, cotton)
+- Qualities (warm/cool, dense/spacious)
+- Interpret meanings (frozen heart = closing off)
+
+**Images:**
+- Allow visual image to arise
+- Notice clothing, expression, posture
+- Distance, direction, actions
+- May transform as connection develops
+
+**Direct Knowing:**
+- Understanding without explicit sensory input
+- Immediate awareness, not intellectual
+- Trust the knowing that arises
+
+### Working with Vague Parts
+- Start with vague sense, stay patient
+- Part clarifies when feels welcome
+- Like photographic development
+- Some most interesting parts start vague
+
+### Ending Sessions
+1. Thank target part for making itself known
+2. If partly finished, reassure you'll return
+3. Ask if it wants anything during week
+4. Thank concerned parts for stepping aside
+5. Check how they feel about what happened
+6. Ask if any parts need to say something before stopping
+
+### Real-Time Work
+When part not activated in session:
+- Set intention to notice activation in daily life
+- Take time when triggered to get acquainted
+- If not possible immediately, do soon after
+- Don't wait too long - part still within reach
+
+## Step 6: Developing Trust with Protector (Chapter 9)
+
+### Building Trust Foundation
+- Loving yourself = loving each of your parts
+- Being own best friend = developing relationships with parts
+- Success depends on connection and trust level
+
+### Protectors' Perspective
+- Think burden falls entirely on them
+- Don't know about Self
+- Don't trust you to handle threats
+- Believe they're still in childhood, alone
+- Most are child parts with childhood strategies
+
+### Trust Development Goals
+Protector needs to know Self has:
+- Strength, Compassion, needed capacities
+- Ability to handle situations and pain
+
+Protector needs to learn you (from Self):
+- Care about it
+- Understand its role
+- Appreciate its years of work
+
+### Appreciation Practice
+
+**Express appreciation for:**
+- Protective efforts (even if problematic)
+- Years of thankless work
+- Heart being in right place
+- Specific capacities (even if distorted):
+  - Controlling → has Assertiveness
+  - Hypervigilant → has Perceptiveness
+
+**Check response:**
+- Is it taking in appreciation?
+- What prevents absorption?
+- May fear softening prevents its job
+
+### Creating Full Relationship
+
+**Check awareness:**
+- Ask: "Are you aware of me?"
+- Methods by channel:
+  - Image: Check if looking at you
+  - Body: Switch places temporarily
+  - Dialogue: Request it notice you
+
+**Benefits:**
+- Parts don't feel alone anymore
+- Realize benevolent presence available
+- Brings comfort and inner harmony
+
+### When Parts Don't Trust
+
+**Three common reasons:**
+
+1. **Not actually in Self**
+   - May be blended with subtle concerned part
+   - Parts very sensitive to attitudes
+   - Any judgment makes them feel unsafe
+
+2. **Missing a Capacity**
+   - Ask: "What don't you trust about me?"
+   - Examples: Inner Caring, Competence, Assertiveness
+   - Either reassure or work to gain capacity
+
+3. **History of Betrayal**
+   - Decided people aren't trustworthy
+   - Work sensitively and respectfully
+   - Be patient like with frightened animal
+   - Let part tell its story in own words
+   - Empathize before reassuring
+
+## Session Management: Keeping on Track (Chapter 10)
+
+### Common Derailing Protectors
+
+**Judgmental Parts:**
+- Blend later without noticing
+- Sabotage connection with anger/judgment
+- Solution: Check attitude regularly
+
+**Avoiders:**
+- Sudden impatience, boredom
+- Space out, daydream
+- Other things feel pressing
+- Solution: Recognize avoidance of emerging emotion
+
+**Intellectualizers:**
+- Analyzing rather than asking/listening
+- Psychologizing about part
+- Solution: Access Experiential capacity, validate but ask to step aside
+
+**Impatient Parts:**
+- Push for quick results
+- Want to bypass protectors
+- Paradox: hurry slows things down
+- Solution: Cultivate Patience and Trust in Process
+
+**Inadequate Parts:**
+- Worry about adequacy
+- Not actually inadequate, part feels that way
+- Solution: Reassure, work with part if persistent
+
+**Skeptics:**
+- Doubt process or memories
+- May hide fears behind skepticism
+- Solution: Address real concerns, ask for experimental trust
+
+### Detecting Part Switches
+- Working with protector, start hearing exile
+- Recognize by vulnerable emotions (shame, fear, sadness)
+- Solution: Ask exile to wait until protector gives permission
+
+### Dissociation Signs
+- Sleepy, spaced out, fuzzy
+- Far from body/feelings
+- Addictive urges (drinking, eating, shopping)
+- Solution: Make dissociative part the target
+
+### Maintaining Focus
+
+**Keeping Track:**
+- Follow one thread at a time
+- Ask other parts to step aside
+- Take notes to track parts
+- Only change target for good reason
+
+**When to Switch Targets:**
+1. Part won't step back after exploring
+2. New part more important life issue
+3. Part insists on being heard now
+4. Hard-to-access part feels alive/juicy
+
+### Acknowledging All Parts
+
+**Problems with tunnel vision:**
+- May miss relevant polarized parts
+- Fosters internal alienation
+- Ignored parts won't trust you later
+
+**Create atmosphere of:**
+- Curiosity and Compassion
+- All parts valued
+- Each has contribution to make
+- "All parts are welcome"
+
+### Distinguishing Parts
+- No intellectual way - use felt sense
+- Multiple parts can share same emotion
+- Ask parts directly if uncertain
+- Keep working, answer will come
+
 ## Safety Considerations
 - Parts blend to protect or be heard
 - Respect protective intentions
 - Temporary separation for relationship, not permanent
 - Build trust through consistent curiosity and compassion
 - Honor the non-linear nature of the process
+- Fastest way is slow, patient, respectful
+- "Resistant" = protector not ready, has good reasons

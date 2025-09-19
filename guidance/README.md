@@ -5,11 +5,26 @@ Concise, universal development principles for AI-assisted development.
 ## Philosophy
 
 **Context is precious.** Even modular guidance counts against context limits. Each module should be:
-- **Aim for <200 lines** (ideally 50-150)
+- **Frequently loaded**: <50 lines (gemini-review, commit patterns)
+- **Standard modules**: 50-100 lines
+- **Complex topics**: 100-150 lines max
+- **Never exceed**: 200 lines
 - **Language-agnostic** (no code samples)
 - **Framework-independent** (patterns, not implementations)
 - **Immediately actionable** (what to do, what to avoid)
 - **Grouped by usage** - Related guidance that gets loaded together should live in the same file
+
+### Writing Priorities
+1. **WHAT to do** - Direct actions (80% of content)
+2. **WHEN to use** - Clear triggers (15%)
+3. **WHY it matters** - Only if non-obvious (5%)
+
+### What to Cut
+- Edge cases (handle as they arise)
+- Explanations of obvious benefits
+- Multiple examples of the same pattern
+- Alternative approaches (pick one way)
+- Historical context or rationale
 
 ## Global vs Project Guidance
 
@@ -65,20 +80,31 @@ When creating migrations, follow:
 
 ## Bundle System
 
-Bundles aggregate related guidance through a 4-layer hierarchy for loading common sets of principles together:
+Bundles are **lightweight aggregators** that collect related guidance modules - they contain minimal content themselves, just @-references to actual guidance files.
 
 ### Layer Structure
 1. **Foundation** - Top-level contexts (software-dev, personal-assistant, therapeutic, creative)
 2. **Domain** - Broad areas within foundations (coding, architecture, devops, debugging, data-analysis)
 3. **Practice** - Specific methodologies (backend, frontend, testing, database)
-4. **Technique** - Specific tools/approaches (rails, ruby-dev)
+4. **Technique** - Specific tools/approaches (rails, ruby-dev, spec-kit)
 
-### Bundle Files
-Bundles aggregate related guidance through @-references:
-- **Global bundles**: Located in `~/.claude/guidance/bundles/{layer}/`
-- **Project bundles**: Located in `.claude/guidance/bundles/{layer}/`
-- Inherit from parent layers automatically
-- Include relevant individual guidance modules
+### Bundle Files vs Guidance Modules
+**Bundle files** (~20 lines):
+- Located in `bundles/{layer}/{name}.md`
+- Contain only @-references to modules
+- Include parent bundle reference
+- No detailed guidance content
+- Just aggregate and organize
+
+**Guidance modules** (50-150 lines):
+- Located in `{category}/{topic}.md`
+- Contain actual principles and patterns
+- Self-contained, actionable guidance
+- Where the real content lives
+
+### Bundle Location
+- **Global bundles**: `~/.claude/guidance/bundles/{layer}/`
+- **Project bundles**: `.claude/guidance/bundles/{layer}/`
 - Load with: `/guidance bundle <descriptor>` or direct @-reference
 
 ### Bundle Resolution (Project Override)
