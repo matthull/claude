@@ -4,183 +4,76 @@ status: current
 category: ai-development
 ---
 
-# Command Task Isolation Pattern
+# Command Task Isolation
 
-## Overview
-A pattern for deciding when to delegate work to Task tool agents versus using direct tools, balancing performance with context efficiency.
-
-## The Problem
-Commands face a tradeoff: Task tool delegation prevents context pollution but adds overhead (1-20+ seconds depending on prompt complexity), while direct tool calls are fast but consume main context.
-
-## Core Pattern: Subagent Prompt Templates
-
-The heart of this pattern is the **Subagent Prompt Template** - a carefully crafted prompt that gets passed to the Task tool's `prompt` parameter. This template:
-
-- **Contains the complete instructions** for the specialized agent
-- **References external guidance** via @-syntax to load relevant modules
-- **Includes placeholder patterns** like `[USER PROVIDED CONTENT]` for dynamic content
-- **Defines expected output format** and step-by-step instructions
-- **Lives in the command file** for documentation but executes in isolation
-
-### Template Structure
-```
-You are a [specialized role] following these principles:
-@~/.claude/guidance/category/relevant-guidance.md
-@~/.claude/guidance/category/another-module.md
-
-Task: [Specific task description]
-
-Context:
-- [Minimal execution context]
-- User request: [USER PROVIDED CONTENT]
-
-Actions Required:
-1. [Reference guidance for main logic]
-2. [Command-specific mechanics only]
-3. [Output formatting]
-
-Expected Output:
-[What to report back]
-```
-
-### Key Principle: Guidance vs Mechanics
-- **Put in guidance**: Reusable patterns, file locations, naming conventions, validation rules
-- **Put in template**: Command-specific actions, parameter handling, output format
-- **Reference, don't duplicate**: Use @-syntax to load comprehensive guidance
-
-## Pattern Structure
-
-### Minimal Command File (10-20 lines)
-```
-# Brief Command Purpose
-One-line description of what this command accomplishes.
-
-## Usage
-/command-name [parameters]
-
-## Implementation
-Delegates to Task tool using the template below for isolated execution.
-
-## Subagent Prompt Template
-[FULL TEMPLATE CONTENT - This is what gets passed to Task tool]
-```
-
-### Template Benefits
-- **Visible Documentation**: Template shows exactly what the agent will do
-- **Reusable Components**: Can be copied and modified for similar commands
-- **Clear Interface**: Separates command invocation from agent implementation
-- **Context Isolation**: Heavy guidance loads only in agent context
-- **Parameter Passing**: Supports dynamic content via placeholder patterns
-
-## When to Use Task Tool vs Direct Tools
+## Decision Matrix
 
 ### Use Direct Tools When
-- **Fast response needed** (< 2 seconds expected)
-- **Simple operations** (search, read, write single files)
-- **Minimal context added** (< 100 lines total)
-- **Output is predictable** (file lists, search results)
-- **No complex analysis** required
-
-Examples: `/guidance search`, `/guidance list`, simple file operations
+- Fast response needed (<2 sec)
+- Simple operations (search, read, write)
+- Minimal context (<100 lines)
+- Predictable output
+- No complex analysis
 
 ### Use Task Tool When
-- **Complex analysis needed** (multi-step reasoning)
-- **Heavy guidance required** (> 200 lines of instructions)
-- **Multiple file operations** (reading many files to decide)
-- **Context preservation critical** (long-running operations)
-- **Parallel work desired** (background processing)
+- Complex analysis needed
+- Heavy guidance required (>200 lines)
+- Multiple file operations
+- Context preservation critical
+- Parallel work desired
 
-Examples: Complex refactoring, architecture analysis, multi-file migrations
+## Performance
+- Simple Task: 1-2 sec overhead
+- Complex Task with @refs: 10-20+ sec
+- Direct tools: <1 sec
+- Parallel direct: Same as single
 
-### Performance Characteristics
-- **Simple Task prompt**: 1-2 seconds overhead
-- **Complex prompt with @references**: 10-20+ seconds overhead
-- **Direct tool calls**: < 1 second typically
-- **Parallel direct tools**: Same as single (true parallelism)
-
-## Template Design Patterns
-
-### Dynamic Content Integration
+## Subagent Template Pattern
 ```
-User Input: [USER PROVIDED CONTENT]
-Current Context: [DYNAMIC_CONTEXT]
-Configuration: [CONFIG_VALUES]
-```
+You are a [role] following:
+@~/.claude/guidance/relevant.md
 
-### Multi-Step Workflows
-```
-Process:
-1. Validate input using @guidance/validation.md
-2. Execute core logic following @guidance/execution.md
-3. Format output per @guidance/formatting.md
-4. Report results
-```
+Task: [Specific task]
 
-### Error Handling Templates
-```
-Safety Checks:
-- Validate all inputs before processing
-- Check permissions and constraints
-- Handle edge cases gracefully
-- Report errors with context
+Context:
+- User request: [USER PROVIDED CONTENT]
+- Parameters: [DYNAMIC VALUES]
+
+Actions:
+1. [Step from guidance]
+2. [Command-specific action]
+3. [Output formatting]
+
+Report: [Expected output format]
 ```
 
-## Practical Example: /guidance Command Evolution
+## Template Rules
+- Reference guidance via @-syntax
+- Include placeholder patterns
+- Define output format
+- Keep command file <20 lines
+- Template contains full instructions
 
-### Original (Task Tool for everything)
-- `/guidance search "testing"` → 30+ seconds
-- Delegated simple grep operations to Task
-- Unnecessary overhead for predictable output
+## Placement
+**In guidance modules**: Reusable patterns, conventions, rules
+**In template**: Command mechanics, parameters, output format
+**Never**: Duplicate guidance in templates
 
-### Optimized (Direct tools for simple ops)
-- `/guidance search "testing"` → < 2 seconds  
-- Direct parallel Grep calls
-- Task tool only for complex `/guidance add` operations
+## Example Optimization
+Before: `/guidance search` → 30+ sec via Task
+After: Direct Grep → <2 sec
+Tradeoff: 50 lines context for 28 sec saved
 
-### The Tradeoff
-- **Context cost**: Search results add ~50 lines to context
-- **Time saved**: 28+ seconds per search
-- **Decision**: Fast response worth minor context usage
+## DON'T
+- Hardcode guidance in templates
+- Omit role definition
+- Use vague instructions
+- Load guidance in command files
+- Perform work without isolation
 
-### When Using Task Tool
-- Main context stays clean for heavy operations
-- Complex multi-step workflows isolated
-- Parallel background processing possible
-
-### When Using Direct Tools
-- Instant response for simple operations
-- True parallelism with multiple tool calls
-- Predictable context usage
-
-### Hybrid Approach
-- Choose based on operation complexity
-- Optimize for user experience
-- Balance speed vs context preservation
-
-## Anti-patterns
-
-### Template Anti-patterns
-- Hardcoding guidance instead of @-references
-- Omitting role definition in templates
-- Missing parameter placeholders
-- Vague or incomplete instructions
-
-### Command Anti-patterns
-- Loading full guidance directly in command files
-- Performing work directly without Task tool
-- Including implementation details in commands
-
-## Implementation Guidelines
-
-### Command Structure
-- Keep under 20 lines total
-- Lead with **Subagent Prompt Template** section
-- Include clear usage and purpose
-- Template is the primary content
-
-### Template Quality
-- Start with role definition
-- Reference relevant @guidance modules  
-- Include step-by-step process
-- Define expected output format
-- Use placeholder patterns for dynamic content
+## DO
+- Use @-references
+- Define clear placeholders
+- Keep commands minimal
+- Document template purpose
+- Choose tool by complexity

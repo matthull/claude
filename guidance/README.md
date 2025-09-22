@@ -26,6 +26,10 @@ Concise, universal development principles for AI-assisted development.
 - Alternative approaches (pick one way)
 - Historical context or rationale
 
+### MANDATORY Enforcement
+**CRITICAL: All guidance MUST pass enforcement validation. No exceptions.**
+@~/.claude/guidance/ai-development/ultra-concise-enforcement.md
+
 ## Global vs Project Guidance
 
 ### Global Guidance (`~/.claude/guidance/`)

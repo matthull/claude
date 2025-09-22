@@ -4,5 +4,39 @@
       "Bash(pacman -Q:*)"
     ],
     "deny": []
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/commands/check-guidance-conciseness.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/commands/check-guidance-conciseness.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/commands/check-guidance-conciseness.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
   }
 }
