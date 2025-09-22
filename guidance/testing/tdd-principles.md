@@ -20,6 +20,7 @@ TDD is a development methodology where tests are written before implementation c
 - Each cycle: 5-10 minutes maximum
 - If longer, break into smaller steps
 - Commit after each green state
+- **Auto-run on save**: Tests execute automatically via file hooks
 
 ## Testing Pyramid
 

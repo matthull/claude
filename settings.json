@@ -1,14 +1,14 @@
 {
+  "env": {
+    "USE_BUILTIN_RIPGREP": "0"
+  },
   "permissions": {
     "allow": [
       "Edit(/home/matt/code/village)",
       "Edit(/home/matt/code/musashi)"
     ]
   },
-  "model": "opus",
-  "env": {
-    "USE_BUILTIN_RIPGREP": "0"
-  },
+  "model": "sonnet",
   "hooks": {
     "PostToolUse": [
       {
@@ -17,9 +17,44 @@
           {
             "type": "command",
             "command": "/home/matt/.claude/hooks/run-spec-for-ruby-file.sh"
+          },
+          {
+            "type": "command",
+            "command": "/home/matt/.claude/hooks/rubocop-lint-ruby-file.sh"
           }
         ]
       }
-    ]
+    ],
+    "PreToolUse": [],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claudekit-hooks run typecheck-project"
+          },
+          {
+            "type": "command",
+            "command": "claudekit-hooks run lint-project"
+          },
+          {
+            "type": "command",
+            "command": "claudekit-hooks run test-project"
+          },
+          {
+            "type": "command",
+            "command": "claudekit-hooks run check-todos"
+          },
+          {
+            "type": "command",
+            "command": "claudekit-hooks run self-review"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [],
+    "SessionStart": [],
+    "UserPromptSubmit": []
   }
 }

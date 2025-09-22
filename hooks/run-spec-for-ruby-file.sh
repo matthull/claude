@@ -3,6 +3,15 @@
 # Hook script to run RSpec tests when Ruby files are modified
 # Enforces spec creation for non-ignored files
 
+# Read JSON input from stdin and extract file_path
+json_input=$(cat)
+file_path=$(echo "$json_input" | jq -r '.tool_input.file_path')
+
+# Exit if we couldn't parse the file path
+if [ -z "$file_path" ]; then
+  exit 0
+fi
+
 # Exit if not a Ruby file
 if [[ ! "$file_path" =~ \.rb$ ]]; then
   exit 0
