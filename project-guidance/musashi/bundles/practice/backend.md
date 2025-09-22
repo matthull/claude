@@ -25,6 +25,7 @@ All project-specific Rails patterns and conventions:
 @../../rails/service-objects.md
 @../../backend-patterns.md
 @../../testing-patterns.md
+@../../testing/guard-tdd-workflow.md
 @../../docker-commands.md
 
 ### Rails-Vue Integration (Backend Side)

@@ -10,18 +10,18 @@ category: testing
 
 ### Unit Tests
 - Rails: RSpec for models, services, jobs
-- Frontend: Vitest for Vue components and utilities
+- Frontend: Vitest for utilities, composables, and services (NOT Vue components)
 - Fast, isolated, numerous
 - Run in Docker containers
 
 ### Integration Tests
 - Rails: Request specs for API endpoints
-- Frontend: Component tests with mocked APIs
+- Frontend: Storybook stories serve as component integration tests
 - Verify layer boundaries and contracts
 - Ensure data flows correctly
 
 ### Visual Tests
-- Storybook for component documentation
+- Storybook for component testing and documentation
 - Puppeteer for browser automation
 - Screenshot comparison for regression
 - Manual review for UX quality
@@ -43,8 +43,8 @@ category: testing
 ### Implementation Workflow
 1. Backend implementation with RSpec tests
 2. API endpoint testing with request specs
-3. Frontend implementation with Vitest tests
-4. Storybook story creation/updates
+3. Frontend implementation with Storybook stories (component tests)
+4. Vitest for non-component JavaScript/TypeScript code
 5. Puppeteer regression testing
 6. Manual QA verification
 
@@ -84,11 +84,18 @@ category: testing
 - Background job processing
 - API endpoint contracts
 
-### Frontend Testing (Vitest/Storybook)
+### Frontend Testing
+**Storybook (Vue Components):**
 - Component behavior and props
 - User interactions
 - Visual states and variations
 - Responsive design
+
+**Vitest (Non-Component Code):**
+- Utility functions
+- Composables
+- Store modules
+- API services
 
 ### Integration Testing (Puppeteer)
 - User workflows

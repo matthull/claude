@@ -8,5 +8,18 @@
   "model": "opus",
   "env": {
     "USE_BUILTIN_RIPGREP": "0"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/matt/.claude/hooks/run-spec-for-ruby-file.sh"
+          }
+        ]
+      }
+    ]
   }
 }

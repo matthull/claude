@@ -49,29 +49,31 @@ category: vue
 - Query story elements through iframe's contentDocument
 - Essential for Puppeteer testing of stories
 
-## Component Testing with Vitest
+## Component Testing Strategy
 
-### What to Test
-- Component renders correctly
-- Props are handled properly
-- Events are emitted correctly
-- User interactions work
-- Computed properties calculate correctly
-- Error states display properly
+### Primary Testing Approach: Storybook
+**IMPORTANT**: For Vue components, Storybook serves as our primary testing mechanism. We DO NOT write component tests in Vitest for Vue components.
 
-### Mocking Strategies
-- Mock API calls with vi.fn()
-- Mock Vuex store when needed
-- Mock router for navigation
-- Mock external dependencies
-- Keep mocks close to reality
+- **Storybook = Component Tests**: Each story validates component behavior
+- **Visual Testing**: Stories verify rendering across different states
+- **Integration Testing**: Stories test component with real props/data
+- **Living Documentation**: Stories serve as both tests and documentation
+- **Manual QA**: Stories enable quick visual verification
 
-### Testing Patterns
-- Test public interface, not implementation
-- Use data-testid for reliable selectors
-- Test accessibility features
-- Verify responsive behavior
-- Test loading and error states
+### When to Use Vitest
+Use Vitest ONLY for:
+- **Utility functions**: Pure JavaScript/TypeScript utilities
+- **Composables**: Vue composition API logic
+- **Store modules**: Vuex/Pinia store logic
+- **Services**: API clients and business logic services
+- **Helpers**: Non-component helper functions
+
+### Why Storybook for Component Testing
+- **Visual Regression**: Immediately see if components break
+- **Real Browser Environment**: Tests run in actual browser context
+- **Designer Collaboration**: Stories are accessible to non-developers
+- **Faster Development**: No need to maintain separate test files
+- **Interactive Testing**: Can manually interact with components
 
 ## API Integration Testing
 
