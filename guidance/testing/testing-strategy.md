@@ -35,6 +35,25 @@ Comprehensive testing approach ensuring code quality through multiple layers of 
 - API contract changes
 - Performance optimizations
 
+## Critical Testing Workflow
+
+### Always Run Tests After Changes
+- **MANDATORY** - Run relevant tests after ANY file modification
+- **No exceptions** - Even for "harmless" changes (documentation, formatting, linting)
+- **Before proceeding** - Never move to next task with failing tests
+- **Verification sequence**:
+  1. Make changes (code, docs, formatting, etc.)
+  2. Run tests for modified files
+  3. Fix any failures immediately
+  4. Only proceed when all tests pass
+
+### Why Test After Every Change
+- Documentation changes can break syntax
+- Formatting/linting can introduce errors
+- Refactoring can break functionality
+- Even comments can cause issues
+- Catches problems immediately, not later
+
 ## Testing Principles
 
 ### What to Test

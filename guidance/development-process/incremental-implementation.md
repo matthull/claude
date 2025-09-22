@@ -57,7 +57,8 @@ A disciplined approach to implementing features through small, reviewable steps 
 
 ### Phase 4: Incremental Implementation
 - Execute one step from plan
-- Verify step completion
+- **Run tests for modified files**
+- Verify step completion and tests pass
 - Get user review and approval
 - Commit with descriptive message
 - Repeat until complete
@@ -68,7 +69,14 @@ A disciplined approach to implementing features through small, reviewable steps 
 - **Atomic** - Complete logical unit of change
 - **Reviewable** - User can understand impact
 - **Testable** - Can verify correctness
+- **Test-verified** - Tests must pass after changes
 - **Reversible** - Can rollback if issues found
+
+### Test Verification Requirements
+- Run tests after EVERY file modification
+- This includes: code, documentation, formatting, linting
+- Never proceed to next step with failing tests
+- Fix test failures immediately before continuing
 
 ### Communication During Implementation
 - Explain what each step will accomplish
