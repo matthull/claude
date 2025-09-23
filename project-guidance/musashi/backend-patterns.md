@@ -56,3 +56,16 @@ end
 - **Never** use `Rails.env.production?` - prefer `['development', 'test'].include?(Rails.env)`
 - **Avoid** useless or superfluous comments - code should be self-documenting
 - Only add comments for complex business logic, non-obvious decisions, or YARD documentation
+
+## Testing Assumptions & Configuration
+- **Never** make global configuration changes without explicit user approval
+- **Never** assume something is globally broken - investigate project-specific patterns first
+- **Always** check with user before modifying RSpec configuration, test helpers, or Rails config
+- **Always** assume the existing test setup is intentional and working
+- If tests fail unexpectedly, investigate:
+  1. Are you using the correct project patterns?
+  2. Did you check existing similar tests for the right approach?
+  3. Is there a project-specific helper or configuration you're missing?
+- **Never** add `config.global_fixtures = false` or similar global changes
+- **Never** assume the project needs database_cleaner or other testing gems not already present
+- When in doubt about test failures, ask: "What's the correct pattern in this project?" not "What's broken globally?"

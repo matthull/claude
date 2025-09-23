@@ -21,6 +21,24 @@ category: rails
 - Single test: `docker exec musashi-web-1 bundle exec rspec path/to/spec.rb:LINE_NUMBER`
 - TDD workflow: `docker exec -ti musashi-web-1 bundle exec guard`
 
+## Request Spec Organization
+
+### File Location and Naming
+- **One request spec file per controller**
+- Location mirrors controller path: `spec/requests/{controller_path}_spec.rb`
+- Examples:
+  - `app/controllers/app/api/v2/seismic_controller.rb` → `spec/requests/app/api/v2/seismic_controller_spec.rb`
+  - `app/controllers/admin/api/users_controller.rb` → `spec/requests/admin/api/users_controller_spec.rb`
+  - `app/controllers/app/api/content_assets_controller.rb` → `spec/requests/app/api/content_assets_controller_spec.rb`
+- **Never** create multiple spec files for one controller
+- **Never** use endpoint-based spec organization (e.g., `seismic_settings_spec.rb`)
+
+### Contract Tests
+- Define API contracts before implementation (TDD red phase)
+- Test request/response shapes match expected contracts
+- Include all required fields in response expectations
+- Test error response formats consistently
+
 ## Request Spec Patterns
 
 ### Structure
