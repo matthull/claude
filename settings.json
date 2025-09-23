@@ -8,7 +8,7 @@
       "Edit(/home/matt/code/musashi)"
     ]
   },
-  "model": "sonnet",
+  "model": "opus",
   "hooks": {
     "PostToolUse": [
       {
@@ -29,28 +29,7 @@
     "Stop": [
       {
         "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claudekit-hooks run typecheck-project"
-          },
-          {
-            "type": "command",
-            "command": "claudekit-hooks run lint-project"
-          },
-          {
-            "type": "command",
-            "command": "claudekit-hooks run test-project"
-          },
-          {
-            "type": "command",
-            "command": "claudekit-hooks run check-todos"
-          },
-          {
-            "type": "command",
-            "command": "claudekit-hooks run self-review"
-          }
-        ]
+        "hooks": []
       }
     ],
     "SubagentStop": [],
