@@ -33,7 +33,8 @@
       "Bash(/home/matt/.claude/commands/compress-guidance-wrapper.sh:*)",
       "Read(//usr/bin/**)",
       "Bash(chmod:*)",
-      "Bash(~/.claude/python-env/bin/python:*)"
+      "Bash(~/.claude/python-env/bin/python:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

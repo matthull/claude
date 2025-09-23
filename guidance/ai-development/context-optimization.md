@@ -4,63 +4,60 @@ status: current
 category: ai-development
 ---
 
-# Context Optimization for Prompts
+# Context Optimization
 
-## Core Concepts
+## Information Density
+- Remove fillers: "very", "really", "basically"
+- "in order to" → "to"
+- "at this point in time" → "now"
+- Remove articles (the, a) where clear
+- Single words over phrases
 
-### Information Density Principles
-- Remove filler words: "very", "really", "basically", "actually"
-- Eliminate redundant phrases: "in order to" → "to"
-- Use precise single words over wordy phrases
-- Compress verbose expressions: "at this point in time" → "now"
-- Remove unnecessary articles (the, a, an) where clarity permits
+## Context Inclusion
+- Only task-relevant information
+- Most important at beginning/end
+- Summarize multi-turn history
+- Extract facts, not full documents
+- Reference, don't explain basics
 
-### Selective Context Inclusion
-- Include only context directly relevant to the task
-- Place most relevant information at beginning and end (primacy/recency)
-- For multi-turn conversations, summarize rather than include full history
-- Extract key facts rather than providing full documents
-- Use references to external knowledge rather than explaining common concepts
+## Compression Tactics
+- Define abbreviations once, use throughout
+- Combine related instructions
+- Patterns over multiple examples
+- JSON/CSV over prose for data
+- Leverage implicit understanding
 
-### Compression Strategies
-- Use abbreviations for repeated terms (define once, use throughout)
-- Combine related instructions into single statements
-- Replace examples with patterns when possible
-- Use structured formats (JSON/CSV) over prose for data
-- Leverage implicit understanding rather than explicit explanation
+## Token-Aware Writing
+- Common words over rare synonyms
+- Use contractions
+- Skip transitions between sections
+- Remove courtesy: "please", "thank you"
+- No meta-commentary
 
-### Token-Aware Writing
-- Prefer common words over rare synonyms (fewer tokens)
-- Use contractions where appropriate
-- Remove transitional phrases between sections
-- Eliminate courtesy language: "please", "thank you", "if you could"
-- Skip meta-commentary about the task
+## Context Budget
+- Instructions: 20%
+- Context: 60%
+- Examples: 20%
+- Use RAG for large knowledge
+- Chain prompts over massive singles
 
-### Context Window Management
-- Budget your tokens: instructions (20%), context (60%), examples (20%)
-- Prioritize by importance when approaching limits
-- Use retrieval-augmented generation (RAG) for large knowledge bases
-- Implement sliding windows for long conversations
-- Consider prompt chaining over single massive prompts
-
-### Semantic Preservation
-- Maintain critical distinctions and nuances
-- Keep technical terms that affect meaning
-- Preserve logical connectors that show relationships
-- Retain quantifiers and constraints
-- Don't compress at the expense of accuracy
+## Preserve Meaning
+- Keep critical distinctions
+- Retain technical terms
+- Preserve logical connectors
+- Keep quantifiers/constraints
+- Accuracy over compression
 
 ## When to Apply
-- Always - token optimization is always valuable
-- Critical for high-volume production use
-- When approaching context window limits
-- For real-time applications requiring low latency
-- When cost reduction is a priority
+- Always valuable
+- Critical for production
+- Approaching context limits
+- Real-time applications
+- Cost reduction priority
 
 ## Anti-patterns
-- Over-compression that loses meaning
-- Removing critical context to save tokens
-- Using unclear abbreviations
-- Compressing instructions more than examples
-- Optimizing tokens before confirming prompt works
-- Sacrificing clarity for brevity
+- NEVER: Lose meaning for tokens
+- NEVER: Remove critical context
+- NEVER: Unclear abbreviations
+- NEVER: Compress instructions over examples
+- NEVER: Optimize before confirming works

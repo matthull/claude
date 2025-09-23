@@ -4,102 +4,79 @@ status: current
 category: development-process
 ---
 
-# Incremental Implementation Principles
+# Incremental Implementation
 
-## Core Principles
+## Step-by-Step Rules
+1. One logical change per iteration
+2. User review after each step
+3. Commit after verification
+4. Continue only with approval
 
-### Step-by-Step Execution
-1. **One step at a time** - Implement only one logical change per iteration
-2. **User review after each step** - Allow review in editor before proceeding
-3. **Commit after verification** - Create atomic commits for each verified step
-4. **Continue only after confirmation** - Wait for explicit approval before next step
+## Task Decomposition
+- Small over large changes
+- Testable components
+- Maintain backward compatibility
+- Quality over speed
 
-### Task Decomposition
-- **Small over large** - Prefer incremental improvements over massive changes
-- **Testable components** - Break features into independently verifiable units
-- **Backward compatibility** - Maintain system stability throughout changes
-- **Quality focus** - Prioritize maintainability over speed
+## Implementation Order
+- Backend before frontend
+- Foundation before features
+- Dependencies first
+- Critical path priority
 
-### Implementation Order
-- **Backend first** - When features span backend/frontend, implement backend first
-- **Foundation before features** - Build infrastructure before user-facing elements
-- **Dependencies first** - Resolve prerequisites before dependent features
-- **Critical path priority** - Focus on blocking items before nice-to-haves
+## Process Phases
 
-## When to Apply
-- New feature development requiring multiple changes
-- Refactoring existing code while maintaining functionality
-- Bug fixes that touch multiple system components
-- Any change spanning more than one file or module
+### 1. Pattern Discovery
+- Search existing patterns
+- Check similar solutions
+- Find models to extend
+- Ask before new patterns
 
-## Implementation Process
-
-### Phase 1: Pattern Discovery (Brownfield)
-- Search for existing patterns
-- Check how similar problems solved
-- Find models/concerns to extend
-- Ask user before new patterns
-
-### Phase 2: Goal Definition
-- Requirements and constraints
+### 2. Goal Definition
+- Requirements/constraints
 - Success criteria
 - Out-of-scope items
 
-### Phase 3: Implementation Planning
+### 3. Planning
 - Step-by-step plan
-- Testing strategy per step
+- Testing strategy
 - Verification points
 
-### Phase 4: Incremental Implementation
+### 4. Implementation
 - Execute one step
 - Run tests
-- Get user review
+- Get review
 - Commit
 - Repeat
 
-## User Consultation Points
-
-### Always Ask About
+## Always Consult For
 - New architectural patterns
-- Suspected infrastructure issues
-- Creating new models/tables
-- Deviating from conventions
+- Infrastructure issues
+- New models/tables
+- Convention deviations
 
-### Check First, Ask Second
-- Search codebase for patterns
-- Test specific usage
-- Find working examples
-- Then consult if needed
+## Step Requirements
+- **Atomic**: Complete logical unit
+- **Reviewable**: Clear impact
+- **Testable**: Verifiable
+- **Test-verified**: All pass
+- **Reversible**: Can rollback
 
-## Verification Standards
+## Test Discipline
+- Run after EVERY change
+- Including docs/formatting
+- NEVER proceed with failures
+- Fix immediately
 
-### Each Step Must Be:
-- **Atomic** - Complete logical unit of change
-- **Reviewable** - User can understand impact
-- **Testable** - Can verify correctness
-- **Test-verified** - Tests must pass after changes
-- **Reversible** - Can rollback if issues found
+## Communication
+- Explain each step
+- Describe trade-offs
+- Ask when ambiguous
+- Provide context
 
-### Test Verification Requirements
-- Run tests after EVERY file modification
-- This includes: code, documentation, formatting, linting
-- Never proceed to next step with failing tests
-- Fix test failures immediately before continuing
-
-### Communication During Implementation
-- Explain what each step will accomplish
-- Describe trade-offs in technical decisions
-- Ask clarifying questions when ambiguous
-- Provide context for approach chosen
-
-## Anti-patterns to Avoid
-- Implementing multiple steps before review
-- Making changes without user verification
-- Creating commits without showing diffs
-- Proceeding despite uncertainty or errors
-- Batching unrelated changes together
-
-## References
-- Continuous Delivery principles
-- Trunk-based development practices
-- Agile incremental delivery
+## Anti-patterns
+- NEVER: Multiple steps before review
+- NEVER: Changes without verification
+- NEVER: Commits without diffs
+- NEVER: Proceed with errors
+- NEVER: Batch unrelated changes
