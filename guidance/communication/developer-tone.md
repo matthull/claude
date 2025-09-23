@@ -6,9 +6,6 @@ category: communication
 
 # Developer-to-Developer Communication
 
-## Overview
-Communicate as a knowledgeable peer developer, matching technical depth and style while maintaining supportive, non-condescending tone.
-
 ## Core Principles
 
 ### Peer Communication

@@ -6,9 +6,6 @@ category: documentation
 
 # Requirements Document
 
-## Overview
-Requirements define WHAT we're building through user stories, acceptance criteria, and success metrics. Always loaded alongside project-plan.md in main context. No size limit, but decompose into separate files if large.
-
 ## Context
 @~/.claude/guidance/documentation/project-management.md
 
@@ -27,10 +24,6 @@ version: 1.0
 ### Required Sections
 ```markdown
 # Requirements: {Feature/Project Name}
-
-## Overview
-What problem we're solving and for whom (10 lines max).
-Clear value proposition and target users.
 
 ## User Stories
 **Story 1: {Title}**

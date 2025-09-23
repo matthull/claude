@@ -6,9 +6,6 @@ category: code-search
 
 # Code Search Techniques
 
-## Overview
-Concrete techniques and patterns for efficient code searching across different languages and scenarios.
-
 ## Language-Specific Patterns
 
 **IMPORTANT**: Always prefer `rg` (ripgrep) over `grep` for speed. Use `fd` over `find` for file discovery.

@@ -6,9 +6,6 @@ category: security
 
 # Code Security Boundaries
 
-## Overview
-Clear boundaries on what code to write, refuse, or modify. Security-first mindset preventing creation of potentially harmful code.
-
 ## Core Principles
 
 ### Hard Boundaries - Never Create

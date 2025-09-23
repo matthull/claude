@@ -6,9 +6,6 @@ category: ai-development
 
 # Instruction Clarity in Prompts
 
-## Overview
-Clear, specific, and positively-framed instructions are the foundation of effective prompting. Ambiguity is the enemy of accuracy.
-
 ## Core Concepts
 
 ### Specificity Over Vagueness

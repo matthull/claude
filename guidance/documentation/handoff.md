@@ -6,9 +6,6 @@ category: documentation
 
 # Task Handoff Document
 
-## Overview
-Minimal handoff documents point to session logs and capture git state when pausing work. Deleted after resumption as they're temporary markers.
-
 ## Document Structure
 
 ### Required Frontmatter

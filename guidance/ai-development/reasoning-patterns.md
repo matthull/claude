@@ -6,9 +6,6 @@ category: ai-development
 
 # Reasoning Patterns in Prompts
 
-## Overview
-Structured reasoning patterns improve accuracy for complex tasks by forcing systematic thinking rather than intuitive leaps. These patterns make the reasoning process explicit and verifiable.
-
 ## Core Concepts
 
 ### Step-by-Step Thinking

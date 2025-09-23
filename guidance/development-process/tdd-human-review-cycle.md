@@ -6,9 +6,6 @@ category: development-process
 
 # TDD with Mandatory Human Review
 
-## Overview
-Test-driven development cycle with mandatory human review after green phase, before any refactoring or proceeding to next cycle.
-
 ## Core Cycle Steps
 1. **RED** - Write failing test that captures next requirement
 2. **GREEN** - Write minimal code to make test pass

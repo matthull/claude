@@ -6,9 +6,6 @@ category: documentation
 
 # Project File Organization
 
-## Overview
-A systematic approach to organizing project documentation that prevents sprawl and supports efficient AI collaboration.
-
 ## Core Principles
 
 ### Single Purpose Directories

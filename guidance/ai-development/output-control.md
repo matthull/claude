@@ -6,9 +6,6 @@ category: ai-development
 
 # Output Control in Prompts
 
-## Overview
-Explicitly specifying output format, structure, and constraints ensures consistent, parseable responses that integrate smoothly with downstream systems.
-
 ## Core Concepts
 
 ### Format Specification

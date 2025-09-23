@@ -6,9 +6,6 @@ category: documentation
 
 # Parking Lot Document
 
-## Overview
-The parking lot accumulates ideas, questions, and deferred items discovered during work. Kept separate from core documents to avoid loading into context until needed for review.
-
 ## Document Structure
 
 ### Required Frontmatter

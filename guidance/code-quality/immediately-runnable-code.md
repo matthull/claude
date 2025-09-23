@@ -6,9 +6,6 @@ category: code-quality
 
 # Immediately Runnable Code
 
-## Overview
-Every code snippet should be complete, functional, and executable without modification. No pseudocode unless explicitly requested.
-
 ## Core Principles
 
 ### Completeness Standards

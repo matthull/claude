@@ -5,9 +5,6 @@ category: documentation
 ---
 # Parking Lot Pattern
 
-## Overview
-Systematic capture of ideas and questions that arise during work without derailing current focus, using structured tables instead of unstructured lists.
-
 ## Core Concepts
 
 ### Table Format (Required)

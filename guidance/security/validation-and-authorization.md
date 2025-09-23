@@ -6,9 +6,6 @@ category: security
 
 # Validation and Authorization Principles
 
-## Overview
-Defense-in-depth security through proper input validation and authorization at every system layer.
-
 ## Core Concepts
 
 ### Input Validation

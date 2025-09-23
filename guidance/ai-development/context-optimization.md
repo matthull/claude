@@ -6,9 +6,6 @@ category: ai-development
 
 # Context Optimization for Prompts
 
-## Overview
-Every token costs time and money. Optimize for information density - maximum meaning in minimum tokens while preserving semantic integrity.
-
 ## Core Concepts
 
 ### Information Density Principles

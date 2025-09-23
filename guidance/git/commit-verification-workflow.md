@@ -6,9 +6,6 @@ category: git
 
 # Commit Verification Workflow
 
-## Overview
-Systematic approach to creating high-quality, atomic commits with user verification at every step.
-
 ## Core Principles
 
 ### Verification Before Action

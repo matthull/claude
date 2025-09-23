@@ -6,9 +6,6 @@ category: ai-development
 
 # Structured Formatting for Prompts
 
-## Overview
-Structured formatting using delimiters, tags, and consistent patterns dramatically improves prompt clarity and LLM comprehension. Research shows 15-30% reduction in misinterpretation errors through proper structure.
-
 ## Core Concepts
 
 ### XML Tags

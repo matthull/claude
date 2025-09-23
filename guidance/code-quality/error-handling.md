@@ -6,9 +6,6 @@ category: code-quality
 
 # Error Handling Principles
 
-## Overview
-Structured approach to error handling that provides meaningful user feedback while maintaining system stability and debuggability.
-
 ## Core Concepts
 
 ### User-Facing Errors

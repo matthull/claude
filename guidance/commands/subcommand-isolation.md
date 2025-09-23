@@ -6,9 +6,6 @@ category: commands
 
 # Subcommand Isolation Pattern
 
-## Overview
-A pattern for organizing slash commands with subcommands to minimize context pollution by loading only the necessary prompts.
-
 ## Problem
 Commands with multiple subcommands (e.g., `/task init`, `/task resume`, `/task complete`) can waste significant context when all subcommand prompts are embedded in the main command file, even though only one subcommand is executed per invocation.
 

@@ -6,9 +6,6 @@ category: architecture
 
 # API Integration Patterns
 
-## Overview
-Best practices for integrating with external APIs and services without wasting time on incorrect assumptions.
-
 ## Core Principles
 
 ### Never Guess API Structure

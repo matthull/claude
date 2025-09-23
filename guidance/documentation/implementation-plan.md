@@ -6,9 +6,6 @@ category: documentation
 
 # Implementation Plan Document
 
-## Overview
-Implementation plans detail HOW to build a feature through concrete steps, testing strategy, and rollout approach. Created for complex tasks that need structured execution.
-
 ## Context
 @~/.claude/guidance/documentation/task-management.md
 

@@ -5,9 +5,6 @@ category: documentation
 ---
 # Document Decomposition
 
-## Overview
-Break monolithic documents into focused, modular components with clear hierarchy and single responsibility.
-
 ## Core Concepts
 
 ### Size Limits

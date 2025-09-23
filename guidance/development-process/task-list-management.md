@@ -6,9 +6,6 @@ category: development-process
 
 # Task List Management
 
-## Overview
-Structured approach to creating, tracking, and completing development tasks with clear acceptance criteria and dependencies.
-
 ## Task Structure
 
 ### Essential Elements

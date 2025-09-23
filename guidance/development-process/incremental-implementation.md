@@ -6,9 +6,6 @@ category: development-process
 
 # Incremental Implementation Principles
 
-## Overview
-A disciplined approach to implementing features through small, reviewable steps that maintain system stability while making steady progress.
-
 ## Core Principles
 
 ### Step-by-Step Execution

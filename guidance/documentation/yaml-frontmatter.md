@@ -5,9 +5,6 @@ category: documentation
 ---
 # YAML Frontmatter for Documentation
 
-## Overview
-Structured metadata in YAML format at document start for instant AI comprehension and document classification.
-
 ## Core Concepts
 
 ### Required Fields

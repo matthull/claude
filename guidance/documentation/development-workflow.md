@@ -6,9 +6,6 @@ category: documentation
 
 # Development Workflow
 
-## Overview
-Structured approach to development tasks progressing from requirements through implementation with clear phase gates.
-
 ## Core Principles
 
 ### Iterative Refinement

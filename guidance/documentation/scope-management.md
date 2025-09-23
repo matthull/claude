@@ -5,9 +5,6 @@ category: documentation
 ---
 # Scope Management
 
-## Overview
-Explicit documentation of what's NOT being done to prevent scope creep and maintain focus on current objectives.
-
 ## Core Concepts
 
 ### Out of Scope Sections

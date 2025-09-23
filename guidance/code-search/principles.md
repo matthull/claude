@@ -6,9 +6,6 @@ category: code-search
 
 # Code Search Principles
 
-## Overview
-Fundamental principles for efficient code searching that maximize accuracy while minimizing token usage and search time.
-
 ## Core Principles
 
 ### 1. Exhaust Cheap Methods First

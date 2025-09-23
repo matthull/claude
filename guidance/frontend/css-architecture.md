@@ -6,9 +6,6 @@ category: frontend
 
 # CSS Architecture Principles
 
-## Overview
-Maintainable, scalable CSS architecture that avoids specificity wars and promotes component reusability.
-
 ## Core Concepts
 
 ### Specificity Management
