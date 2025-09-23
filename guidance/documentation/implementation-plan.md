@@ -36,31 +36,44 @@ Type: implementation-plan, status (draft/approved/in-progress/complete), project
 ### Optional Sections
 Risk Mitigation table, Dependencies list, Performance Considerations, and Security Considerations as needed.
 
+## What NOT to Include in Plans
+
+### Never Pre-Plan
+- Service objects (emerge from refactoring)
+- Helper classes (create when needed)
+- Utility modules (extract when complex)
+- Internal organization details
+
+### Planning vs Implementation Decisions
+
+**Include in Planning:**
+- Data model structure
+- API endpoints/contracts
+- User flows
+- Integration points
+
+**Defer to Implementation:**
+- Service extraction
+- Helper methods
+- Class organization
+- Refactoring decisions
+
 ## Writing Guidelines
 
 ### Technical Approach
-- Document WHY not just WHAT
+- Document WHY not WHAT
 - Include rejected alternatives
-- Explain trade-offs explicitly
-- Reference patterns/examples in codebase
+- Reference existing patterns
 
 ### Implementation Phases
-- **Phase = Deployable unit** (could ship after each)
-- **1-3 days max per phase**
-- **Clear success criteria**
-- **Independent value delivery**
-
-### Step Structure
-- **Atomic steps** - Do one thing
-- **Testable outcomes** - Verifiable
-- **Include test creation** - Tests are part of step
-- **Specific paths** - Name files/classes
+- Phase = Deployable unit
+- 1-3 days max
+- Clear success criteria
 
 ### Testing Strategy
-- Test coverage for each phase
-- Regression test identification
-- Manual QA checkpoints
-- Performance benchmarks if relevant
+- Coverage per phase
+- Regression tests
+- Manual QA points
 
 ## When to Create
 

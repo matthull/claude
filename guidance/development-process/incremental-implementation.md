@@ -37,31 +37,42 @@ A disciplined approach to implementing features through small, reviewable steps 
 
 ## Implementation Process
 
-### Phase 1: Goal Definition
-- Clarify requirements and constraints
-- Identify pain points to address
-- Define clear success criteria
-- Document out-of-scope items
+### Phase 1: Pattern Discovery (Brownfield)
+- Search for existing patterns
+- Check how similar problems solved
+- Find models/concerns to extend
+- Ask user before new patterns
 
-### Phase 2: Strategy Refinement
-- Design technical approach
-- Provide balanced pros/cons analysis
-- Identify potential risks
-- Choose optimal path forward
+### Phase 2: Goal Definition
+- Requirements and constraints
+- Success criteria
+- Out-of-scope items
 
 ### Phase 3: Implementation Planning
-- Create detailed step-by-step plan
-- Define testing strategy for each step
-- Identify verification points
-- Plan rollback procedures if needed
+- Step-by-step plan
+- Testing strategy per step
+- Verification points
 
 ### Phase 4: Incremental Implementation
-- Execute one step from plan
-- **Run tests for modified files**
-- Verify step completion and tests pass
-- Get user review and approval
-- Commit with descriptive message
-- Repeat until complete
+- Execute one step
+- Run tests
+- Get user review
+- Commit
+- Repeat
+
+## User Consultation Points
+
+### Always Ask About
+- New architectural patterns
+- Suspected infrastructure issues
+- Creating new models/tables
+- Deviating from conventions
+
+### Check First, Ask Second
+- Search codebase for patterns
+- Test specific usage
+- Find working examples
+- Then consult if needed
 
 ## Verification Standards
 
