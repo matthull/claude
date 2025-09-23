@@ -39,7 +39,7 @@ Risk Mitigation table, Dependencies list, Performance Considerations, and Securi
 ## What NOT to Include in Plans
 
 ### Never Pre-Plan
-- Service objects (emerge from refactoring)
+- Service objects (emerge from refactoring), unless there is a clear need based on complex logic already identified
 - Helper classes (create when needed)
 - Utility modules (extract when complex)
 - Internal organization details

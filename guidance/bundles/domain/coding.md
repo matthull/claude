@@ -17,4 +17,5 @@ Active code writing and implementation tasks.
 - @../../code-quality/error-handling.md
 - @../../testing/testing-strategy.md
 - @../../development-process/tdd-human-review-cycle.md
+- @../../development-process/brownfield-development.md
 - @../../git/commit-verification-workflow.md
