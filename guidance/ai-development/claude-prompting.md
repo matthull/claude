@@ -4,73 +4,58 @@ status: current
 category: ai-development
 ---
 
-# Claude-Specific Prompting Techniques
+# Claude-Specific Prompting
 
-## Overview
-Claude has specific training optimizations and preferences that, when leveraged correctly, significantly improve response quality and efficiency. These techniques are Claude-specific and may not transfer to other LLMs.
+## XML Tags
+- Use semantic names: `<thinking>`, `<answer>`, `<analysis>`
+- Create stronger boundaries than other delimiters
+- Nest for hierarchical processing
+- Common tags: `<context>`, `<instructions>`, `<examples>`, `<output>`
 
-## Core Concepts
+## Prefilling
+- Start response: "Based on the analysis,"
+- Control format from first token
+- Skip preambles: "I'll help you with..."
+- Set tone through prefill
+- Enforce structured outputs
 
-### XML Tag Optimization
-- Claude is specifically trained to pay attention to XML tags
-- Use semantic tag names: `<thinking>`, `<answer>`, `<analysis>`
-- Tags create stronger boundaries than other delimiters
-- Nest tags for hierarchical information processing
-- Common effective tags: `<context>`, `<instructions>`, `<examples>`, `<output>`
+## Thinking Pattern
+```
+Think step-by-step within <thinking></thinking> tags
+```
+- Improves complex task accuracy
+- Separate reasoning from output
+- Hidden from end users
+- Best for: math, logic, analysis
 
-### Prefilling Technique
-- Start Claude's response to prevent preambles: "Based on the analysis,"
-- Control output format from first token
-- Prevent conversational fillers: skip "I'll help you with..."
-- Set tone and style through prefill text
-- Use prefilling to enforce structured outputs
+## Message Structure
+- Maintain Human:/Assistant: format
+- Clear conversation boundaries
+- Simulate multi-turn for context
+- Consistent formatting throughout
 
-### Thinking Tags Pattern
-- Use `<thinking>` tags for complex reasoning: "Think step-by-step within `<thinking></thinking>` tags"
-- Thinking tags improve accuracy on complex tasks
-- Separate reasoning from output: thinking first, answer second
-- Can be hidden from end users while improving quality
-- Particularly effective for math, logic, and analysis tasks
+## Context Window
+- 100k-200k tokens available
+- Important info at beginning/end
+- Strong coherence across length
+- Effective multi-document synthesis
 
-### Human/Assistant Formatting
-- Claude expects Human:/Assistant: message structure
-- Maintain clear conversation boundaries
-- Can simulate multi-turn context for better understanding
-- Use consistent formatting throughout conversation
-- Leverage conversation history for context
-
-### Constitutional AI Alignment
-- Claude responds well to positive, helpful framing
-- Avoid adversarial or tricky prompting
-- Frame requests constructively
-- Claude is trained to be helpful, harmless, and honest
-- Align prompts with these training objectives
-
-### Claude's Context Window
-- 100k token context window (Claude 2.1: 200k)
-- Place most important info at beginning and end
-- Claude maintains strong coherence across long contexts
-- Can handle extensive document analysis
-- Effective for multi-document synthesis
-
-### Artifact Generation
-- Claude can generate "artifacts" for substantial content
-- Trigger with requests for complete documents, code files
-- Artifacts separate main response from generated content
-- Useful for maintaining conversation flow with large outputs
-- Enable reusability and modification of generated content
+## Artifact Generation
+- Trigger: complete documents/code files
+- Separates response from content
+- Enables reusability
+- Maintains conversation flow
 
 ## When to Apply
-- Always when using Claude specifically
-- For maximum performance on complex reasoning
-- When output format control is critical
-- For long-context document processing
-- When avoiding preambles is important
+- Claude-specific implementations
+- Complex reasoning tasks
+- Format control critical
+- Long-context processing
+- Avoiding preambles
 
 ## Anti-patterns
-- Using ChatGPT-optimized prompts without modification
-- Ignoring Claude's XML tag training
-- Adversarial or deceptive prompting approaches
-- Not leveraging prefilling capabilities
-- Assuming techniques transfer to other models
-- Fighting against Claude's training (helpful, harmless, honest)
+- NEVER: Use ChatGPT prompts unchanged
+- NEVER: Ignore XML tag training
+- NEVER: Adversarial prompting
+- NEVER: Skip prefilling capabilities
+- NEVER: Assume transfer to other models
