@@ -67,6 +67,13 @@ run_spec() {
   if [ -f "$full_path" ]; then
     echo "✅ Running spec: $spec_file"
     docker exec musashi-web-1 bundle exec rspec "$spec_file"
+    local spec_exit_code=$?
+
+    # If spec failed, exit with code 2 to block execution
+    if [ $spec_exit_code -ne 0 ]; then
+      echo "❌ Spec failed with exit code $spec_exit_code - blocking execution"
+      exit 2
+    fi
   else
     # Check if file should be ignored
     if is_ignored "$relative_path"; then
@@ -86,8 +93,8 @@ run_spec() {
       echo "  echo '$relative_path' >> $project_root/.specignore"
       echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-      # Exit with error to make it clear this is blocking
-      exit 1
+      # Exit with code 2 to block execution (per Claude Code docs)
+      exit 2
     fi
   fi
 }
@@ -126,6 +133,7 @@ fi
 # Run the spec if we found a mapping
 if [ -n "$spec_file" ]; then
   run_spec "$spec_file"
+  # Note: if run_spec calls exit 2, this line will never be reached
 else
   echo "ℹ️  No spec mapping found for: $relative_path"
 fi

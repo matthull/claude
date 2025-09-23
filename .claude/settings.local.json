@@ -10,7 +10,6 @@
       "mcp__gemini-bridge__consult_gemini_with_files",
       "mcp__gemini-bridge__consult_gemini",
       "Bash(tree:*)",
-      "Bash(xargs:*)",
       "Bash(grep:*)",
       "Read(//home/matt/code/musashi/spec/services/seismic/**)",
       "Read(//home/matt/code/musashi/.claude/**)",
@@ -32,7 +31,9 @@
       "Bash(echo:*)",
       "Bash(awk:*)",
       "Bash(/home/matt/.claude/commands/compress-guidance-wrapper.sh:*)",
-      "Read(//usr/bin/**)"
+      "Read(//usr/bin/**)",
+      "Bash(chmod:*)",
+      "Bash(~/.claude/python-env/bin/python:*)"
     ],
     "deny": [],
     "ask": []

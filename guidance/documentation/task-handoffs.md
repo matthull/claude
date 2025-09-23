@@ -4,177 +4,174 @@ status: current
 category: documentation
 ---
 
-# Task Handoffs for Spec-Driven Development
+# Task Handoffs
 
-## Creating Phase-Specific Handoffs
+## Purpose
+Bridge between planning and execution. Extract implementation details for current work.
 
-Extract ONLY implementation details for current phase from comprehensive specs. Target 200-300 lines from 1000+ line specs.
+## When to Create
+- Pausing work mid-task
+- Handing off to another developer
+- Complex multi-step implementation
+- Extracting phase from larger spec
+- Groups of related tasks
 
-## Handoff Document Template
+## Handoff Template
 
 ```markdown
-# Phase X.Y Implementation Handoff
-**Branch**: {branch} | **Date**: {date} | **Goal**: {specific objective}
+# [Phase/Feature] Handoff
+**Branch**: {branch} | **Date**: {date} | **Tasks**: T###-T###
+**Goal**: {specific deliverable}
 
-## Quick Context Commands
+## Quick Context
 ```bash
-# Load ONLY relevant sections using partial grep
+# Load ONLY relevant sections
 grep -A 30 "Phase X.Y" specs/feature/tasks.md
-grep -A 20 "Frontend Testing" specs/feature/quickstart.md
-grep -B 5 -A 15 "Token Refresh" specs/feature/research.md
 grep "T041\|T042\|T043" specs/feature/tasks.md
 
-# Load implementation files
-cat app/services/specific/service.rb | head -50
+# Key files
+cat app/services/target.rb | sed -n '45,120p'
 ```
 
-## Tasks [T###-T###]
+## Current State
+- Done: {completed items}
+- Next: {immediate steps}
+- Blocked: {any blockers}
 
-### T001: {Task Description}
-**File**: `app/services/exact/path.rb`
-**Spec Context**: `grep -A 10 "T001" specs/feature/tasks.md`
-**Implementation**:
+## Task Details
+
+### T###: [Task Name] [P]
+**Location**: `exact/file/path.rb`
+**Method Signature**:
 ```ruby
-# Critical code pattern or snippet
+def method_name(params)
+  # Use existing pattern
+  # Return expected type
+end
 ```
-**Requirements**:
-- {specific requirement 1}
-- {specific requirement 2}
+**Test Scenarios**:
+- Success case with expected result
+- Error handling for X condition
+- Edge case Y behavior
 
-## Required Files
-- `app/services/file.rb:45-120` - Token refresh logic
-- `spec/services/file_spec.rb:200-250` - Test patterns
+**Reference**: research.md:26-34 (pattern explanation)
 
-## Validation Checklist
-- [ ] {measurable outcome}
-- [ ] {test coverage requirement}
-- [ ] {performance metric}
+## Dependencies
+- T001-T002 before T003
+- [P] tasks can run in parallel
 
-## Known Issues
-**{Issue}**: {one-line solution}
-```
-
-## Selective Loading Patterns
-
-### Task-Specific Loading
+## Verification
 ```bash
-# Load multiple specific tasks from tasks.md
+docker exec app rspec spec/path/file_spec.rb
+grep -n "expected_pattern" app/
+```
+
+## Success Criteria
+- [ ] Tests passing
+- [ ] Specific outcome verified
+- [ ] Performance target met
+```
+
+## Spec-Driven Extraction
+
+### Selective Loading Commands
+```bash
+# Task-specific
 grep -E "T041|T044|T049" specs/feature/tasks.md
 
-# Load task with context lines
-grep -B 2 -A 10 "T041.*token refresh" specs/feature/tasks.md
+# Section with context
+grep -B 2 -A 10 "Token Refresh" specs/feature/research.md
 
-# Load phase summary only
-grep "## Phase 3.5" specs/feature/tasks.md | head -20
+# Multiple patterns
+grep -E "Frontend|Storybook" specs/feature/plan.md
+
+# File excerpts
+sed -n '45,120p' app/services/file.rb
 ```
 
-### Section Extraction
-```bash
-# Extract specific sections from different specs
-grep -A 15 "Token Security" specs/feature/research.md
-grep -A 20 "Scenario 5.*OAuth" specs/feature/quickstart.md
-grep -A 30 "As-Needed Token Refresh" specs/feature/tasks.md
+### Target Size
+- 200-300 lines from 1000+ line specs
+- Current phase only
+- Skip future phases
 
-# Combine multiple patterns
-grep -E "Frontend|Storybook|Component" specs/feature/plan.md
-```
-
-### Implementation Notes Loading
-```bash
-# Load critical implementation notes only
-grep -A 40 "Critical Implementation Notes" specs/feature/tasks.md
-grep -B 5 -A 10 "IMPORTANT\|CRITICAL\|WARNING" specs/feature/*.md
-```
-
-## Content Selection Rules
+## Content Rules
 
 ### INCLUDE
-- Partial grep commands for spec sections
-- Line ranges for file excerpts (file.rb:100-150)
-- Task-specific search patterns
-- Cross-file grep combinations
-- Context line specifications (-A, -B, -C)
+- Method signatures, not implementations
+- Test scenarios, not full test code
+- API contracts, not internal logic
+- Line references: `file.rb:45-120`
+- Grep patterns with context: `-A 10`
 
 ### EXCLUDE
-- Full file cats when partials suffice
-- Entire spec file loading
-- Unfiltered directory listings
-- Broad wildcard searches
-- Full document contexts
+- Full file contents
+- Complete implementations
+- Internal logic details
+- Entire spec files
+- Unfiltered listings
 
-## Handoff Types
+## Task Grouping
 
-### Phase-Based
+### By Phase
+- Setup/Prerequisites
+- Core Implementation
+- Frontend Components
+- Integration & Polish
+
+### By Component
+- All backend for Feature X
+- All frontend for Feature Y
+
+### By Parallel Work
+- Mark with [P]
+- Group together
+- Note shared resources
+
+## Good Example
+
+```markdown
+### T004: Create Folder [P]
+**Location**: `app/services/seismic/client.rb`
+**Method Signature**:
+```ruby
+def create_folder(teamsite_id, parent_folder_id, name)
+  # Use make_request pattern
+  # Return folder_id
+end
 ```
-phase-3.5-3.7-handoff.md    # Multiple related phases
-phase-frontend-handoff.md    # UI implementation
-phase-backend-handoff.md     # API services
-```
-
-### Feature-Based
-```
-oauth-implementation-handoff.md
-token-refresh-handoff.md
-validation-testing-handoff.md
-```
-
-### Priority-Based
-```
-critical-path-handoff.md    # Blocking features
-post-launch-handoff.md      # Deferrables
-```
-
-## Loading Strategy
-
-```bash
-# 1. Start with handoff only
-cat task-handoffs/{feature}/phase-handoff.md
-
-# 2. Load specific task details
-grep -A 15 "T041" specs/feature/tasks.md
-
-# 3. Load file sections being modified
-sed -n '45,120p' app/services/target.rb
-
-# 4. Search for patterns across specs
-grep -n "delegation.*callback" specs/feature/*.md
-
-# 5. Load test scenarios selectively
-grep -A 10 "Scenario [3-5]" specs/feature/quickstart.md
+**Test Scenarios**:
+- Creates folder, returns ID
+- Handles 409 conflict (exists)
+- Handles 404 (invalid teamsite)
+**Reference**: research.md:26-34
 ```
 
-## Directory Structure
+## Bad Example (Too Much Detail)
 
+```markdown
+### T004: Create Folder ❌
+**Full Implementation**:
+```ruby
+def create_folder(teamsite_id, parent_folder_id, name)
+  url = "#{base_url}/integration/v2/..."
+  body = { name: name, parentFolderId: parent_folder_id }
+  response = make_request(:post, url, body)
+  # ... complete implementation ...
+end
 ```
-task-handoffs/
-├── {feature}/
-│   ├── phase-{X.Y}-handoff.md
-│   ├── critical-path-handoff.md
-│   ├── testing-checklist.md
-│   └── session-logs/
-│       └── YYYY-MM-DD-{topic}.md
 ```
 
-## Creating Effective Handoffs
+## Quality Checklist
+- [ ] Under 300 lines total
+- [ ] Grep commands provided
+- [ ] Line ranges specified
+- [ ] [P] tasks marked
+- [ ] Verification commands included
+- [ ] No full implementations
 
-1. **Map grep patterns** to each phase's needs
-2. **Specify line ranges** for partial file loads
-3. **Combine searches** for related concepts
-4. **Use context flags** (-A/-B/-C) wisely
-5. **Chain greps** to filter progressively
-
-## Anti-Patterns
-
-**NEVER**:
-- Load entire spec files with cat
-- Use recursive grep without limits
-- Include full file contents
-- Load all phases at once
-- Omit line number hints
-
-**ALWAYS**:
-- Use partial grep with context lines
-- Specify exact search patterns
-- Include line ranges for files
-- Provide multiple search examples
-- Keep total context under 500 lines
+## Anti-patterns
+- Loading entire specs with cat
+- Copying full implementations
+- Missing line references
+- No verification steps
+- Mixing unrelated tasks
