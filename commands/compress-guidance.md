@@ -1,87 +1,43 @@
 # Compress Guidance with LLMLingua
 
-Intelligently compress guidance files using Microsoft's LLMLingua based on flexible criteria.
+Compress guidance files using LLMLingua to reduce token usage.
 
 ## Usage
-
 ```
-/compress-guidance [criteria] [options]
+/compress-guidance [arguments]
 ```
 
 ## Examples
-
 ```bash
-# Compress all guidance files over 200 lines
-/compress-guidance large files
-
-# Compress unstaged files in git
-/compress-guidance unstaged files
-
-# Compress specific files
-/compress-guidance therapy/ifs-self-therapy.md documentation/requirements.md
-
-# Compress all files in a category
-/compress-guidance all files in documentation/
-
-# Compress with custom compression ratio
-/compress-guidance large files --ratio 0.3
+/compress-guidance --large                    # Files >200 lines
+/compress-guidance --large --min 300          # Files >300 lines
+/compress-guidance file1.md file2.md          # Specific files
+/compress-guidance --dir documentation        # All in directory
+/compress-guidance --unstaged                 # Git unstaged files
+/compress-guidance --ratio 0.3 --large        # Custom compression
+/compress-guidance --dry-run --large          # Preview without compressing
 ```
 
 ## Implementation
 
-Delegates to Task tool with LLMLingua compression capabilities.
+Runs the CLI tool directly with passed arguments.
 
 ## Subagent Prompt Template
 
-You are a guidance compression specialist using Microsoft's LLMLingua to intelligently compress verbose guidance files. Follow these principles:
-
-@~/.claude/guidance/ai-development/ultra-concise-enforcement.md
+You are running the compress-guidance CLI tool.
 
 User Request: [USER PROVIDED CONTENT]
 
-Process:
-1. **Parse the compression criteria** from user input:
-   - "large files" = files >200 lines
-   - "unstaged files" = files modified but not staged in git
-   - "all files in X/" = files in specific directory
-   - File paths = specific files
-   - "all files" = every guidance file
+Execute this command:
+```bash
+~/.claude/python-env/bin/python ~/.claude/commands/compress-guidance-cli.py [USER PROVIDED CONTENT]
+```
 
-2. **Find matching files** using appropriate search:
-   - Use Bash + find/git commands to locate files
-   - Check line counts with wc -l
-   - Filter based on criteria
+Report the output directly. The tool will:
+- Find files matching criteria
+- Compress them with LLMLingua
+- Create .original.md and .compressed.md files
+- Show statistics and next steps
 
-3. **For each file to compress**:
-   - Load LLMLingua Python environment
-   - Run compression with preservation of markdown structure
-   - Create .original.md backup
-   - Create .compressed.md version
-   - Show compression stats
-
-4. **Report results**:
-   - List of files processed
-   - Compression ratios achieved
-   - Instructions for reviewing and applying
-
-5. **Provide next steps**:
-   - Commands to review compressed versions
-   - Commands to apply if satisfactory
-   - How to revert if needed
-
-Compression Settings:
-- Target ratio: 0.5 (50% reduction) unless --ratio specified
-- Preserve: markdown structure, code blocks, lists
-- Force tokens: \n, #, -, *, `
-- Use LLMLingua-2 for better quality
-
-Safety:
-- Always backup originals
-- Never overwrite without user confirmation
-- Skip if LLMLingua not installed (provide setup instructions)
-- Handle file not found gracefully
-
-Expected Output:
-- Clear summary of files found and compressed
-- Compression statistics
-- Review and apply instructions
+DO NOT create any Python files or implement compression logic.
+Just run the existing CLI tool and report results.
