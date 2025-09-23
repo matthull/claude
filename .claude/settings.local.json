@@ -21,7 +21,18 @@
       "WebFetch(domain:docs.claude.com)",
       "WebFetch(domain:gist.github.com)",
       "WebFetch(domain:github.com)",
-      "Bash(claude-code --help)"
+      "Bash(claude-code --help)",
+      "Bash(if [ -f \"$HOME/.claude/python-env/bin/python\" ])",
+      "Bash(then echo \"✅ Claude Python environment found\")",
+      "Bash(else echo \"❌ Need to run setup: ~/.claude/commands/setup-claude-python-env.sh\")",
+      "Bash(fi)",
+      "Bash(source:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(echo:*)",
+      "Bash(awk:*)",
+      "Bash(/home/matt/.claude/commands/compress-guidance-wrapper.sh:*)",
+      "Read(//usr/bin/**)"
     ],
     "deny": [],
     "ask": []
