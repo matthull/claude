@@ -34,7 +34,15 @@
       "Read(//usr/bin/**)",
       "Bash(chmod:*)",
       "Bash(~/.claude/python-env/bin/python:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(__NEW_LINE__ echo \"1. project-plan.md alternatives:\")",
+      "Bash(__NEW_LINE__ find ~/.claude/guidance -name \"*project*\" -type f)",
+      "Bash(__NEW_LINE__ echo -e \"\\n2. architecture-decisions.md alternatives:\")",
+      "Bash(__NEW_LINE__ find ~/.claude/guidance -name \"*architecture*\" -o -name \"*decision*\" -type f)",
+      "Bash(__NEW_LINE__ echo -e \"\\n3. tdd-principles.md alternatives:\")",
+      "Bash(__NEW_LINE__ find ~/.claude/guidance -name \"*tdd*\" -o -name \"*test*\" -type f)",
+      "Bash(__NEW_LINE__ echo -e \"\\n4. testing-strategy.md alternatives:\")",
+      "Bash(__NEW_LINE__ find ~/.claude/guidance -name \"*test*\" -o -name \"*strategy*\" -type f)"
     ],
     "deny": [],
     "ask": []

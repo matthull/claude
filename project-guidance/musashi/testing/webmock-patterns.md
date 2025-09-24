@@ -9,6 +9,100 @@ category: testing
 ## Overview
 Comprehensive patterns for stubbing external API requests using WebMock in RSpec tests. Based on established patterns in the codebase.
 
+## API-First Integration Development Process
+
+### 1. Document API
+Create: `working-docs/projects/integrations/{service-name}/api-reference.md`
+
+Document per endpoint:
+- HTTP method and URL
+- Headers (auth, content-type)
+- Request body structure
+- Response structure (success)
+- Error formats and codes
+- Rate limits, pagination
+
+Example:
+```markdown
+# GET /api/v2/content/{id}
+Headers:
+  Authorization: Bearer {token}
+  Accept: application/json
+
+Response 200:
+{"id": "123", "title": "Asset Title", "url": "https://..."}
+
+Response 404:
+{"error": "Content not found", "code": "CONTENT_NOT_FOUND"}
+```
+
+### 2. Validate with Curl
+```bash
+# working-docs/projects/integrations/{service-name}/curl-tests.sh
+
+# Auth
+curl -X POST https://api.example.com/auth/token \
+  -H "Content-Type: application/json" \
+  -d '{"client_id":"xxx","client_secret":"yyy"}' \
+  > curl-responses/auth-token.json
+
+# Success case
+curl -X GET https://api.example.com/api/v2/content/123 \
+  -H "Authorization: Bearer actual_token" \
+  > curl-responses/content-fetch.json
+
+# Error case
+curl -X GET https://api.example.com/api/v2/content/nonexistent \
+  -H "Authorization: Bearer actual_token" \
+  > curl-responses/content-404.json
+```
+
+Save all responses. Test errors. Document discrepancies.
+
+### 3. Write WebMock Specs
+```ruby
+describe 'External API Integration' do
+  # From: curl-responses/content-fetch.json
+  let(:content_response) do
+    {
+      "id" => "123",
+      "title" => "Asset Title",
+      "url" => "https://example.com/asset"
+    }
+  end
+
+  before do
+    # Matches curl response exactly
+    stub_request(:get, "https://api.example.com/api/v2/content/123")
+      .with(headers: { 'Authorization' => 'Bearer test_token' })
+      .to_return(
+        status: 200,
+        body: content_response.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+  end
+end
+```
+
+ALWAYS comment curl response source. Match exact structure.
+
+### 4. TDD Implementation
+1. Write failing spec
+2. Implement service
+3. Make spec pass
+4. Verify against real API periodically
+
+```ruby
+class ExternalApiService
+  def fetch_content(id)
+    # Implementation
+  end
+end
+```
+
+### Critical Rule
+**WebMocks MUST match curl responses exactly** - no guessing.
+
 ## Setup and Configuration
 
 ### Global Configuration (spec/spec_helper.rb)

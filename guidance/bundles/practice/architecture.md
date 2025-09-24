@@ -33,7 +33,8 @@ Universal architecture patterns and design principles.
 - Audit logging for sensitive operations
 
 ## Direct Includes
-@../../architecture/clean-architecture.md
-@../../architecture/microservices-patterns.md
-@../../architecture/event-driven-design.md
-@../../security/secure-architecture.md
+# BROKEN LINKS - Commented out until files are created:
+# @../../architecture/clean-architecture.md
+# @../../architecture/microservices-patterns.md
+# @../../architecture/event-driven-design.md
+# @../../security/secure-architecture.md

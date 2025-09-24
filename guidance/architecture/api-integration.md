@@ -86,6 +86,7 @@ Before making any API call, confirm:
 - Add logging for all requests/responses
 - Implement circuit breakers for failures
 - Test timeout and retry scenarios
+- Do end-to-end testing (e.g. via rails console) of ruby methods that implement API calls after the unit tests pass
 
 ## Key Takeaway
 Time spent understanding API documentation and asking clarifying questions is never wasted. Time spent guessing API structures always is. When in doubt, ask the user for help or examples rather than making assumptions.
