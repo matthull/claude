@@ -39,7 +39,7 @@ If reviewing "changes" or recent modifications:
    - **Source code files** (*.ts, *.js, *.py, etc.): Launch all 6 review agents
    - **Mixed changes**: Launch agents relevant to each file type present
 
-**DO NOT** launch architecture or performance and scalability agents unless the user specifically requests it.
+**DO NOT** launch architecture, documentation, or performance and scalability agents unless the user specifically requests it.
 
 Use the Task tool to invoke the appropriate code-review-expert agents concurrently with enhanced thinking trigger instructions:
 

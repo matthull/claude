@@ -28,4 +28,4 @@ Planning implementation approach from requirements to executable tasks.
 
 ### Documentation
 - @../../documentation/task-handoffs.md
-- @../../documentation/project-plan.md
+- @../../documentation/project-workflow.md

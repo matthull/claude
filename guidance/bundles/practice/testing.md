@@ -13,6 +13,6 @@ Test-driven development and comprehensive testing.
 - @../domain/coding.md
 
 ## Direct Includes
-- @../../testing/tdd-principles.md
-# Note: testing-strategy.md and tdd-human-review-cycle.md inherited from coding.md
+- @../../testing/test-driven-development.md
+# Note: tdd-human-review-cycle.md inherited from coding.md
 # Future: integration-testing.md, test-data-patterns.md

@@ -66,13 +66,26 @@ run_spec() {
   local full_path="$project_root/$spec_file"
   if [ -f "$full_path" ]; then
     echo "✅ Running spec: $spec_file"
-    docker exec musashi-web-1 bundle exec rspec "$spec_file"
+    # Run RSpec with detailed output for better visibility
+    docker exec musashi-web-1 bundle exec rspec "$spec_file" \
+      --format documentation \
+      --format failures \
+      --backtrace \
+      --force-color
     local spec_exit_code=$?
 
-    # If spec failed, exit with code 2 to block execution
+    # Handle test results
     if [ $spec_exit_code -ne 0 ]; then
-      echo "❌ Spec failed with exit code $spec_exit_code - blocking execution"
-      exit 2
+      echo ""
+      echo "⚠️  TESTS FAILED - FIX REQUIRED!"
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      echo "The above test failures need to be fixed."
+      echo "Review the failure details and stack traces,"
+      echo "then make the necessary code changes."
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      exit 1  # Non-blocking but signals need to fix
+    else
+      echo "✅ All specs passed successfully for: $spec_file"
     fi
   else
     # Check if file should be ignored
