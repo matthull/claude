@@ -50,3 +50,7 @@ Patterns for integrating Vue.js within the Rails asset pipeline:
 - Testing Library for component integration tests
 - Cypress for E2E testing critical user flows
 - Visual regression testing with Percy
+
+### Puppeteer Testing
+Browser automation and E2E testing patterns:
+@../../musashi/puppeteer.md

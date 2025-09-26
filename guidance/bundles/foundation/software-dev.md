@@ -14,3 +14,4 @@ Base principles for all software development tasks.
 - @../../communication/developer-tone.md
 - @../../documentation/project-file-organization.md
 - @../../development-process/incremental-implementation.md
+- @../../development-process/no-interface-guessing.md

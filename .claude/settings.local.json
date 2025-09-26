@@ -44,7 +44,12 @@
       "Bash(__NEW_LINE__ echo -e \"\\n4. testing-strategy.md alternatives:\")",
       "Bash(__NEW_LINE__ find ~/.claude/guidance -name \"*test*\" -o -name \"*strategy*\" -type f)",
       "Read(//home/matt/code/musashi/**)",
-      "Bash(rspec test-hook-failure_spec.rb:*)"
+      "Bash(rspec test-hook-failure_spec.rb:*)",
+      "Bash(docker exec:*)",
+      "Bash(/tmp/test_rspec_hook_fix.sh:*)",
+      "Bash(/tmp/test_rspec_hook_fixed.sh:*)",
+      "Bash(/tmp/test_rspec_failure_handling.sh:*)",
+      "Bash(/tmp/hook_fixes_summary.sh:*)"
     ],
     "deny": [],
     "ask": []

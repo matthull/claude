@@ -14,3 +14,4 @@ Client-side development patterns and practices.
 
 ## Direct Includes
 - @../../frontend/css-architecture.md
+- @../../frontend/debugging-workflow.md

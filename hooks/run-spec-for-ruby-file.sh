@@ -65,46 +65,58 @@ run_spec() {
   local spec_file="$1"
   local full_path="$project_root/$spec_file"
   if [ -f "$full_path" ]; then
-    echo "✅ Running spec: $spec_file"
-    # Run RSpec with detailed output for better visibility
-    docker exec musashi-web-1 bundle exec rspec "$spec_file" \
+    echo "✅ Running spec: $spec_file" >&2
+    # Capture RSpec output to process it
+    local rspec_output
+    rspec_output=$(docker exec musashi-web-1 bundle exec rspec "$spec_file" \
       --format documentation \
-      --format failures \
-      --backtrace \
-      --force-color
+      --force-color 2>&1)
     local spec_exit_code=$?
+
+    # If tests fail, output a concise summary to stderr
+    if [ $spec_exit_code -ne 0 ]; then
+      # Extract just the failure summary (limit output to avoid buffer overflow)
+      echo "$rspec_output" | head -n 50 >&2
+      echo "" >&2
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
+      # Extract failure lines
+      echo "$rspec_output" | grep -E "^\s+\d+\)|^Failed examples:|^rspec \./|Failure/Error:|expected.*to" | head -n 20 >&2
+    else
+      # Success - just show brief confirmation
+      echo "$rspec_output" | tail -n 5 >&2
+    fi
 
     # Handle test results
     if [ $spec_exit_code -ne 0 ]; then
-      echo ""
-      echo "⚠️  TESTS FAILED - FIX REQUIRED!"
-      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-      echo "The above test failures need to be fixed."
-      echo "Review the failure details and stack traces,"
-      echo "then make the necessary code changes."
-      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-      exit 1  # Non-blocking but signals need to fix
+      echo "" >&2
+      echo "⚠️  TESTS FAILED - FIX REQUIRED!" >&2
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
+      echo "The above test failures need to be fixed." >&2
+      echo "Review the failure details and stack traces," >&2
+      echo "then make the necessary code changes." >&2
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
+      exit 1  # Non-blocking error - shows failure details
     else
-      echo "✅ All specs passed successfully for: $spec_file"
+      echo "✅ All specs passed successfully for: $spec_file" >&2
     fi
   else
     # Check if file should be ignored
     if is_ignored "$relative_path"; then
-      echo "ℹ️  File is in .specignore, skipping spec check: $relative_path"
+      echo "ℹ️  File is in .specignore, skipping spec check: $relative_path" >&2
     else
-      echo "🚨 ERROR: SPEC REQUIRED!"
-      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-      echo "❌ No spec found for: $relative_path"
-      echo "❌ Expected spec at: $spec_file"
-      echo ""
-      echo "⚠️  YOU MUST CREATE THIS SPEC BEFORE PROCEEDING!"
-      echo ""
-      echo "To create the spec, run:"
-      echo "  touch $project_root/$spec_file"
-      echo ""
-      echo "Or if this file doesn't need a spec, add it to .specignore:"
-      echo "  echo '$relative_path' >> $project_root/.specignore"
-      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      echo "🚨 ERROR: SPEC REQUIRED!" >&2
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
+      echo "❌ No spec found for: $relative_path" >&2
+      echo "❌ Expected spec at: $spec_file" >&2
+      echo "" >&2
+      echo "⚠️  YOU MUST CREATE THIS SPEC BEFORE PROCEEDING!" >&2
+      echo "" >&2
+      echo "To create the spec, run:" >&2
+      echo "  touch $project_root/$spec_file" >&2
+      echo "" >&2
+      echo "Or if this file doesn't need a spec, add it to .specignore:" >&2
+      echo "  echo '$relative_path' >> $project_root/.specignore" >&2
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
 
       # Exit with code 2 to block execution (per Claude Code docs)
       exit 2
@@ -120,7 +132,7 @@ fi
 
 # Skip spec check for ignored files
 if is_ignored "$relative_path"; then
-  echo "ℹ️  File is in .specignore, no spec required: $relative_path"
+  echo "ℹ️  File is in .specignore, no spec required: $relative_path" >&2
   exit 0
 fi
 
@@ -148,5 +160,5 @@ if [ -n "$spec_file" ]; then
   run_spec "$spec_file"
   # Note: if run_spec calls exit 2, this line will never be reached
 else
-  echo "ℹ️  No spec mapping found for: $relative_path"
+  echo "ℹ️  No spec mapping found for: $relative_path" >&2
 fi
