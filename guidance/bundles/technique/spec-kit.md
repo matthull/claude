@@ -17,12 +17,12 @@ Aggregate guidance for spec-kit's specification-driven development workflow with
 
 ## Core Modules
 
-### Spec-Kit Specific
-@~/.claude/guidance/development-process/spec-kit-workflow.md
+### Documentation
 @~/.claude/guidance/documentation/task-handoffs.md
 
-### Task Management
-@~/.claude/guidance/development-process/task-list-management.md
+### Development Process
+@~/.claude/guidance/development-process/tdd-human-review-cycle.md
+@~/.claude/guidance/development-process/brownfield-development.md
 
 ### Context Optimization
 @~/.claude/guidance/ai-development/context-optimization.md

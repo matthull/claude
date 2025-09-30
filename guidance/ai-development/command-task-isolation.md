@@ -31,7 +31,7 @@ category: ai-development
 ## Subagent Template Pattern
 ```
 You are a [role] following:
-@~/.claude/guidance/relevant.md
+@~/.claude/guidance/[relevant-module].md
 
 Task: [Specific task]
 

@@ -14,46 +14,41 @@ category: development-process
 
 ## Pattern Discovery
 ```bash
-# Find similar code
 rg "ClassName" --type ruby
 find app/ -name "*service*"
-
-# Check existing patterns
 ls app/models/concerns/
 find spec/ -name "*similar*_spec.rb"
 ```
 
-## Investigation Before Assuming
-1. Test your specific usage
+## Investigation Protocol
+1. Test specific usage
 2. Find working examples
 3. Create minimal reproduction
 4. Ask user if infrastructure seems broken
 
-## Common Mistakes
+## Planning Anti-Patterns
 
-### Creating Parallel Models
+### Over-Specification
+❌ Planning service objects before complexity exists
+❌ Defining helper classes upfront
+❌ Specifying internal file organization
+✅ Let these emerge during implementation
+
+### Premature Abstraction
+❌ Service class in plan
+✅ Inline code first, extract when complex
+
+### Creating Parallel Structures
 ❌ New model when existing serves purpose
 ✅ Extend existing model with fields
 
 ### Assuming Global Breakage
-❌ "Encryption is broken globally"
-✅ Check your usage first
+❌ "Infrastructure is broken globally"
+✅ Test your specific case first
 
-### Pre-Planning Services
-❌ Plan services before complexity exists
-✅ Extract services during refactoring
-
-## Real Example: Seismic Integration
-
-**Wrong:**
-- Created IntegrationSettings model
-- Ignored existing SeismicIntegration
-- Pre-planned ContentUploader service
-
-**Right:**
-- Extended SeismicIntegration
-- Used existing ThirdPartySync concern
-- Let services emerge from refactoring
+### Planning Creep
+❌ HOW details (class structure, file organization)
+✅ WHAT goals (data model, API surface)
 
 ## When to Ask User
 - New architectural patterns
@@ -62,7 +57,8 @@ find spec/ -name "*similar*_spec.rb"
 - Deviating from conventions
 
 ## Checklist
-- [ ] Searched for existing solutions?
-- [ ] Can extend existing models?
-- [ ] Found pattern examples?
-- [ ] Verified issue isn't just your code?
+□ Focused on WHAT not HOW?
+□ Searched for existing solutions?
+□ Can extend existing models?
+□ Avoided pre-planning services?
+□ Verified issue isn't just your code?

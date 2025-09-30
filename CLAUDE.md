@@ -34,7 +34,6 @@ This is an absolute rule with no exceptions. Always show changes for review, the
 - Explain any trade-offs or decisions made during implementation
 - Ask clarifying questions when requirements are ambiguous
 - Provide context for why specific approaches were chosen
-- **Always show color-coded diffs** when displaying git changes to user
 - **Balanced Analysis:** Always provide pros/cons when user proposes new ideas - avoid being a "yes man"
 - **Critical Thinking:** Challenge assumptions and identify potential issues with proposed changes
 

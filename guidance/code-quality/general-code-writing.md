@@ -11,22 +11,23 @@ category: code-quality
 ### Test-Driven Development
 **ALWAYS use TDD when feasible** - Write tests first, then implementation.
 
-@~/.claude/guidance/testing/tdd-principles.md
+@~/.claude/guidance/testing/test-driven-development.md
 
 ### Testing Strategy
 Comprehensive approach to all testing activities.
 
-@~/.claude/guidance/testing/testing-strategy.md
+@~/.claude/guidance/testing/test-driven-development.md
 
 ### Code Quality
 Maintain high standards through review principles.
 
-@~/.claude/guidance/code-quality/code-review-principles.md
+@~/.claude/guidance/code-quality/immediately-runnable-code.md
 
 ### Error Handling
 Robust error management across all code.
-
-@~/.claude/guidance/code-quality/error-handling.md
+- Validate all inputs
+- Handle errors gracefully
+- Provide meaningful error messages
 
 ### Security First
 Always validate and authorize.
@@ -37,8 +38,9 @@ Always validate and authorize.
 
 ### Git Workflow
 Commit verification and atomic changes.
-
-@~/.claude/guidance/git/commit-verification-workflow.md
+- One complete feature per commit
+- Clear commit messages
+- Test before committing
 
 ### Balanced Analysis
 Critical thinking in design decisions.
