@@ -19,6 +19,7 @@ Aggregate guidance for spec-kit's specification-driven development workflow with
 
 ### Documentation
 @~/.claude/guidance/documentation/task-handoffs.md
+@~/.claude/guidance/documentation/stakeholder-review.md
 
 ### Development Process
 @~/.claude/guidance/development-process/tdd-human-review-cycle.md

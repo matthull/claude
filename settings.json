@@ -35,6 +35,5 @@
     "SessionStart": [],
     "UserPromptSubmit": []
   },
-  "alwaysThinkingEnabled": true,
-  "model": "opus"
+  "alwaysThinkingEnabled": true
 }

@@ -17,8 +17,7 @@ category: documentation
 ## Review Document Structure
 ```markdown
 # [Feature] Review for [Stakeholder]
-**Decision Required**: [Yes/No question]
-**Channel**: [Doc/Meeting/Slack]
+**Decisions/Feedback Requested**: [bullet list of decisions or feedback we're requesting]
 **Deadline**: [Date]
 
 ## Summary
@@ -31,11 +30,6 @@ category: documentation
 - [ ] [Specific decision needed]
 ```
 
-## Channel Selection
-- Async doc: Default
-- Meeting: Complex decisions
-- Slack: Quick clarifications
-
 ## Requirements Slicing Rules
 - Extract only sections relevant to decision
 - Remove implementation details for non-technical reviewers
@@ -45,5 +39,4 @@ category: documentation
 ## Anti-patterns
 - Sending entire spec
 - Vague decision requests
-- Missing deadlines
 - Technical jargon in business reviews

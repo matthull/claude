@@ -8,6 +8,7 @@ category: documentation
 
 ## Purpose
 Bridge between planning and execution. Extract implementation details for current work.
+Enforce phase completion gates and testing discipline.
 
 ## When to Create
 - Pausing work mid-task
@@ -15,6 +16,8 @@ Bridge between planning and execution. Extract implementation details for curren
 - Complex multi-step implementation
 - Extracting phase from larger spec
 - Groups of related tasks
+- Phase completion checkpoint
+- Before stakeholder review
 
 ## Handoff Template
 
@@ -22,6 +25,7 @@ Bridge between planning and execution. Extract implementation details for curren
 # [Phase/Feature] Handoff
 **Branch**: {branch} | **Date**: {date} | **Tasks**: T###-T###
 **Goal**: {specific deliverable}
+**Implementation Context**: [MVP|Production] | **Timeline**: [e.g., "2 weeks"]
 
 ## Quick Context
 ```bash
@@ -31,17 +35,22 @@ grep "T041\|T042\|T043" specs/feature/tasks.md
 
 # Key files
 cat app/services/target.rb | sed -n '45,120p'
+
+# Verification script (MANDATORY)
+./specs/[###-feature]/verify-specs.sh
 ```
 
 ## Current State
 - Done: {completed items}
 - Next: {immediate steps}
 - Blocked: {any blockers}
+- Deferred: {items pushed to next phase with reasons}
 
 ## Task Details
 
 ### T###: [Task Name] [P]
 **Location**: `exact/file/path.rb`
+**Scope**: [MVP: minimal | Production: full error handling]
 **Method Signature**:
 ```ruby
 def method_name(params)
@@ -60,16 +69,53 @@ end
 - T001-T002 before T003
 - [P] tasks can run in parallel
 
-## Verification
+## Task Completion Gate (MANDATORY)
+
+### Loop 1: TDD Inner Loop
 ```bash
-docker exec app rspec spec/path/file_spec.rb
-grep -n "expected_pattern" app/
+# Per change - < 5 seconds
+docker exec app bundle exec rspec spec/specific/file_spec.rb
 ```
 
+### Loop 2: Project-Wide Verification
+```bash
+# MANDATORY before marking ANY task complete - < 30 seconds
+# Run the feature-specific verification script created in Phase 1
+./specs/[###-feature]/verify-specs.sh
+
+# OR if script not present, use inline find:
+docker exec app bash -c "bundle exec rspec $(find spec -path '*feature*' -name '*_spec.rb' | paste -sd' ')"
+```
+
+**Verification Script**: Created in Phase 1, dynamically finds ALL specs for this feature
+**Location**: `specs/[###-feature]/verify-specs.sh`
+**Must Run**: Before every commit during implementation
+
+### Failure Protocol
+- FAILING SPECS = INCOMPLETE TASK
+- FIX IMMEDIATELY
+- NO EXCEPTIONS
+- NO PROCEEDING
+- If script missing: ERROR "Phase 1 incomplete - create verify-specs.sh"
+
 ## Success Criteria
-- [ ] Tests passing
-- [ ] Specific outcome verified
-- [ ] Performance target met
+- [ ] Loop 1: Unit tests passing
+- [ ] Loop 2: All project tests passing
+- [ ] No breaking changes in dependent services
+- [ ] Implementation matches polish level
+```
+
+## Phase Boundaries
+
+Mark clear transition points:
+```markdown
+## Phase 1 Complete
+- [ ] All Phase 1 tasks done
+- [ ] Loop 2 verification passing
+- [ ] Stakeholder review complete
+- [ ] Ready for Phase 2
+
+Next: [Description of Phase 2]
 ```
 
 ## Spec-Driven Extraction
@@ -127,11 +173,26 @@ sed -n '45,120p' app/services/file.rb
 - Group together
 - Note shared resources
 
+## Deferred Items Tracking
+
+```markdown
+## Deferred to Next Phase
+| Task | Reason | Target |
+|------|--------|--------|
+| T045: Bulk operations | Not MVP critical | Phase 2 (Week 3) |
+| T048: Advanced filtering | Basic search sufficient | Phase 2 |
+```
+
+Document WHY each item was deferred
+Track WHEN it should be revisited
+Update plan.md deferred section
+
 ## Good Example
 
 ```markdown
 ### T004: Create Folder [P]
 **Location**: `app/services/seismic/client.rb`
+**Scope**: MVP: minimal error handling
 **Method Signature**:
 ```ruby
 def create_folder(teamsite_id, parent_folder_id, name)
@@ -144,6 +205,11 @@ end
 - Handles 409 conflict (exists)
 - Handles 404 (invalid teamsite)
 **Reference**: research.md:26-34
+
+**Before Commit**:
+```bash
+./specs/001-seismic/verify-specs.sh
+```
 ```
 
 ## Bad Example (Too Much Detail)
@@ -161,17 +227,37 @@ end
 ```
 ```
 
+## Living Documentation Updates
+
+Track discoveries during implementation:
+```markdown
+## API Discoveries
+- Endpoint returns 400 not 409 for duplicates
+- Token refresh requires /auth not /oauth/token
+- Rate limit: 100 req/min (not documented)
+
+Update in: specs/feature/lessons.md
+```
+
 ## Quality Checklist
 - [ ] Under 300 lines total
 - [ ] Grep commands provided
 - [ ] Line ranges specified
 - [ ] [P] tasks marked
-- [ ] Verification commands included
+- [ ] verify-specs.sh script referenced
+- [ ] Loop 2 verification enforced
+- [ ] Deferred items documented with reasons
 - [ ] No full implementations
 
 ## Anti-patterns
 - Loading entire specs with cat
 - Copying full implementations
 - Missing line references
-- No verification steps
+- No verify-specs.sh script
+- No Loop 2 verification commands
 - Mixing unrelated tasks
+- Marking task complete with failing specs
+- Not documenting deferred items
+- Skipping context (MVP vs Production)
+- Not tracking API discoveries
+- Committing without running verify-specs.sh
