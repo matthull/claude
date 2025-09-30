@@ -53,3 +53,5 @@ projects/
 todos/
 statsig/
 shell-snapshots/
+file-history/
+history.jsonl
