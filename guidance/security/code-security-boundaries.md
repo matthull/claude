@@ -2,6 +2,8 @@
 type: guidance
 status: current
 category: security
+tags:
+- software-dev
 ---
 
 # Code Security Boundaries

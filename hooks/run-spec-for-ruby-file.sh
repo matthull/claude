@@ -73,31 +73,16 @@ run_spec() {
       --force-color 2>&1)
     local spec_exit_code=$?
 
-    # If tests fail, output a concise summary to stderr
-    if [ $spec_exit_code -ne 0 ]; then
-      # Extract just the failure summary (limit output to avoid buffer overflow)
-      echo "$rspec_output" | head -n 50 >&2
-      echo "" >&2
-      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
-      # Extract failure lines
-      echo "$rspec_output" | grep -E "^\s+\d+\)|^Failed examples:|^rspec \./|Failure/Error:|expected.*to" | head -n 20 >&2
-    else
-      # Success - just show brief confirmation
-      echo "$rspec_output" | tail -n 5 >&2
-    fi
+    # Send full output to user's terminal
+    echo "$rspec_output" >&2
 
     # Handle test results
     if [ $spec_exit_code -ne 0 ]; then
-      echo "" >&2
-      echo "⚠️  TESTS FAILED - FIX REQUIRED!" >&2
-      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
-      echo "The above test failures need to be fixed." >&2
-      echo "Review the failure details and stack traces," >&2
-      echo "then make the necessary code changes." >&2
-      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
-      exit 1  # Non-blocking error - shows failure details
+      # Extract "Failures:" section and send to stderr for Claude to see
+      echo "$rspec_output" | sed -n '/^Failures:/,$p' >&2
+      exit 2  # Blocking error - test what this blocks
     else
-      echo "✅ All specs passed successfully for: $spec_file" >&2
+      echo "✅ All specs passed" # Brief success message for Claude (stdout)
     fi
   else
     # Check if file should be ignored

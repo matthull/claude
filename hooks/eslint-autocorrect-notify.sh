@@ -76,60 +76,64 @@ if [ -n "$eslint_output" ] && [ "$eslint_output" != "[]" ]; then
   total_issues=$((error_count + warning_count))
 
   if [ "$total_issues" -eq 0 ]; then
-    echo ""
-    echo "✅ CLAUDE: ALL ESLINT CHECKS PASSED"
-    echo "   No manual corrections needed - file is clean!"
-    echo ""
-    echo "═══════════════════════════════════════════════════════════════════"
+    echo "" >&2
+    echo "✅ CLAUDE: ALL ESLINT CHECKS PASSED" >&2
+    echo "   No manual corrections needed - file is clean!" >&2
+    echo "" >&2
+    echo "═══════════════════════════════════════════════════════════════════" >&2
     exit 0
   fi
 
-  echo ""
-  echo "⚠️  CLAUDE: MANUAL FIXES REQUIRED"
-  echo "   🔴 Errors: $error_count | ⚠️  Warnings: $warning_count"
-  echo ""
-  echo "These issues could not be auto-corrected:"
-  echo "───────────────────────────────────────────────────────────────"
+  echo "" >&2
+  echo "⚠️  CLAUDE: MANUAL FIXES REQUIRED" >&2
+  echo "   🔴 Errors: $error_count | ⚠️  Warnings: $warning_count" >&2
+  echo "" >&2
+  echo "These issues could not be auto-corrected:" >&2
+  echo "───────────────────────────────────────────────────────────────" >&2
 
-  # Parse and display individual messages
+  # Parse and display individual messages for user (stderr)
   messages=$(echo "$eslint_output" | jq -r '.[0].messages[]? | "\(.line):\(.column) [\(.severity == 2 | if . then "ERROR" else "WARN" end)] \(.ruleId // "unknown"): \(.message)"' 2>/dev/null)
 
   if [ -n "$messages" ]; then
     echo "$messages" | while IFS= read -r msg; do
       if [[ "$msg" =~ "ERROR" ]]; then
-        echo "🔴 $msg"
+        echo "🔴 $msg" >&2
       else
-        echo "⚠️  $msg"
+        echo "⚠️  $msg" >&2
       fi
     done
   fi
 
-  echo ""
-  echo "───────────────────────────────────────────────────────────────"
-  echo ""
-  echo "📝 CLAUDE ACTION REQUIRED:"
-  echo "   1. Fix these issues manually in your next edit"
-  echo "   2. Or add eslint-disable comments if appropriate"
-  echo "   3. Or update .eslintrc configuration if needed"
-  echo ""
+  echo "" >&2
+  echo "───────────────────────────────────────────────────────────────" >&2
+  echo "" >&2
+  echo "📝 CLAUDE ACTION REQUIRED:" >&2
+  echo "   1. Fix these issues manually in your next edit" >&2
+  echo "   2. Or add eslint-disable comments if appropriate" >&2
+  echo "   3. Or update .eslintrc configuration if needed" >&2
+  echo "" >&2
 
   if [ "$error_count" -gt 0 ]; then
-    echo "🔴 CRITICAL: There are $error_count error(s) that must be fixed!"
-    echo ""
+    echo "🔴 CRITICAL: There are $error_count error(s) that must be fixed!" >&2
+    echo "" >&2
   fi
 
-  echo "To see detailed eslint output, run:"
-  echo "   docker exec musashi-web-1 yarn eslint $relative_path"
-  echo ""
-  echo "═══════════════════════════════════════════════════════════════════"
+  echo "To see detailed eslint output, run:" >&2
+  echo "   docker exec musashi-web-1 yarn eslint $relative_path" >&2
+  echo "" >&2
+  echo "═══════════════════════════════════════════════════════════════════" >&2
+
+  # Send raw issue details to stdout for Claude to see
+  echo "$messages"
+  exit 2  # Blocking error - Claude can see issues
 else
   # No JSON output or empty array means no issues
-  echo ""
-  echo "✅ CLAUDE: ALL ESLINT CHECKS PASSED"
-  echo "   No manual corrections needed - file is clean!"
-  echo ""
-  echo "═══════════════════════════════════════════════════════════════════"
+  echo "" >&2
+  echo "✅ CLAUDE: ALL ESLINT CHECKS PASSED" >&2
+  echo "   No manual corrections needed - file is clean!" >&2
+  echo "" >&2
+  echo "═══════════════════════════════════════════════════════════════════" >&2
 fi
 
-# Always exit 0 to not block edits
+# All clean - exit 0
 exit 0

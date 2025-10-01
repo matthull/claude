@@ -2,6 +2,8 @@
 type: guidance
 status: current
 category: architecture
+tags:
+- architecture
 ---
 
 # Cross-Layer Impact Analysis

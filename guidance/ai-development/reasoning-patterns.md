@@ -2,6 +2,8 @@
 type: guidance
 status: current
 category: ai-development
+tags:
+- ai-development
 ---
 
 # Reasoning Patterns in Prompts

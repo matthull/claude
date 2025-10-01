@@ -2,6 +2,8 @@
 type: guidance
 status: current
 category: code-quality
+tags:
+- coding
 ---
 
 # Immediately Runnable Code

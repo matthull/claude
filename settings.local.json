@@ -8,32 +8,23 @@
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Write",
+        "matcher": "Edit|MultiEdit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/commands/check-guidance-conciseness.sh",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Edit",
-        "hooks": [
+            "command": "/home/matt/.claude/hooks/run-spec-for-ruby-file.sh"
+          },
           {
             "type": "command",
-            "command": "~/.claude/commands/check-guidance-conciseness.sh",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "MultiEdit",
-        "hooks": [
+            "command": "/home/matt/.claude/hooks/rubocop-lint-ruby-file.sh"
+          },
           {
             "type": "command",
-            "command": "~/.claude/commands/check-guidance-conciseness.sh",
-            "timeout": 5
+            "command": "/home/matt/.claude/hooks/rubocop-autocorrect-notify.sh"
+          },
+          {
+            "type": "command",
+            "command": "/home/matt/.claude/hooks/eslint-autocorrect-notify.sh"
           }
         ]
       }

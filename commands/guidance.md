@@ -9,6 +9,7 @@ Manage the modular guidance library for Claude Code using isolated Task tool exe
 /guidance add project <content>  # Add to project-specific guidance
 /guidance list [scope]           # List available guidance modules
 /guidance search <query>         # Search and number guidance modules
+/guidance tag <tag-name>         # List guidance modules by tag
 /guidance load <query>           # Search and auto-load high-confidence matches
 /guidance load <numbers>         # Load specific modules by number from search
 ```
@@ -53,6 +54,20 @@ Fast search of guidance modules using direct tool calls (no Task delegation for 
 **Returns:** Numbered list of matching modules that can be loaded with `/guidance load`
 
 **Implementation:** Uses direct Grep tool (ripgrep) with parallel execution
+
+### tag
+Fast filtering of guidance modules by tags using the guidance-tag-search.sh script.
+
+**Parameters:**
+- **Tag name**: Tag to filter by (e.g., `backend`, `testing`, `frontend`, `integrations`)
+
+**Returns:** Numbered list of matching modules that can be loaded with `/guidance load`
+
+**Implementation:**
+Run `~/.claude/commands/guidance-tag-search.sh <tag-name>` using Bash tool. The script searches both global and project guidance directories for files with the specified tag in their frontmatter.
+
+**Common Tags:**
+Bundle names like `software-dev`, `coding`, `backend`, `frontend`, `testing`, `rails`, `ai-development`, `devops`, or custom tags like `integrations`.
 
 ### load  
 Smart loading of guidance modules - either by search query or by specific numbers.
@@ -322,6 +337,24 @@ For the 'list' subcommand, use direct Bash tool (lightweight operation):
 #   1. testing/tdd-principles.md (global)
 #   2. testing/testing-strategy.md (global)
 #   3. rails/fixture-based-testing.md (project)
+
+# Filter guidance by tag
+/guidance tag backend
+# → Shows numbered list of modules tagged with "backend"
+# Example output:
+#   1. security/validation-and-authorization.md (global)
+
+/guidance tag testing
+# → Shows all testing-related guidance
+# Example output:
+#   1. testing/test-driven-development.md (global)
+
+/guidance tag software-dev
+# → Shows foundational software development guidance
+# Example output:
+#   1. communication/balanced-analysis.md (global)
+#   2. security/code-security-boundaries.md (global)
+#   3. development-process/no-interface-guessing.md (global)
 
 # Load testing guidance (auto-loads high-confidence matches)
 /guidance load testing

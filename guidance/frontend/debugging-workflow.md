@@ -2,6 +2,8 @@
 type: guidance
 status: current
 category: frontend
+tags:
+- frontend
 ---
 
 # Frontend Debugging Workflow

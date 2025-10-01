@@ -77,13 +77,13 @@ fi
 offense_count=$(echo "$rubocop_output" | grep -c "^$relative_path:[0-9]+:[0-9]+")
 
 if [ "$offense_count" -gt 0 ]; then
-  echo ""
-  echo "⚠️  CLAUDE: MANUAL FIXES REQUIRED - $offense_count issue(s) remain"
-  echo ""
-  echo "These issues could not be auto-corrected:"
-  echo "───────────────────────────────────────────────────────────────"
+  echo "" >&2
+  echo "⚠️  CLAUDE: MANUAL FIXES REQUIRED - $offense_count issue(s) remain" >&2
+  echo "" >&2
+  echo "These issues could not be auto-corrected:" >&2
+  echo "───────────────────────────────────────────────────────────────" >&2
 
-  # Extract and format offenses
+  # Extract and format offenses for user terminal (stderr)
   echo "$rubocop_output" | grep -E "^$relative_path:[0-9]+:[0-9]+" | while IFS= read -r line; do
     # Parse line:column:severity:cop_name:message
     location=$(echo "$line" | cut -d: -f2-3)
@@ -100,24 +100,28 @@ if [ "$offense_count" -gt 0 ]; then
       *) icon="ℹ️ " level="INFO" ;;
     esac
 
-    echo ""
-    echo "$icon Line $location [$cop]"
-    echo "   $message"
+    echo "" >&2
+    echo "$icon Line $location [$cop]" >&2
+    echo "   $message" >&2
   done
 
-  echo ""
-  echo "───────────────────────────────────────────────────────────────"
-  echo ""
-  echo "📝 CLAUDE ACTION REQUIRED:"
-  echo "   1. Fix these issues manually in your next edit"
-  echo "   2. Or add rubocop:disable comments if appropriate"
-  echo "   3. Or update .rubocop.yml configuration if needed"
-  echo ""
-  echo "To see full rubocop output, run:"
-  echo "   rubocop $relative_path"
-  echo ""
-  echo "═══════════════════════════════════════════════════════════════════"
+  echo "" >&2
+  echo "───────────────────────────────────────────────────────────────" >&2
+  echo "" >&2
+  echo "📝 CLAUDE ACTION REQUIRED:" >&2
+  echo "   1. Fix these issues manually in your next edit" >&2
+  echo "   2. Or add rubocop:disable comments if appropriate" >&2
+  echo "   3. Or update .rubocop.yml configuration if needed" >&2
+  echo "" >&2
+  echo "To see full rubocop output, run:" >&2
+  echo "   rubocop $relative_path" >&2
+  echo "" >&2
+  echo "═══════════════════════════════════════════════════════════════════" >&2
+
+  # Send raw offense lines to stdout for Claude to see
+  echo "$rubocop_output" | grep -E "^$relative_path:[0-9]+:[0-9]+"
+  exit 2  # Blocking error - Claude can see issues
 fi
 
-# Always exit 0 to not block edits
+# All clean - exit 0
 exit 0

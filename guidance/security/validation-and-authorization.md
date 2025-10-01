@@ -2,6 +2,8 @@
 type: guidance
 status: current
 category: security
+tags:
+- backend
 ---
 
 # Validation and Authorization Principles

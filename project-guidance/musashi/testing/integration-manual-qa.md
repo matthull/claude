@@ -2,6 +2,9 @@
 type: guidance
 status: current
 category: testing
+tags:
+- backend
+- integrations
 ---
 
 # Integration and Manual QA Testing

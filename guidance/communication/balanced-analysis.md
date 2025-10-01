@@ -2,6 +2,9 @@
 type: guidance
 status: current
 category: communication
+tags:
+- ai-development
+- software-dev
 ---
 
 # Balanced Analysis

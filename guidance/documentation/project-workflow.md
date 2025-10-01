@@ -2,6 +2,8 @@
 type: guidance
 status: current
 category: documentation
+tags:
+- implementation-planning
 ---
 
 # Project Workflow

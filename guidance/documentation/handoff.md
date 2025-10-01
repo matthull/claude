@@ -2,6 +2,8 @@
 type: guidance
 status: current
 category: documentation
+tags:
+- devops
 ---
 
 # Task Handoff Document

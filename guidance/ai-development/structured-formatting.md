@@ -2,6 +2,8 @@
 type: guidance
 status: current
 category: ai-development
+tags:
+- ai-development
 ---
 
 # Structured Formatting for Prompts

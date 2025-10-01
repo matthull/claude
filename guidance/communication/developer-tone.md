@@ -2,6 +2,8 @@
 type: guidance
 status: current
 category: communication
+tags:
+- ai-development
 ---
 
 # Developer-to-Developer Communication

@@ -2,6 +2,8 @@
 type: guidance
 status: current
 category: testing
+tags:
+- testing
 ---
 
 # Test-Driven Development

@@ -66,22 +66,22 @@ done
 offense_count=$(echo "$rubocop_output" | grep -c "^$relative_path:[0-9]+:[0-9]+")
 
 if [ "$offense_count" -gt 0 ]; then
-  echo ""
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo "❌ Found $offense_count Rubocop issue(s) that couldn't be auto-fixed!"
-  echo ""
-  echo "These issues require manual intervention:"
-  echo "1. Fix them manually in your editor"
-  echo "2. Or add exceptions to .rubocop.yml if appropriate"
-  echo "3. Or disable specific cops with inline comments if needed"
-  echo ""
-  echo "To see full details, run:"
-  echo "  rubocop $relative_path"
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "" >&2
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
+  echo "❌ Found $offense_count Rubocop issue(s) that couldn't be auto-fixed!" >&2
+  echo "" >&2
+  echo "These issues require manual intervention:" >&2
+  echo "1. Fix them manually in your editor" >&2
+  echo "2. Or add exceptions to .rubocop.yml if appropriate" >&2
+  echo "3. Or disable specific cops with inline comments if needed" >&2
+  echo "" >&2
+  echo "To see full details, run:" >&2
+  echo "  rubocop $relative_path" >&2
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
 
-  # Don't exit with error - just warn
-  # This allows the edit to proceed but makes issues visible
-  exit 0
+  # Send offense details to stdout for Claude to see
+  echo "$rubocop_output" | grep -E "^$relative_path:[0-9]+:[0-9]+"
+  exit 2  # Blocking error - Claude can see issues and fix them
 fi
 
 echo "✅ All issues were auto-corrected!"

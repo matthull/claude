@@ -2,6 +2,9 @@
 type: guidance
 status: current
 category: development-process
+tags:
+- coding
+- implementation-planning
 ---
 
 # Brownfield Development
