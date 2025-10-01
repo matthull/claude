@@ -20,6 +20,14 @@
           {
             "type": "command",
             "command": "/home/matt/.claude/hooks/rubocop-lint-ruby-file.sh"
+          },
+          {
+            "type": "command",
+            "command": "/home/matt/.claude/hooks/rubocop-autocorrect-notify.sh"
+          },
+          {
+            "type": "command",
+            "command": "/home/matt/.claude/hooks/eslint-autocorrect-notify.sh"
           }
         ]
       }

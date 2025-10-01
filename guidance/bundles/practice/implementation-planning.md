@@ -16,15 +16,15 @@ Planning implementation approach from requirements to executable tasks.
 ## Direct Includes
 
 ### Planning Documents
-- @../../documentation/implementation-plan.md
-- @../../documentation/requirements.md
-- @../../documentation/task-management.md
-- @../../planning/anti-patterns.md
+# - @../../documentation/implementation-plan.md  # File not found - removed
+# - @../../documentation/requirements.md  # File not found - removed
+# - @../../documentation/task-management.md  # File not found - removed
+# - @../../planning/anti-patterns.md  # Directory does not exist - removed
 
 ### Development Process
-- @../../development-process/incremental-implementation.md
+# - @../../development-process/incremental-implementation.md  # File not found - removed
 - @../../development-process/brownfield-development.md
-- @../../development-process/task-list-management.md
+# - @../../development-process/task-list-management.md  # File not found - removed
 
 ### Documentation
 - @../../documentation/task-handoffs.md

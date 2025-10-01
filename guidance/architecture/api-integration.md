@@ -75,6 +75,8 @@ Before making any API call, confirm:
 
 ## Testing External APIs
 
+<!-- @.claude/guidance/testing/vcr-recording-workflow.md - Project-specific, not available in global guidance -->
+
 ### Use Tools First
 - Test with cURL or Postman before coding
 - Verify responses match documentation

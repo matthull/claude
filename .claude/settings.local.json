@@ -68,7 +68,12 @@
       "Bash(do)",
       "Bash(if [ -f \"$file\" ])",
       "Bash(then)",
-      "Bash(else)"
+      "Bash(else)",
+      "Bash(sed:*)",
+      "Bash(/tmp/claude/validate_references.sh:*)",
+      "Bash(/tmp/claude/validate_final.sh:*)",
+      "Bash(/tmp/claude/validate_clean.sh:*)",
+      "Bash(/home/matt/.claude/commands/validate-guidance.sh:*)"
     ],
     "deny": [],
     "ask": []

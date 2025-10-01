@@ -13,6 +13,6 @@ System design, architectural decisions, and planning.
 - @../foundation/software-dev.md
 
 ## Direct Includes
-- @../../documentation/requirements.md
+# - @../../documentation/requirements.md  # File not found - removed
 - @../../architecture/cross-layer-impact.md
-# Future: @../../documentation/architecture-decisions.md
+# Future: @../../documentation/architecture-decisions.md  # File not found - placeholder for future

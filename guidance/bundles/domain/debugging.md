@@ -13,4 +13,4 @@ Troubleshooting, debugging, and problem resolution.
 - @../foundation/software-dev.md
 
 ## Direct Includes
-- @../../code-quality/error-handling.md
+# - @../../code-quality/error-handling.md  # File not found - removed
