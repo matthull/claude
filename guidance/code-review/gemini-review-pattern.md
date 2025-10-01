@@ -24,19 +24,24 @@ Keep Claude context minimal. Give Gemini everything.
 - **Test coverage**: After writing new features
 - **Cross-module impact**: When changing shared code
 
+## Required Tool
+**ALWAYS use:** `mcp__gemini-bridge__consult_gemini_with_files`
+
+**NEVER use:** `mcp__gemini-bridge__consult_gemini` (no file context)
+
 ## Basic Commands
 ```bash
 # Full module review
-mcp__gemini-bridge__consult_gemini_with_files \
-  query="Review this Rails controller for patterns, security, performance" \
-  directory="/path/to/project" \
-  files=["app/controllers/", "app/models/", "spec/controllers/", "config/routes.rb"]
+mcp__gemini-bridge__consult_gemini_with_files
+  query: "Review this Rails controller for patterns, security, performance"
+  directory: "/path/to/project"
+  files: ["app/controllers/", "app/models/", "spec/controllers/", "config/routes.rb"]
 
 # Architecture validation
-mcp__gemini-bridge__consult_gemini_with_files \
-  query="Does this follow our architecture patterns? Check against all project docs" \
-  directory="/path/to/project" \
-  files=["app/services/", "working-docs/", ".claude/", "spec/"]
+mcp__gemini-bridge__consult_gemini_with_files
+  query: "Does this follow our architecture patterns? Check against all project docs"
+  directory: "/path/to/project"
+  files: ["app/services/", "working-docs/", ".claude/", "spec/"]
 ```
 
 ## Key Patterns
