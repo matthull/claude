@@ -146,7 +146,8 @@ sed -n '45,120p' app/services/file.rb
 
 ### INCLUDE
 - Method signatures, not implementations
-- Test scenarios, not full test code
+- Test scenarios as bullet lists, not full test code
+- What to test (behavior), not how to test (code structure)
 - API contracts, not internal logic
 - Line references: `file.rb:45-120`
 - Grep patterns with context: `-A 10`
@@ -154,9 +155,11 @@ sed -n '45,120p' app/services/file.rb
 ### EXCLUDE
 - Full file contents
 - Complete implementations
+- Complete test implementations (describe blocks with full code)
 - Internal logic details
 - Entire spec files
 - Unfiltered listings
+- RSpec/test framework syntax (just describe scenarios)
 
 ## Task Grouping
 
@@ -189,8 +192,9 @@ Document WHY each item was deferred
 Track WHEN it should be revisited
 Update plan.md deferred section
 
-## Good Example
+## Good Examples
 
+### Implementation Task
 ```markdown
 ### T004: Create Folder [P]
 **Location**: `app/services/seismic/client.rb`
@@ -214,8 +218,27 @@ end
 ```
 ```
 
-## Bad Example (Too Much Detail)
+### Test Task ✅ GOOD
+```markdown
+### T028: Write Integration Test
+**Location**: `spec/integration/properties_spec.rb` (NEW FILE)
+**Scope**: MVP - Test complete flow
+**Test Scenarios**:
+1. Full flow: Extract metadata → Resolve IDs → Upload with properties
+2. Cache behavior: Second asset uses cached IDs (no create calls)
+3. Error handling: Graceful 409, 404, 401 handling
 
+**Expected Behavior**:
+- MetadataExtractor returns hash with property names
+- CustomPropertyService resolves to [{id, values}] format
+- AssetExporter uploads with properties in metadata
+
+**Reference**: data-model.md (process flow), research.md (API contracts)
+```
+
+## Bad Examples (Too Much Detail)
+
+### Implementation Task ❌
 ```markdown
 ### T004: Create Folder ❌
 **Full Implementation**:
@@ -228,6 +251,26 @@ def create_folder(teamsite_id, parent_folder_id, name)
 end
 ```
 ```
+
+### Test Task ❌ TOO MUCH CODE
+```markdown
+### T028: Write Integration Test ❌
+**Test Scenarios**:
+```ruby
+describe 'Integration Test' do
+  let(:account) { accounts(:main) }
+  let(:asset) { testimonials(:first) }
+
+  it 'syncs with properties', :vcr do
+    properties = MetadataExtractor.extract(asset)
+    expect(properties).to include('name')
+    # ... 30+ more lines of full test code ...
+  end
+end
+```
+```
+
+**Why this is bad**: Shows complete test implementation instead of listing scenarios. Implementer should write the test themselves based on scenario descriptions.
 
 ## Living Documentation Updates
 

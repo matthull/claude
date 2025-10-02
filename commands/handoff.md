@@ -52,13 +52,18 @@ Extract from loaded files:
 - File paths, dependencies, [P] markers
 - Completed tasks (marked [x] in tasks.md)
 
-**Save to**: `specs/{project}/handoff-T###-T###-{date}.md`
+**Save to**: `specs/{project}/task-handoffs/handoff-T###-T###-{date}.md`
+
+**Create directory if needed**:
+```bash
+mkdir -p specs/{project}/task-handoffs
+```
 
 ### 5. Confirm
 
 Print:
 ```
-✅ Created: specs/{project}/handoff-T###-T###-{date}.md
+✅ Created: specs/{project}/task-handoffs/handoff-T###-T###-{date}.md
 
 Next: Load handoff and follow task-handoffs guidance
 ```

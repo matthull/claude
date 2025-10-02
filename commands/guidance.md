@@ -69,16 +69,29 @@ Run `~/.claude/commands/guidance-tag-search.sh <tag-name>` using Bash tool. The 
 **Common Tags:**
 Bundle names like `software-dev`, `coding`, `backend`, `frontend`, `testing`, `rails`, `ai-development`, `devops`, or custom tags like `integrations`.
 
-### load  
+### load
 Smart loading of guidance modules - either by search query or by specific numbers.
 
 **Two modes:**
-1. **Query mode** (`/guidance load testing`): Fast search and auto-load high-confidence matches
+1. **Query mode** (`/guidance load testing`): Fast search, auto-load top 2-3 matches, list rest
 2. **Number mode** (`/guidance load 1,3,5`): Loads specific modules from previous search results
 
 **Parameters:**
 - **Query**: Search terms to find and auto-load relevant modules
 - **Numbers**: Comma-separated list of result numbers from previous search
+
+**Auto-load cap:** Maximum 2-3 files automatically loaded to minimize context usage. Additional matches shown as numbered list for manual loading.
+
+**Output format:**
+```
+Auto-loaded (2 files, ~140 lines):
+✓ security/validation-and-authorization.md (90 lines)
+✓ testing/model-testing.md (50 lines)
+
+Also relevant (use /guidance load 3,4 to load):
+3. code-quality/error-handling.md (~60 lines)
+4. rails/active-record-patterns.md (~80 lines)
+```
 
 **Implementation:** Query mode uses direct tools (no Task delegation) for speed
 
@@ -280,17 +293,36 @@ For the 'load' subcommand, determine mode and act accordingly:
 - Use direct Read tool calls to load specified modules from stored search results
 - Reference the YAML mapping from previous search
 
-**Query Mode** (e.g., "testing"):  
+**Query Mode** (e.g., "testing"):
 - Use direct tools for performance (no Task delegation)
 - Run parallel Grep searches on both directories
-- Identify high-confidence matches (exact category/name matches)
-- Load high-confidence files with Read tool (parallel calls)
-- List remaining matches with numbers
+- Score all matches by relevance (see criteria below)
+- Auto-load ONLY top 2-3 highest-scoring matches
+- List remaining matches as numbered options with estimated line counts
+- Show total context loaded
 
-High-Confidence Criteria:
-- Exact category match (e.g., "testing" → testing/*.md)
-- Exact filename match (e.g., "tdd" → tdd-*.md)
-- Project-specific versions of requested topics
+**Relevance Scoring (highest to lowest):**
+1. **Exact filename match** (score: 100) - e.g., "tdd" → tdd-principles.md
+2. **Exact category match** (score: 80) - e.g., "testing" → testing/*.md
+3. **Project-specific version** (score: 70) - project guidance overrides global
+4. **Tag match in frontmatter** (score: 60) - matches tag in YAML frontmatter
+   - Leverage `~/.claude/commands/guidance-tag-search.sh` logic for YAML parsing
+   - Check if query terms match any tags in the file's frontmatter
+   - Can call the script directly or replicate its Python YAML parsing approach
+5. **Content keyword match** (score: 40) - query term appears in file content
+
+**Auto-load Cap:**
+- Load ONLY top 2-3 files (never exceed 3 auto-loads)
+- Prioritize project guidance over global when scores are equal
+- Show estimated line count for each loaded file
+- Display total context loaded (sum of all line counts)
+- List remaining matches (4+) as numbered options
+
+**Output Requirements:**
+- Group auto-loaded files with checkmarks and line counts
+- Show "Also relevant" section for matches 3+
+- Include context size estimates throughout
+- Provide clear instruction for loading additional files
 
 **CRITICAL**: Use parallel tool calls - multiple Grep/Read tools in same message!
 
@@ -356,18 +388,30 @@ For the 'list' subcommand, use direct Bash tool (lightweight operation):
 #   2. security/code-security-boundaries.md (global)
 #   3. development-process/no-interface-guessing.md (global)
 
-# Load testing guidance (auto-loads high-confidence matches)
+# Load testing guidance (auto-loads top 2-3 matches only)
 /guidance load testing
-# → Auto-loads modules 1-3 (high confidence)
-# → Lists modules 4-8 as additional options
+# → Auto-loaded (3 files, ~220 lines):
+#   ✓ testing/tdd-principles.md (90 lines)
+#   ✓ testing/testing-strategy.md (80 lines)
+#   ✓ testing/model-testing.md (50 lines)
+#
+#   Also relevant (use /guidance load 4,5,6 to load):
+#   4. rails/fixture-based-testing.md (~65 lines)
+#   5. testing/integration-testing.md (~70 lines)
+#   6. code-quality/test-coverage.md (~45 lines)
 
 # Load specific modules from search results
 /guidance load 1,3
 # → Loads modules 1 and 3 from previous search
 
-# Quick load common topics
+# Quick load common topics (narrow query = fewer auto-loads)
 /guidance load tdd
-# → Auto-loads TDD-related guidance
+# → Auto-loaded (2 files, ~140 lines):
+#   ✓ testing/tdd-principles.md (90 lines)
+#   ✓ development-process/tdd-human-review-cycle.md (50 lines)
+#
+#   Also relevant (use /guidance load 3 to load):
+#   3. testing/testing-strategy.md (~80 lines)
 
 # Complex guidance where agent asks for clarification
 /guidance add global "Cache invalidation strategies and patterns"

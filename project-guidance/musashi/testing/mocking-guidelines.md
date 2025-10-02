@@ -8,9 +8,11 @@ category: testing
 
 ## Core Principle: Mock at System Boundaries Only
 
+**Quick Rule:** If you type `allow(service)` or `allow(subject)` where `service`/`subject` is the object you're testing, STOP. You're self-mocking.
+
 ### What to Mock
 ✅ **External APIs** - Third-party services (Seismic, Stripe, etc.)
-✅ **File Storage** - S3, cloud storage, external file systems  
+✅ **File Storage** - S3, cloud storage, external file systems
 ✅ **Network Calls** - HTTP requests, webhooks
 ✅ **Time-sensitive Operations** - Use Timecop for time-dependent tests
 ✅ **Expensive Operations** - Image processing, PDF generation (sparingly)
@@ -21,6 +23,7 @@ category: testing
 ❌ **ActiveRecord** - Use test database
 ❌ **Simple Collaborators** - Use real objects
 ❌ **Value Objects** - Too simple to mock
+❌ **🚨 NEVER Self-Mock** - Never mock methods on the object you're testing
 
 ## Testing Patterns
 
@@ -150,6 +153,27 @@ expect(service).to receive(:save_results)
 result = service.call
 expect(result).to be_success
 expect(result.value).to eq(expected_data)
+```
+
+### 2a. Self-Mocking (Testing Your Own Mocks)
+```ruby
+# ❌ TERRIBLE - Mocking the object under test, then verifying the mock was called
+describe CustomPropertyService do
+  it 'calls ensure_property_exists' do
+    allow(service).to receive(:ensure_property_exists).and_return('prop-id')
+    service.serialize_properties(properties: { 'name' => 'value' })
+    expect(service).to have_received(:ensure_property_exists) # You're testing your own mock!
+  end
+end
+
+# ✅ GOOD - Mock the external boundary, test the behavior
+describe CustomPropertyService do
+  it 'serializes properties using API data' do
+    allow(client).to receive(:list_properties).and_return(properties_from_api)
+    result = service.serialize_properties(properties: { 'name' => 'value' })
+    expect(result).to eq([{ id: 'prop-id', values: ['value'] }])
+  end
+end
 ```
 
 ### 3. Over-Specifying Mocks
