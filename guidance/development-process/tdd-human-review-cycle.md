@@ -3,7 +3,12 @@ type: guidance
 status: current
 category: development-process
 tags:
-- coding
+- tdd
+- review
+- development-process
+focus_levels:
+- strategic
+- design
 ---
 
 # TDD with Mandatory Human Review

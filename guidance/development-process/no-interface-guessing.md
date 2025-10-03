@@ -3,7 +3,10 @@ type: guidance
 status: current
 category: development-process
 tags:
-- software-dev
+- development-process
+focus_levels:
+- strategic
+- design
 ---
 
 # 🚨 CRITICAL: NEVER GUESS INTERFACES 🚨

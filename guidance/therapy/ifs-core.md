@@ -2,6 +2,10 @@
 type: guidance
 status: current
 category: therapy
+focus_levels:
+- strategic
+tags:
+- therapy
 ---
 
 # IFS (Internal Family Systems) Core

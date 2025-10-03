@@ -3,7 +3,10 @@ type: guidance
 status: current
 category: documentation
 tags:
-- implementation-planning
+- documentation
+focus_levels:
+- design
+- implementation
 ---
 
 # Project Workflow

@@ -5,6 +5,8 @@ layer: technique
 parent: foundation/software-dev
 context: Working with spec-kit for specification-driven development
 estimated_lines: 450
+focus_levels:
+- implementation
 ---
 
 # Spec-Kit Development Bundle

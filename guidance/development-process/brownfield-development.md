@@ -3,8 +3,10 @@ type: guidance
 status: current
 category: development-process
 tags:
-- coding
-- implementation-planning
+- development-process
+focus_levels:
+- strategic
+- design
 ---
 
 # Brownfield Development

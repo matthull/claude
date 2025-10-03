@@ -4,6 +4,8 @@ layer: technique
 parent: practice/backend.md
 context: Ruby language development
 estimated_lines: 50
+focus_levels:
+- implementation
 ---
 # Technique: Ruby Development
 

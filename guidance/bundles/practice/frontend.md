@@ -4,6 +4,11 @@ layer: practice
 parent: domain/coding.md
 context: Client-side development
 estimated_lines: 100
+focus_levels:
+- design
+- implementation
+tags:
+- frontend
 ---
 # Practice: Frontend
 

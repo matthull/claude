@@ -79,7 +79,6 @@ Guidance operates at three distinct focus levels:
    - Match by: filename, category, tags, content keywords
 
 4. **Smart Scoring (focus-aware):**
-   - Primary focus level match: +50 (file primarily for this level)
    - Exact task+component match: 100 (e.g., "implementing controllers" → controller-implementation.md)
    - Task-specific guidance: 80 (e.g., "implementing" → implementation-patterns.md)
    - Component-specific: 70 (e.g., "controllers" → controller-patterns.md)
@@ -238,7 +237,6 @@ tags: [rspec, testing]
 type: guidance
 category: architecture
 focus_levels: [strategic, design]  # For planning and design, not coding
-primary_focus: strategic  # Optional: which level this primarily targets
 tags: [system-design, planning]
 ---
 ```
@@ -248,7 +246,6 @@ tags: [system-design, planning]
 type: guidance
 category: rails
 focus_levels: [design, implementation]  # Technical design and coding
-primary_focus: implementation
 tags: [rails, mvc]
 ---
 ```

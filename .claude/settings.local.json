@@ -73,7 +73,15 @@
       "Bash(/tmp/claude/validate_references.sh:*)",
       "Bash(/tmp/claude/validate_final.sh:*)",
       "Bash(/tmp/claude/validate_clean.sh:*)",
-      "Bash(/home/matt/.claude/commands/validate-guidance.sh:*)"
+      "Bash(/home/matt/.claude/commands/validate-guidance.sh:*)",
+      "Bash(git clone:*)",
+      "Bash(bun:*)",
+      "WebFetch(domain:bun.sh)",
+      "Bash(curl:*)",
+      "Bash(bash)",
+      "Bash(~/.bun/bin/bun:*)",
+      "mcp__guidance__guidance_load",
+      "Bash(rg:*)"
     ],
     "deny": [],
     "ask": []

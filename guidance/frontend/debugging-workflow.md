@@ -4,6 +4,9 @@ status: current
 category: frontend
 tags:
 - frontend
+focus_levels:
+- design
+- implementation
 ---
 
 # Frontend Debugging Workflow

@@ -2,6 +2,10 @@
 type: guidance
 status: current
 category: code-search
+focus_levels:
+- implementation
+tags:
+- code-search
 ---
 
 # Efficient Code Search

@@ -3,7 +3,10 @@ type: guidance
 status: current
 category: documentation
 tags:
-- devops
+- documentation
+focus_levels:
+- design
+- implementation
 ---
 
 # Task Handoff Document

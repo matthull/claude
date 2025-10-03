@@ -2,6 +2,10 @@
 type: guidance
 status: current
 category: tools
+focus_levels:
+- implementation
+tags:
+- tools
 ---
 
 # Tmux Sidecar

@@ -4,6 +4,11 @@ layer: domain
 parent: foundation/software-dev.md
 context: System design and architectural planning
 estimated_lines: 120
+focus_levels:
+- strategic
+- design
+tags:
+- architecture
 ---
 # Domain: Architecture
 

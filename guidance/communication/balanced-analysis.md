@@ -3,8 +3,11 @@ type: guidance
 status: current
 category: communication
 tags:
-- ai-development
-- software-dev
+- communication
+focus_levels:
+- strategic
+- design
+- implementation
 ---
 
 # Balanced Analysis

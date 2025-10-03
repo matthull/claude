@@ -2,6 +2,12 @@
 type: guidance
 status: current
 category: code-quality
+focus_levels:
+- implementation
+tags:
+- code-quality
+- review
+- code
 ---
 
 # Code Review Principles

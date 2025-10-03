@@ -3,7 +3,11 @@ type: guidance
 status: current
 category: frontend
 tags:
+- architecture
 - frontend
+focus_levels:
+- design
+- implementation
 ---
 
 # CSS Architecture Principles

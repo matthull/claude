@@ -4,6 +4,9 @@ layer: domain
 parent: foundation/software-dev.md
 context: Developing AI systems, prompts, agents, and LLM integrations
 estimated_lines: 550
+focus_levels:
+- design
+- implementation
 ---
 
 # Domain: AI Development

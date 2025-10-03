@@ -3,7 +3,11 @@ type: guidance
 status: current
 category: communication
 tags:
-- ai-development
+- communication
+focus_levels:
+- strategic
+- design
+- implementation
 ---
 
 # Developer-to-Developer Communication

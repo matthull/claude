@@ -1,5 +1,14 @@
 {
   "mcpServers": {
+    "guidance": {
+      "type": "stdio",
+      "command": "/home/matt/.bun/bin/bun",
+      "args": ["run", "/home/matt/.claude/mcp-servers/guidance/dist/index.js"],
+      "env": {
+        "MCP_TRANSPORT_TYPE": "stdio",
+        "NODE_ENV": "production"
+      }
+    },
     "gemini-bridge": {
       "type": "stdio",
       "command": "uvx",

@@ -2,6 +2,11 @@
 type: guidance
 status: current
 category: ai-development
+focus_levels:
+- design
+- implementation
+tags:
+- ai-development
 ---
 
 # Ultra-Concise Guidance Enforcement

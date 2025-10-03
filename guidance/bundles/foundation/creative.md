@@ -3,6 +3,8 @@ type: bundle
 layer: foundation
 context: Creative writing and content creation
 estimated_lines: 60
+focus_levels:
+- strategic
 ---
 # Foundation: Creative
 

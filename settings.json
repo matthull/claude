@@ -8,7 +8,6 @@
       "Edit(/home/matt/code/musashi)"
     ]
   },
-  "model": "opus",
   "hooks": {
     "PostToolUse": [
       {

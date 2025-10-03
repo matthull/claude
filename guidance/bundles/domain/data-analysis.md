@@ -4,6 +4,9 @@ layer: domain
 parent: foundation/software-dev.md
 context: Data science and analysis tasks
 estimated_lines: 80
+focus_levels:
+- strategic
+- design
 ---
 # Domain: Data Analysis
 

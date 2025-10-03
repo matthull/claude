@@ -3,7 +3,10 @@ type: guidance
 status: current
 category: security
 tags:
-- backend
+- security
+focus_levels:
+- design
+- implementation
 ---
 
 # Validation and Authorization Principles

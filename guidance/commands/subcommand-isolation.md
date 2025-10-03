@@ -2,6 +2,10 @@
 type: guidance
 status: current
 category: commands
+focus_levels:
+- implementation
+tags:
+- commands
 ---
 
 # Subcommand Isolation Pattern

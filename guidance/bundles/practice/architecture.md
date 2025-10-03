@@ -4,6 +4,11 @@ layer: practice
 parent: domain/coding.md
 context: General system architecture and design patterns
 estimated_lines: 200
+focus_levels:
+- strategic
+- design
+tags:
+- architecture
 ---
 # Practice: Architecture (Global)
 

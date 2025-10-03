@@ -2,6 +2,12 @@
 type: guidance
 status: current
 category: documentation
+focus_levels:
+- design
+- implementation
+tags:
+- review
+- documentation
 ---
 
 # Stakeholder Review

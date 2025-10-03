@@ -4,6 +4,9 @@ layer: practice
 parent: domain/coding.md
 context: Data persistence and database work
 estimated_lines: 80
+focus_levels:
+- design
+- implementation
 ---
 # Practice: Database
 

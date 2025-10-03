@@ -4,6 +4,9 @@ layer: practice
 parent: domain/architecture.md
 context: Planning implementation approach and task breakdown
 estimated_lines: 250
+focus_levels:
+- design
+- implementation
 ---
 
 # Practice: Implementation Planning

@@ -3,7 +3,11 @@ type: guidance
 status: current
 category: security
 tags:
-- software-dev
+- code
+- security
+focus_levels:
+- design
+- implementation
 ---
 
 # Code Security Boundaries

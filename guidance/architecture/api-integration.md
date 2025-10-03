@@ -2,6 +2,12 @@
 type: guidance
 status: current
 category: architecture
+focus_levels:
+- strategic
+- design
+tags:
+- architecture
+- api
 ---
 
 # API Integration Patterns

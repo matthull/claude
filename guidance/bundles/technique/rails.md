@@ -4,6 +4,10 @@ layer: technique
 parent: technique/ruby-dev.md
 context: Ruby on Rails framework development
 estimated_lines: 50
+focus_levels:
+- implementation
+tags:
+- rails
 ---
 # Technique: Rails
 

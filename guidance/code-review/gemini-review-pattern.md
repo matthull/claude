@@ -2,6 +2,12 @@
 type: guidance
 status: current
 category: code-review
+focus_levels:
+- design
+- implementation
+tags:
+- review
+- code-review
 ---
 
 # Gemini Review Pattern

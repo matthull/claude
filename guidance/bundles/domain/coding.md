@@ -4,6 +4,9 @@ layer: domain
 parent: foundation/software-dev.md
 context: Active code writing and implementation
 estimated_lines: 200
+focus_levels:
+- strategic
+- design
 ---
 # Domain: Coding
 

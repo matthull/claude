@@ -3,6 +3,8 @@ type: bundle
 layer: foundation
 context: Mental health and therapeutic support
 estimated_lines: 60
+focus_levels:
+- strategic
 ---
 # Foundation: Therapeutic
 

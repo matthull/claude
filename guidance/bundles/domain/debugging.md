@@ -4,6 +4,9 @@ layer: domain
 parent: foundation/software-dev.md
 context: Troubleshooting and problem solving
 estimated_lines: 80
+focus_levels:
+- strategic
+- design
 ---
 # Domain: Debugging
 

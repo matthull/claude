@@ -3,6 +3,8 @@ type: bundle
 layer: foundation
 context: All software development work
 estimated_lines: 150
+focus_levels:
+- strategic
 ---
 # Foundation: Software Development
 

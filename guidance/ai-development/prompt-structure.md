@@ -4,6 +4,9 @@ status: current
 category: ai-development
 tags:
 - ai-development
+focus_levels:
+- design
+- implementation
 ---
 
 # Prompt Structure

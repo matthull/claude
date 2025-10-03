@@ -4,6 +4,10 @@ layer: practice
 parent: domain/coding.md
 context: Test-driven development and testing strategies
 estimated_lines: 120
+focus_levels:
+- implementation
+tags:
+- testing
 ---
 # Practice: Testing
 

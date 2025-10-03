@@ -4,6 +4,9 @@ status: current
 category: architecture
 tags:
 - architecture
+focus_levels:
+- strategic
+- design
 ---
 
 # Cross-Layer Impact Analysis

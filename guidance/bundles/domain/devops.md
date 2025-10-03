@@ -4,6 +4,9 @@ layer: domain
 parent: foundation/software-dev.md
 context: Operations, infrastructure, and deployment
 estimated_lines: 100
+focus_levels:
+- strategic
+- design
 ---
 # Domain: DevOps
 
