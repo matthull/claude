@@ -27,7 +27,7 @@ category: vue
 - Use stories as visual TDD tool
 - Check stories frequently during development
 - Access at `localhost:6006`
-- Use Puppeteer to verify story rendering
+- Use Chrome MCP to verify story rendering
 
 ### Story Structure
 - Include all component states
@@ -47,7 +47,7 @@ category: vue
 - Story content runs inside iframe
 - Access with: `document.querySelector('#storybook-preview-iframe')`
 - Query story elements through iframe's contentDocument
-- Essential for Puppeteer testing of stories
+- Essential for Chrome MCP testing of stories
 
 ## Component Testing Strategy
 
@@ -103,7 +103,7 @@ Use Vitest ONLY for:
 ### Regression Testing
 - Take screenshots before changes
 - Compare after implementation
-- Use Puppeteer for automation
+- Use Chrome MCP for automation
 - Document expected visual changes
 - Flag unintended modifications
 

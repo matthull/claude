@@ -22,12 +22,12 @@ category: testing
 
 ### Visual Tests
 - Storybook for component testing and documentation
-- Puppeteer for browser automation
+- Chrome MCP for browser automation
 - Screenshot comparison for regression
 - Manual review for UX quality
 
 ### End-to-End Tests
-- Puppeteer for critical user journeys
+- Chrome MCP for critical user journeys
 - Verify full stack functionality
 - Test external integrations
 - Simulate real user behavior
@@ -45,7 +45,7 @@ category: testing
 2. API endpoint testing with request specs
 3. Frontend implementation with Storybook stories (component tests)
 4. Vitest for non-component JavaScript/TypeScript code
-5. Puppeteer regression testing
+5. Chrome MCP regression testing
 6. Manual QA verification
 
 ## Testing Principles
@@ -97,7 +97,7 @@ category: testing
 - Store modules
 - API services
 
-### Integration Testing (Puppeteer)
+### Integration Testing (Chrome MCP)
 - User workflows
 - Cross-system features
 - External API interactions

@@ -9,30 +9,16 @@ tags:
 
 # Integration and Manual QA Testing
 
-## Puppeteer Testing Patterns
+## Chrome MCP Testing Patterns
 
 ### Local Development Access
 - App: `http://localhost:3000`
 - Storybook: `http://localhost:6006`
-- Admin tool: `/admin` (direct URL modification)
+- Admin: `/admin`
 - Research library: `/user-research-library`
-- Test credentials in `db/seeds.rb`
+- Test credentials: `db/seeds.rb`
 
-### Login Workflow
-1. Navigate to localhost:3000
-2. Fill email field (input[type="email"])
-3. Click Next (input[type="submit"])
-4. Fill password field (input[type="password"])
-5. Submit (input[type="submit"])
-
-### Navigation Tips
-- Many buttons are actually `<a>` tags
-- Use comprehensive selectors: `a, button, [role="button"]`
-- Login form uses input[type="submit"], not button elements
-- Take screenshots frequently for debugging
-- Use JavaScript evaluation for complex selections
-
-### When to Include Puppeteer Tests
+### When to Include Browser Tests
 Include for every implementation UNLESS:
 - No visible web app impact (background jobs, instrumentation)
 - Pure documentation updates

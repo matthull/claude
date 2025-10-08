@@ -154,9 +154,9 @@ category: vue
 When implementing new components, follow this TDD-style loop:
 1. **Write Storybook story first** - Define the component's expected interface
 2. **Create minimal component** - Just enough to render in Storybook
-3. **Load in browser via Puppeteer** - Verify component renders correctly
+3. **Load in browser via Chrome MCP** - Verify component renders correctly
 4. **Iterate with live feedback** - Develop component while checking in browser
-5. **Add interaction tests** - Test user interactions via Puppeteer
+5. **Add interaction tests** - Test user interactions via Chrome MCP
 6. **Refactor once working** - Clean up with confidence
 
 ### Component Testing
@@ -173,8 +173,8 @@ When implementing new components, follow this TDD-style loop:
 - Test responsive behavior in stories
 - Keep stories synchronized with component changes
 
-### Puppeteer Browser Testing
-- Use Puppeteer to load Storybook stories during development
+### Chrome MCP Browser Testing
+- Use Chrome MCP to load Storybook stories during development
 - Verify visual rendering matches expectations
 - Test component interactions programmatically
 - Check responsive behavior at different viewports

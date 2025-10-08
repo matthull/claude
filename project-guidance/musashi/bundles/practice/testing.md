@@ -21,7 +21,7 @@ All project-specific testing patterns and guidelines:
 @../../testing/mocking-guidelines.md
 @../../testing/rails-mocking-examples.md
 @../../testing-patterns.md
-@../../puppeteer.md
+@../../chrome-mcp.md
 
 ### Backend Testing
 Rails-specific testing patterns:
@@ -37,7 +37,7 @@ Vue.js testing patterns:
 - Vitest for JavaScript/Vue testing
 - Fixtures over factories for performance
 - Request specs over controller specs
-- Puppeteer for browser automation
+- Chrome MCP for browser automation
 - Manual QA regression testing with screenshots
 
 ### Test Organization
@@ -58,4 +58,4 @@ Vue.js testing patterns:
 - Post-development verification
 - Visual regression testing
 - Manual testing for UX changes
-- Automated browser testing with Puppeteer
+- Automated browser testing with Chrome MCP

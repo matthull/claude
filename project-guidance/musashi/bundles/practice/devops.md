@@ -23,8 +23,8 @@ Docker and local development setup:
 @../../docker-commands.md
 
 ### Browser Automation Tools
-Puppeteer and testing tools:
-@../../puppeteer.md
+Chrome MCP for testing:
+@../../chrome-mcp.md
 
 ### Key DevOps Decisions
 - Docker for local development
