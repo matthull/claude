@@ -81,7 +81,13 @@
       "Bash(bash)",
       "Bash(~/.bun/bin/bun:*)",
       "mcp__guidance__guidance_load",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(node -e \"\nconst fs = require(''fs'');\nconst yaml = require(''yaml'');\nconst content = fs.readFileSync(''$HOME/.claude/guidance/bundles/technique/rails.md'', ''utf8'');\nconst match = content.match(/^---\\n([\\s\\S]*?)\\n---/);\nif (match) {\n  const frontmatter = yaml.parse(match[1]);\n  console.log(JSON.stringify(frontmatter, null, 2));\n}\n\")",
+      "Bash(pkill:*)",
+      "mcp__guidance__guidance_bundle_load",
+      "WebSearch",
+      "WebFetch(domain:claudelog.com)",
+      "WebFetch(domain:www.arsturn.com)"
     ],
     "deny": [],
     "ask": []

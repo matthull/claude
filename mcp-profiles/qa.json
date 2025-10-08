@@ -19,16 +19,10 @@
       "type": "http",
       "url": "https://mcp.context7.com/mcp"
     },
-    "puppeteer": {
+    "chrome-devtools-mcp": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
-      "env": {}
-    },
-    "playwright": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-playwright"],
+      "args": ["-y", "chrome-devtools-mcp"],
       "env": {}
     }
   }
