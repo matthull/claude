@@ -92,15 +92,7 @@ expect(result).to be_success
 - **Self-validating**: Clear pass/fail
 - **Timely**: Written with code
 
-## Critical Workflow
-1. Make ANY change (code/docs/formatting)
-2. Run relevant tests
-3. Fix failures immediately
-4. Only proceed when green
-
 ## Anti-patterns
-- NEVER: Skip tests for "harmless" changes
-- NEVER: Proceed with failing tests
 - NEVER: Test multiple behaviors per test
 - NEVER: Depend on execution order
 - NEVER: Use hardcoded test data

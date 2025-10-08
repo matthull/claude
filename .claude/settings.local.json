@@ -87,7 +87,9 @@
       "mcp__guidance__guidance_bundle_load",
       "WebSearch",
       "WebFetch(domain:claudelog.com)",
-      "WebFetch(domain:www.arsturn.com)"
+      "WebFetch(domain:www.arsturn.com)",
+      "Read(//home/matt/.local/**)",
+      "WebFetch(domain:www.eesel.ai)"
     ],
     "deny": [],
     "ask": []

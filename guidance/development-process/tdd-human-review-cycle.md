@@ -22,11 +22,11 @@ focus_levels:
 6. **REPEAT** - Next cycle only after current cycle committed
 
 ## Human Review Requirements
-- **ALWAYS** stop after GREEN phase
-- **NEVER** proceed to refactor without explicit human approval
-- **SHOW** current test status and minimal implementation
-- **WAIT** for human confirmation before refactoring
-- **ASK** "Ready to refactor?" or "Proceed to next cycle?"
+- You **MUST ALWAYS** stop after GREEN phase
+- You **MUST NEVER** proceed to refactor without explicit user approval
+- You **MUST SHOW** current test status and minimal implementation to the user
+- You **MUST WAIT** for user confirmation before refactoring
+- You **MUST ASK** "Ready to refactor?" or "Proceed to next cycle?"
 
 ## Review Points
 - Test correctly captures requirement
@@ -42,11 +42,11 @@ focus_levels:
 - Never commit partial cycles
 
 ## Anti-patterns
-- **NEVER** skip human review after green
-- **NEVER** refactor without approval
-- **NEVER** write multiple tests before going green
-- **NEVER** implement beyond test requirements
-- **NEVER** commit without completing full cycle
+- You **MUST NEVER** skip human review after green
+- You **MUST NEVER** refactor without user approval
+- You **MUST NEVER** write multiple tests before going green
+- You **MUST NEVER** implement beyond test requirements
+- You **MUST NEVER** commit without completing full cycle
 
 ## When to Apply
 - Feature development requiring test coverage

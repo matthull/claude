@@ -11,131 +11,56 @@ focus_levels:
 
 # Immediately Runnable Code
 
-## Core Principles
+## Core Principles for Implementation
 
-### Completeness Standards
-- **Full implementations** - No placeholder functions
-- **All imports included** - Every dependency declared
-- **Error handling present** - Try/catch where needed
-- **Edge cases covered** - Handle nulls and boundaries
-- **Return values specified** - No undefined returns
+- You **MUST ALWAYS** provide full, complete implementations
+- You **MUST ALWAYS** ensure all necessary imports are present and declared
+- You **MUST ALWAYS** implement appropriate error handling (e.g., try/catch where needed)
+- You **MUST ALWAYS** cover edge cases and handle nulls/boundaries
+- You **MUST ALWAYS** specify return values; you **MUST NEVER** have undefined returns
+- You **MUST ALWAYS** ensure code is syntactically correct and logically complete
+- You **MUST NEVER** assume libraries, helper functions, global variables, implicit type conversions, or default parameters are available without explicit verification
+- You **MUST ALWAYS** include required configuration for the environment
 
-### Working Code Requirements
-- **Syntactically correct** - Parses without errors
-- **Logically complete** - All branches implemented
-- **Dependencies available** - Uses existing libraries
-- **Data structures defined** - No assumed types
-- **Configuration included** - Environment ready
+## Code Completeness Checklist (Before Presenting Code)
 
-## Implementation Rules
-
-### Always Include
-- Import statements
-- Variable declarations
-- Error handling
-- Return statements
-- Type definitions (when applicable)
-- Required configuration
-
-### Never Assume
-- Available libraries without checking
-- Existing helper functions
-- Global variables
-- Implicit type conversions
-- Default parameters
-- Environment setup
-
-## Code Completeness Checklist
-
-### Before Presenting Code
 - ✓ Will it run as-is?
 - ✓ Are all functions implemented?
 - ✓ Is error handling present?
 - ✓ Are edge cases handled?
 - ✓ Would copy-paste work?
 
-### Common Incompleteness Patterns
-- `// TODO: implement this`
-- `pass` or `...` as body
-- Undefined function calls
+## Common Incompleteness Anti-Patterns (You MUST NEVER submit code with these)
+
+- `// TODO: implement this` or similar placeholder comments
+- `pass` or `...` as function/method body
+- Undefined function calls or references
 - Missing import statements
-- Hardcoded test values
-- Incomplete conditionals
+- Hardcoded test values in production code
+- Incomplete conditionals or logic branches
+- Commented-out logic
+- Assumed global state
+- Partial class definitions
 
 ## Error Handling Standards
 
-### Minimum Requirements
-- Catch likely exceptions
-- Validate inputs
-- Check null/undefined
-- Handle async failures
-- Provide error context
-
-### Error Response Patterns
-- Return error objects
-- Throw meaningful exceptions
-- Log error details
-- Graceful degradation
-- User-friendly messages
+- You **MUST ALWAYS** catch likely exceptions
+- You **MUST ALWAYS** validate all inputs
+- You **MUST ALWAYS** check for null/undefined values
+- You **MUST ALWAYS** handle asynchronous failures
+- You **MUST ALWAYS** provide clear error context
+- You **MUST ALWAYS** return error objects or throw meaningful exceptions
+- You **MUST ALWAYS** log error details appropriately
+- You **MUST ALWAYS** ensure graceful degradation and user-friendly messages where applicable
 
 ## When Pseudocode Is Acceptable
 
-### Only When
-- User explicitly requests it
-- Explaining an algorithm
-- Showing high-level flow
-- Comparing approaches
-- Teaching concepts
-
-### Mark Clearly
-- Label as pseudocode
-- Explain why not runnable
-- Provide path to implementation
-- Note missing pieces
-
-## Quality Indicators
-
-### Good: Immediately Runnable
-```
-Full working implementation with:
-- All imports
-- Error handling
-- Complete logic
-- Proper returns
-```
-
-### Bad: Incomplete Code
-```
-Partial implementation with:
-- TODO comments
-- Missing functions
-- No error handling
-- Assumed dependencies
-```
-
-## Testing Your Code
-
-### Mental Execution
-1. Trace through main path
-2. Check error conditions
-3. Verify edge cases
-4. Confirm return values
-5. Validate dependencies
-
-### Completeness Verification
-- No undefined references
-- All paths return values
-- Exceptions are caught
-- Resources are cleaned up
-- State is consistent
-
-## Anti-patterns
-- Placeholder implementations
-- Commented-out logic
-- Hardcoded test data
-- Missing error handling
-- Incomplete conditionals
-- Assumed global state
-- Undefined function calls
-- Partial class definitions
-
+- **Only When:**
+    - User explicitly requests it
+    - Explaining an algorithm or showing high-level flow
+    - Comparing approaches or teaching concepts
+- **You MUST ALWAYS Mark Clearly:**
+    - Label it explicitly as pseudocode
+    - Explain why it is not runnable
+    - Provide the path to the full implementation
+    - Note any missing pieces

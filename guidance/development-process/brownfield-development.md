@@ -15,7 +15,6 @@ focus_levels:
 - Assume existing code works
 - Search for patterns before creating
 - Extend existing models, don't create new
-- Ask user before new patterns
 
 ## Pattern Discovery
 ```bash
@@ -29,7 +28,6 @@ find spec/ -name "*similar*_spec.rb"
 1. Test specific usage
 2. Find working examples
 3. Create minimal reproduction
-4. Ask user if infrastructure seems broken
 
 ## Planning Anti-Patterns
 
@@ -54,12 +52,6 @@ find spec/ -name "*similar*_spec.rb"
 ### Planning Creep
 ❌ HOW details (class structure, file organization)
 ✅ WHAT goals (data model, API surface)
-
-## When to Ask User
-- New architectural patterns
-- Infrastructure-wide issues
-- New models/tables
-- Deviating from conventions
 
 ## Checklist
 □ Focused on WHAT not HOW?

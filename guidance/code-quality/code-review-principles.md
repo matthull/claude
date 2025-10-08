@@ -13,23 +13,20 @@ tags:
 # Code Review Principles
 
 ## Review Stance
-- ALWAYS provide pros and cons
-- NEVER be a "yes man"
-- Identify issues
-- Challenge assumptions
-- Consider alternatives
-- Evaluate trade-offs
+- You **MUST ALWAYS** provide pros and cons for suggested changes
+- You **MUST NEVER** be a "yes man"; you **MUST ALWAYS** identify issues and challenge assumptions
+- You **MUST ALWAYS** consider alternatives and evaluate trade-offs
 
 ## Reviewer Actions
-- Be specific: "This loop is O(n²). Use hash map for O(n)."
-- Be constructive: "Guard clause reduces nesting."
-- Explain WHY
-- Link documentation
-- Share experience
+- You **MUST ALWAYS** be specific: "This loop is O(n²). Use hash map for O(n)."
+- You **MUST ALWAYS** be constructive: "Guard clause reduces nesting."
+- You **MUST ALWAYS** explain WHY a change is suggested
+- You **MUST ALWAYS** link to relevant documentation
+- You **MUST ALWAYS** share relevant experience
 
 ## Author Actions
-- Stay open to feedback
-- Ask: "Can you elaborate?" "Better approach?" "Blocker or suggestion?"
+- You **MUST ALWAYS** stay open to feedback
+- You **MUST ALWAYS** ask clarifying questions: "Can you elaborate?" "Is there a better approach?" "Is this a blocker or a suggestion?"
 
 ## Review Priority
 1. Correctness
@@ -48,20 +45,20 @@ tags:
 □ Error handling appropriate
 □ Follows conventions
 
-## Red Flags
+## Red Flags (You MUST address these before approval)
 🚩 No tests for new functionality
 🚩 Commented-out code
-🚩 TODO without ticket
+🚩 TODO without an associated ticket/plan
 🚩 Magic numbers/strings
 🚩 Functions >50 lines
 🚩 Duplicate code
 🚩 Mixed concerns
 
 ## Feedback Categories
-**[BLOCKING]**: Security, data corruption, breaking changes
-**[SHOULD]**: Performance, bugs, missing error handling
-**[CONSIDER]**: Better approaches, refactoring, documentation
-**[NIT]**: Style, naming, formatting
+**[BLOCKING]**: Security, data corruption, breaking changes (You **MUST** address these immediately)
+**[SHOULD]**: Performance, bugs, missing error handling (You **SHOULD** address these before merging)
+**[CONSIDER]**: Better approaches, refactoring, documentation (You **MAY** consider these for future improvements)
+**[NIT]**: Style, naming, formatting (You **MAY** address these at your discretion)
 
 ## Format
 ```
@@ -71,39 +68,39 @@ tags:
 [NIT] Typo: "retrive" -> "retrieve"
 ```
 
-## DON'T
-- Rubber stamp
-- Nitpick focus
-- Request design changes in review
+## DON'T (You MUST NEVER do these)
+- Rubber stamp reviews
+- Focus solely on nitpicks
+- Request major architectural or design changes during a code review; these **MUST** be discussed and approved by the user beforehand
 - Delay reviews
-- Bulk comments
-- Be dismissive
-- Make it personal
-- Argue in comments
+- Provide bulk comments without specific context
+- Be dismissive of feedback
+- Make feedback personal
+- Argue in comments; resolve disagreements offline or escalate
 - Ignore feedback
 - Demand perfection
 
-## DO
+## DO (You MUST ALWAYS do these)
 **Authors:**
-- Small PRs
-- Clear descriptions
-- Self-review first
+- Submit small, focused Pull Requests (PRs)
+- Provide clear PR descriptions
+- Self-review your code before submitting
 - Respond to all comments
 
 **Reviewers:**
 - Review within 24 hours
-- Run the code
-- Check tests
-- Be thorough
-- Follow up
+- Run the code locally
+- Check tests thoroughly
+- Be thorough in your review
+- Follow up on comments
 
-## Automate
+## Automate (You MUST ALWAYS leverage automation for these)
 - Linters
 - Security scanners
 - Coverage tools
 - Complexity analyzers
 
-## Human Focus
+## Human Focus (You MUST ALWAYS focus human review on these areas)
 - Design decisions
 - Business logic
 - Edge cases
