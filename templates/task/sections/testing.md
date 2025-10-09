@@ -160,11 +160,15 @@ user.reload # Is state what you expect?
 - ❌ Test private methods directly (test through public interface)
 - ❌ Leave failing tests commented out
 - ❌ Commit tests with `.only` or `.skip` without explanation
+- ❌ Write one spec per response attribute (use comprehensive specs)
+- ❌ Use instance variables instead of `let`
+- ❌ Use `RSpec.describe` instead of `describe`
 
 **Prefer**:
 - ✅ Test behavior, not implementation
-- ✅ One assertion per test (when possible)
+- ✅ Comprehensive response specs (one spec per scenario, checking all attributes)
 - ✅ Descriptive test names that explain "why" not "what"
 - ✅ Test-first development (red-green-refactor)
 - ✅ Integration tests for critical user flows
 - ✅ Fast, focused unit tests for edge cases
+- ✅ `let` statements over instance variables

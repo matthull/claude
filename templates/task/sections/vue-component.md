@@ -8,6 +8,92 @@ source_guidance:
     - frontend/css-architecture
     - frontend/debugging-workflow
     - code-quality/immediately-runnable-code
+## CRITICAL: Vue 3 Composition API (ABSOLUTE)
+
+**You MUST NEVER use Options API**
+
+**RATIONALE:** Options API = technical debt during Vue 2→3 migration.
+
+**REQUIRED:**
+```vue
+<script setup lang="ts">
+// Composition API only
+</script>
+```
+
+**FORBIDDEN:**
+```vue
+<script>
+export default {
+  // ❌ Options API forbidden
+}
+</script>
+```
+
+**You MUST ALWAYS**:
+- ✅ Use `<script setup lang="ts">` syntax
+- ✅ Use TypeScript path aliases (@components/*, @lib/*)
+- ✅ Multi-word component names
+
+**You MUST NEVER**:
+- ❌ Use Options API (export default with data, methods, etc.)
+- ❌ Use relative imports (../../components)
+- ❌ Use single-word component names
+
+---
+
+## CRITICAL: Deprecated Libraries (ABSOLUTE)
+
+**You MUST NEVER use deprecated Vue 2 libraries**
+
+**RATIONALE:** These libraries break during Vue 3 migration.
+
+**FORBIDDEN Libraries**:
+- ❌ `vue-easy-toast`
+- ❌ `vue-select`
+- ❌ `vue-pagination-2`
+- ❌ `vue-clickaway`
+- ❌ `v-scroll-sync`
+- ❌ `vue-bootstrap` (all components)
+- ❌ BootstrapVue icons
+
+**REQUIRED Replacements**:
+- ✅ Toast: Project toast system
+- ✅ Icons: Bootstrap Icons (`<i class="bi bi-activity" />`)
+- ✅ Modal: `UEModal.vue` component
+
+---
+
+## CRITICAL: Error Handling Pattern (ABSOLUTE)
+
+**You MUST NEVER use console.log or alert for errors**
+
+**RATIONALE:** User-facing errors need proper UX.
+
+**REQUIRED Pattern:**
+```typescript
+import { reportError } from '@lib/errorHandler'
+
+async function process() {
+  try {
+    await apiCall()
+  } catch (e) {
+    this.$toast.error('Operation failed.')
+    reportError(e, 'process', 'ComponentName')
+  }
+}
+```
+
+**You MUST NEVER**:
+- ❌ Use `console.log` for errors
+- ❌ Use `alert()` for user feedback
+- ❌ Swallow errors silently
+
+**You MUST ALWAYS**:
+- ✅ Use toast system for user-facing errors
+- ✅ Use errorHandler for error reporting
+- ✅ Provide helpful error messages
+
 ---
 
 ## CRITICAL: Storybook is MANDATORY for Components (ABSOLUTE)
@@ -316,6 +402,11 @@ describe('useItemSelection', () => {
 ### Code Quality Checklist
 
 **Before Completing Task**:
+- [ ] **CRITICAL: `<script setup lang="ts">` used** (no Options API)
+- [ ] **CRITICAL: TypeScript path aliases used** (no relative imports)
+- [ ] **CRITICAL: No deprecated Vue 2 libraries** (vue-bootstrap, etc.)
+- [ ] **CRITICAL: Bootstrap Icons used** (no BootstrapVue icons)
+- [ ] **CRITICAL: Toast + errorHandler for errors** (no console.log/alert)
 - [ ] **CRITICAL: Storybook stories created for ALL presentational components**
 - [ ] **CRITICAL: ALL component stories verified in Storybook (Loop 2)**
 - [ ] **NO Vitest tests for components** (only for utilities/composables)
@@ -468,6 +559,11 @@ Patterns:
 ### Common Anti-patterns to Avoid
 
 **You MUST NEVER**:
+- ❌ **Use Options API** (use `<script setup lang="ts">` only)
+- ❌ **Use relative imports** (use TypeScript path aliases)
+- ❌ **Use deprecated Vue 2 libraries** (vue-bootstrap, vue-easy-toast, etc.)
+- ❌ **Use BootstrapVue icons** (use Bootstrap Icons)
+- ❌ **Use console.log/alert for errors** (use toast + errorHandler)
 - ❌ **Skip Storybook stories for presentational components**
 - ❌ **Skip Loop 2 story verification** (ALL modified components must be checked)
 - ❌ **Write Vitest tests for components** (Storybook is the test)
@@ -476,7 +572,6 @@ Patterns:
 - ❌ **Skip console check before debugging** (check console FIRST)
 - ❌ Use `any` type (define proper TypeScript types)
 - ❌ Mutate props directly (props are readonly)
-- ❌ Use Vue 2 patterns (Options API, $emit, etc.)
 - ❌ Put business logic in components (use composables)
 - ❌ Use inline styles for layout
 - ❌ Nest selectors more than 3 levels deep

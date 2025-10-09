@@ -7,6 +7,75 @@ source_guidance:
   global:
     - testing/test-driven-development
     - architecture/api-integration
+## CRITICAL: API Security Requirements (ABSOLUTE)
+
+**You MUST NEVER merge code without authentication and authorization**
+
+**RATIONALE:** Unauthenticated/unauthorized access = data breach.
+
+**You MUST ALWAYS verify**:
+- ✅ Authentication required (before_action :authenticate_user!)
+- ✅ Authorization checked (user owns/can access resource)
+- ✅ Resource scoped to current user/account
+- ✅ Strong parameters used (never permit!)
+
+**You MUST NEVER**:
+- ❌ Skip authentication checks
+- ❌ Skip authorization checks
+- ❌ Use client-side-only access control
+- ❌ Trust client-provided data
+- ❌ Write raw SQL queries
+- ❌ Interpolate user input into SQL
+
+**Authorization Pattern:**
+```ruby
+before_action :authenticate_user!
+before_action :authorize_resource
+
+def authorize_resource
+  @resource = current_user.resources.find(params[:id])
+end
+```
+
+---
+
+## CRITICAL: Input Validation (ABSOLUTE)
+
+**You MUST NEVER trust client data**
+
+**RATIONALE:** SQL injection = complete database compromise.
+
+**You MUST ALWAYS**:
+- ✅ Use strong parameters
+- ✅ Validate parameter types
+- ✅ Sanitize string inputs
+- ✅ Use ActiveRecord API (never raw SQL)
+
+**You MUST NEVER**:
+- ❌ Use `params.permit!`
+- ❌ Write raw SQL with user input
+- ❌ Use `find_by_sql` with user data
+- ❌ Interpolate params into queries
+
+---
+
+## CRITICAL: Data Exposure Prevention (ABSOLUTE)
+
+**You MUST NEVER expose sensitive data in API responses**
+
+**You MUST verify jbuilder files don't expose**:
+- ❌ Password hashes
+- ❌ Internal IDs unnecessarily
+- ❌ Admin-only fields
+- ❌ Raw error messages
+- ❌ Stack traces
+
+**Error Handling:**
+- ✅ Generic error messages publicly
+- ✅ Detailed errors logged internally
+- ✅ No database structure revealed
+- ✅ No internal logic exposed
+
 ---
 
 ## API Integration Details
@@ -261,9 +330,28 @@ DELETE /api/v2/resources/:id      - Delete resource
 - {GOTCHA_1}
 - {GOTCHA_2}
 
+### API Security Checklist
+
+**Before Completing Task**:
+- [ ] **CRITICAL: Authentication required** (before_action :authenticate_user!)
+- [ ] **CRITICAL: Authorization verified** (resource scoped to current user)
+- [ ] **CRITICAL: Strong parameters used** (never permit!)
+- [ ] **CRITICAL: No raw SQL queries**
+- [ ] **CRITICAL: No sensitive data in responses** (check jbuilder)
+- [ ] **CRITICAL: Error messages sanitized** (no stack traces/internal details)
+- [ ] Input validated server-side
+- [ ] Client data never trusted
+- [ ] Rate limits considered for sensitive endpoints
+
 ### Anti-patterns to Avoid
 
 **You MUST NEVER**:
+- ❌ **Skip authentication checks**
+- ❌ **Skip authorization checks**
+- ❌ **Use `params.permit!`**
+- ❌ **Write raw SQL queries**
+- ❌ **Expose sensitive data in responses**
+- ❌ **Trust client-provided data**
 - ❌ Make real API calls in tests without VCR
 - ❌ Commit API credentials (use ENV vars or Rails credentials)
 - ❌ Ignore error responses (always handle 4xx/5xx)

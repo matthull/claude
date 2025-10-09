@@ -30,6 +30,74 @@ source_guidance:
 - ✅ Add exactly ONE fixture per new model
 - ✅ Regenerate: `rake db:fixtures:dump` or `FIXTURES=true bundle exec rspec`
 
+## CRITICAL: Safe Database Migrations (ABSOLUTE)
+
+**You MUST NEVER create breaking migrations**
+
+**RATIONALE:** Breaking migrations cause production downtime.
+
+**You MUST IMMEDIATELY STOP** if a migration:
+- ❌ Adds column and uses it in same deploy
+- ❌ Removes column without `ignored_columns` first
+- ❌ Changes column type used by running code
+- ❌ Adds constraint on existing data
+- ❌ Renames column used by running code
+
+**Safe Patterns ONLY:**
+
+**Adding Column:**
+1. Add column (migration only)
+2. Deploy
+3. Use column (code in next PR)
+
+**Removing Column:**
+1. Remove code usage
+2. Add to `ignored_columns`
+3. Deploy
+4. Drop column (migration in next PR)
+
+---
+
+## CRITICAL: Rails Environment Checks (ABSOLUTE)
+
+**You MUST NEVER use `Rails.env.production?`**
+
+**RATIONALE:** Positive checks = easier staging/review app logic.
+
+**CORRECT:**
+```ruby
+['development', 'test'].include?(Rails.env)
+```
+
+**WRONG:**
+```ruby
+Rails.env.production?  # ❌ FORBIDDEN
+```
+
+---
+
+## CRITICAL: Strong Parameters vs Jbuilder Separation (ABSOLUTE)
+
+**You MUST NEVER share constants between strong_params and jbuilder**
+
+**RATIONALE:** Input acceptance (strong_params) and output presentation (jbuilder) are separate concerns.
+
+**WRONG:**
+```ruby
+FIELDS = [:name, :email]  # ❌ Shared constant
+params.require(:user).permit(FIELDS)
+json.extract! @user, *FIELDS
+```
+
+**CORRECT:**
+```ruby
+# In controller
+params.require(:user).permit(:name, :email)
+
+# In jbuilder
+json.extract! @user, :name, :email, :created_at
+```
+
 ---
 
 ## Ruby/Rails Implementation Details
@@ -185,6 +253,10 @@ ServiceName.new(edge_case_resource).call
 
 **Before Completing Task**:
 - [ ] **CRITICAL: No manual fixture .yml files created or edited** (must use fixture_builder.rb)
+- [ ] **CRITICAL: No breaking migrations** (add/remove columns follow safe patterns)
+- [ ] **CRITICAL: No `Rails.env.production?` usage** (use positive environment checks)
+- [ ] **CRITICAL: No shared constants between strong_params and jbuilder**
+- [ ] **CRITICAL: No caching without documented justification** (exhaust query optimization first)
 - [ ] RuboCop passes: `bundle exec rubocop {modified_files}`
 - [ ] No debug statements (`binding.pry`, `puts`, `console.log` remnants)
 - [ ] Method complexity reasonable (< 10 lines preferred)
@@ -339,6 +411,10 @@ When working on a task with canonical examples:
 
 **You MUST NEVER**:
 - ❌ **Create or edit manual fixture .yml files** (use fixture_builder.rb ONLY)
+- ❌ **Create breaking migrations** (follow safe add/remove patterns)
+- ❌ **Use `Rails.env.production?`** (use positive environment checks)
+- ❌ **Share constants between strong_params and jbuilder**
+- ❌ **Add caching without justification** (optimize queries first)
 - ❌ Skip writing tests first (TDD red phase)
 - ❌ Over-mock/stub in tests (test real behavior when possible)
 - ❌ Put business logic in controllers
