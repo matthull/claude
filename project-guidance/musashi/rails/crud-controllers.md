@@ -26,9 +26,27 @@ When creating a new CRUD controller:
 - Some controllers skip certain actions
 - Complex resources may override set_resource with additional includes
 
+## Environment Checks (CRITICAL)
+You **MUST NEVER** use `Rails.env.production?`
+
+**CORRECT:**
+```ruby
+['development', 'test'].include?(Rails.env)
+```
+
+**WRONG:**
+```ruby
+if Rails.env.production?
+```
+
+**RATIONALE:** Positive checks = easier staging/review app logic.
+
 ## Anti-patterns to Avoid
 - Don't add business logic to controllers - use service objects
 - Don't customize JSON responses in controller - use jbuilder
 - Don't do ActiveRecord queries without scoping to current_account
+- Don't use `Rails.env.production?` - use positive environment checks
+- Don't share constants between strong_params and jbuilder
+- Don't cache without documented justification
 
 Remember: When in doubt, open VideoLinkAssetsController and follow its patterns.

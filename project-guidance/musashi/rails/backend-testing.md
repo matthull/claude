@@ -58,8 +58,8 @@ category: rails
 - Includes/associations
 
 ### Response Testing
-- Avoid one spec per attribute
-- Test complete response structure in single spec
+- Test complete response structure in single comprehensive spec per scenario
+- **NEVER** write one spec per attribute - use comprehensive response checking
 - Verify JSON structure matches jbuilder
 - Check for N+1 queries
 - Test with realistic data volumes
@@ -78,6 +78,7 @@ category: rails
 - Fixtures are automatically loaded
 - Use `let` to expose fixtures
 - Example: `let(:user) { users(:main_user) }`
+- **NEVER** edit fixture yml files - use `fixture_builder.rb` instead
 - See fixture-based-testing.md for details
 
 ## Service Object Testing
@@ -171,6 +172,9 @@ category: rails
 - Testing framework behavior
 - Shared examples that obscure intent
 - Tests requiring specific order
+- Using instance variables instead of `let`
+- Using `RSpec.describe` instead of `describe`
+- One spec per response attribute (use comprehensive specs)
 
 ### Performance Issues
 - Using factories when fixtures exist

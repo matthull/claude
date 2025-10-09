@@ -55,7 +55,7 @@ category: vue
 - Document variable purposes
 
 ### CSS Custom Properties
-- Prefer CSS custom properties over Sass variables for runtime values
+- Prefer CSS variables over SASS variables
 - Use custom properties for theming
 - Keep custom property names consistent
 - Document custom property contracts
@@ -103,11 +103,13 @@ category: vue
 ## Icon Management
 
 ### Icon Systems
-- Use Bootstrap Icons as primary icon set
+- Use Bootstrap Icons as primary icon set: `<i class="bi bi-activity" />`
+- **NEVER** use BootstrapVue icons
+- **NEVER** use custom icons from `app/javascript/src/components/graphics`
+- Avoid "Max Icons" unless documented exception
 - Load icons efficiently
 - Keep icon usage consistent
 - Provide text alternatives
-- Avoid custom icons unless necessary
 
 ### SVG Handling
 - Import SVGs with proper suffix for raw import

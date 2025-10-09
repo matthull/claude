@@ -89,7 +89,9 @@
       "WebFetch(domain:claudelog.com)",
       "WebFetch(domain:www.arsturn.com)",
       "Read(//home/matt/.local/**)",
-      "WebFetch(domain:www.eesel.ai)"
+      "WebFetch(domain:www.eesel.ai)",
+      "Read(//home/matt/code/**)",
+      "Bash(for:*)"
     ],
     "deny": [],
     "ask": []

@@ -7,6 +7,21 @@ project: musashi
 
 # Fixture-Based Testing Strategy
 
+## You **MUST NEVER** Create Manual Fixture Files (CRITICAL)
+
+**RATIONALE:** fixture_builder gem regenerates all fixtures - manual .yml files in spec/fixtures/ or test/fixtures/ WILL BE DELETED on next regeneration.
+
+**You MUST NEVER:**
+- ❌ Create .yml files in spec/fixtures/ or test/fixtures/
+- ❌ Edit existing .yml fixture files
+- ❌ Use `File.write` to generate fixture files
+- ❌ Copy fixture patterns from standard Rails documentation
+
+**ALWAYS:**
+- ✅ Define fixtures ONLY in `spec/support/fixture_builder.rb`
+- ✅ Use FixtureBuilder.configure block
+- ✅ Regenerate: `rake db:fixtures:dump` or `FIXTURES=true bundle exec rspec`
+
 ## Overview
 This project prioritizes fixtures over factories for performance and consistency. Fixtures are defined in `spec/support/fixture_builder.rb` and provide typical test data scenarios.
 

@@ -1,0 +1,408 @@
+[DEBUG] executePreToolHooks called for tool: Write
+[DEBUG] Executing hooks for PreToolUse:Write
+[DEBUG] Getting matching hook commands for PreToolUse with query: Write
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Permission suggestions for Write: [
+  {
+    "type": "setMode",
+    "mode": "acceptEdits",
+    "destination": "session"
+  },
+  {
+    "type": "addDirectories",
+    "directories": [
+      "/home/matt/code/musashi/.claude/guidance/vue"
+    ],
+    "destination": "session"
+  }
+]
+[DEBUG] Getting matching hook commands for Notification with query: undefined
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+[DEBUG] AutoUpdaterWrapper: Installation type: npm-global, using native: false
+[DEBUG] FileHistory: Tracked file modification for /home/matt/code/musashi/.claude/guidance/vue/code-quality-standards.md
+[DEBUG] Writing to temp file: /home/matt/code/musashi/.claude/guidance/vue/code-quality-standards.md.tmp.860124.1760036409530
+[DEBUG] Temp file written successfully, size: 1397 bytes
+[DEBUG] Renaming /home/matt/code/musashi/.claude/guidance/vue/code-quality-standards.md.tmp.860124.1760036409530 to /home/matt/code/musashi/.claude/guidance/vue/code-quality-standards.md
+[DEBUG] File /home/matt/code/musashi/.claude/guidance/vue/code-quality-standards.md written atomically
+[DEBUG] Executing hooks for PostToolUse:Write
+[DEBUG] Getting matching hook commands for PostToolUse with query: Write
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 4 unique hooks for query "Write" (4 before deduplication)
+[DEBUG] Found 4 hook commands to execute
+[DEBUG] Executing hook command: /home/matt/.claude/hooks/eslint-autocorrect-notify.sh with timeout 60000ms
+[DEBUG] Executing hook command: /home/matt/.claude/hooks/rubocop-autocorrect-notify.sh with timeout 60000ms
+[DEBUG] Executing hook command: /home/matt/.claude/hooks/rubocop-lint-ruby-file.sh with timeout 60000ms
+[DEBUG] Executing hook command: /home/matt/.claude/hooks/run-spec-for-ruby-file.sh with timeout 60000ms
+[DEBUG] Hook command completed with status 0: /home/matt/.claude/hooks/eslint-autocorrect-notify.sh
+[DEBUG] Hook output does not start with {, treating as plain text
+[DEBUG] Hook command completed with status 0: /home/matt/.claude/hooks/rubocop-lint-ruby-file.sh
+[DEBUG] Hook output does not start with {, treating as plain text
+[DEBUG] Hook command completed with status 0: /home/matt/.claude/hooks/rubocop-autocorrect-notify.sh
+[DEBUG] Hook output does not start with {, treating as plain text
+[DEBUG] Hook command completed with status 0: /home/matt/.claude/hooks/run-spec-for-ruby-file.sh
+[DEBUG] Hook output does not start with {, treating as plain text
+[DEBUG] Hooks: getAsyncHookResponseAttachments called
+[DEBUG] Hooks: checkForNewResponses called
+[DEBUG] Hooks: Found 0 total hooks in registry
+[DEBUG] Hooks: checkForNewResponses returning 0 responses
+[DEBUG] Slash commands included in SlashCommand tool: /research, /validate-and-fix, /handoff, /code-review, /checkpoint:list, /checkpoint:restore, /checkpoint:create, /git:checkout, /git:ignore-init, /git:push, /git:status, /git:commit, /gh:repo-init, /dev:cleanup
+[DEBUG] Stream started - received first chunk
+[DEBUG] executePreToolHooks called for tool: Bash
+[DEBUG] Executing hooks for PreToolUse:Bash
+[DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Bash tool invoked with command: cd ~/code/musashi && git diff --stat
+[DEBUG] Bash tool description: Show summary of changes
+[DEBUG] Executing hooks for PostToolUse:Bash
+[DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Hooks: getAsyncHookResponseAttachments called
+[DEBUG] Hooks: checkForNewResponses called
+[DEBUG] Hooks: Found 0 total hooks in registry
+[DEBUG] Hooks: checkForNewResponses returning 0 responses
+[DEBUG] Slash commands included in SlashCommand tool: /research, /validate-and-fix, /handoff, /code-review, /checkpoint:list, /checkpoint:restore, /checkpoint:create, /git:checkout, /git:ignore-init, /git:push, /git:status, /git:commit, /gh:repo-init, /dev:cleanup
+[DEBUG] Stream started - received first chunk
+[DEBUG] executePreToolHooks called for tool: Bash
+[DEBUG] Executing hooks for PreToolUse:Bash
+[DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] AutoUpdaterWrapper: Installation type: npm-global, using native: false
+[DEBUG] AutoUpdaterWrapper: Installation type: npm-global, using native: false
+[DEBUG] Permission suggestions for Bash: [
+  {
+    "type": "addRules",
+    "rules": [
+      {
+        "toolName": "Bash",
+        "ruleContent": "git -C ~/code/musashi diff --stat"
+      }
+    ],
+    "behavior": "allow",
+    "destination": "localSettings"
+  }
+]
+[DEBUG] AutoUpdaterWrapper: Installation type: npm-global, using native: false
+[DEBUG] Bash tool invoked with command: git -C ~/code/musashi diff --stat
+[DEBUG] Bash tool description: Show musashi repo changes
+[DEBUG] Executing hooks for PostToolUse:Bash
+[DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Hooks: getAsyncHookResponseAttachments called
+[DEBUG] Hooks: checkForNewResponses called
+[DEBUG] Hooks: Found 0 total hooks in registry
+[DEBUG] Hooks: checkForNewResponses returning 0 responses
+[DEBUG] Slash commands included in SlashCommand tool: /research, /validate-and-fix, /handoff, /code-review, /checkpoint:list, /checkpoint:restore, /checkpoint:create, /git:checkout, /git:ignore-init, /git:push, /git:status, /git:commit, /gh:repo-init, /dev:cleanup
+[DEBUG] Stream started - received first chunk
+[DEBUG] executePreToolHooks called for tool: Bash
+[DEBUG] Executing hooks for PreToolUse:Bash
+[DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Permission suggestions for Bash: [
+  {
+    "type": "addRules",
+    "rules": [
+      {
+        "toolName": "Bash",
+        "ruleContent": "git -C ~/code/musashi status --short"
+      }
+    ],
+    "behavior": "allow",
+    "destination": "localSettings"
+  }
+]
+[DEBUG] AutoUpdaterWrapper: Installation type: npm-global, using native: false
+[DEBUG] Bash tool invoked with command: git -C ~/code/musashi status --short
+[DEBUG] Bash tool description: Show modified files
+[DEBUG] Executing hooks for PostToolUse:Bash
+[DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Hooks: getAsyncHookResponseAttachments called
+[DEBUG] Hooks: checkForNewResponses called
+[DEBUG] Hooks: Found 0 total hooks in registry
+[DEBUG] Hooks: checkForNewResponses returning 0 responses
+[DEBUG] Slash commands included in SlashCommand tool: /research, /validate-and-fix, /handoff, /code-review, /checkpoint:list, /checkpoint:restore, /checkpoint:create, /git:checkout, /git:ignore-init, /git:push, /git:status, /git:commit, /gh:repo-init, /dev:cleanup
+[DEBUG] Stream started - received first chunk
+[DEBUG] executePreToolHooks called for tool: Bash
+[DEBUG] Executing hooks for PreToolUse:Bash
+[DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Bash tool invoked with command: ls -lh ~/code/musashi/.claude/guidance/rails/safe-migrations.md ~/code/musashi/.claude/guidance/security/api-security-checklist.md ~/code/musashi/.claude/guidance/vue/vue3-migration-rules.md ~/code/musashi/.claude/guidance/vue/code-quality-standards.md 2>&1
+[DEBUG] Bash tool description: Verify new files created
+[DEBUG] Executing hooks for PostToolUse:Bash
+[DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Hooks: getAsyncHookResponseAttachments called
+[DEBUG] Hooks: checkForNewResponses called
+[DEBUG] Hooks: Found 0 total hooks in registry
+[DEBUG] Hooks: checkForNewResponses returning 0 responses
+[DEBUG] Slash commands included in SlashCommand tool: /research, /validate-and-fix, /handoff, /code-review, /checkpoint:list, /checkpoint:restore, /checkpoint:create, /git:checkout, /git:ignore-init, /git:push, /git:status, /git:commit, /gh:repo-init, /dev:cleanup
+[DEBUG] Stream started - received first chunk
+[DEBUG] Writing to temp file: /home/matt/.claude.json.tmp.860124.1760036437941
+[DEBUG] Preserving file permissions: 100644
+[DEBUG] Temp file written successfully, size: 140810 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /home/matt/.claude.json.tmp.860124.1760036437941 to /home/matt/.claude.json
+[DEBUG] File /home/matt/.claude.json written atomically
+[DEBUG] Writing to temp file: /home/matt/.claude.json.tmp.860124.1760036449222
+[DEBUG] Preserving file permissions: 100644
+[DEBUG] Temp file written successfully, size: 140810 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /home/matt/.claude.json.tmp.860124.1760036449222 to /home/matt/.claude.json
+[DEBUG] File /home/matt/.claude.json written atomically
+[DEBUG] Executing hooks for Stop
+[DEBUG] Getting matching hook commands for Stop with query: undefined
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Writing to temp file: /home/matt/.claude.json.tmp.860124.1760036449259
+[DEBUG] Preserving file permissions: 100644
+[DEBUG] Temp file written successfully, size: 140810 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /home/matt/.claude.json.tmp.860124.1760036449259 to /home/matt/.claude.json
+[DEBUG] File /home/matt/.claude.json written atomically
+[DEBUG] Hooks: getAsyncHookResponseAttachments called
+[DEBUG] Hooks: checkForNewResponses called
+[DEBUG] Hooks: Found 0 total hooks in registry
+[DEBUG] Hooks: checkForNewResponses returning 0 responses
+[DEBUG] Executing hooks for UserPromptSubmit
+[DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] FileHistory: Making snapshot for message 93c8b1c1-4618-4532-b062-20fcf0934bc0
+[DEBUG] FileHistory: Added snapshot for 93c8b1c1-4618-4532-b062-20fcf0934bc0, tracking 7 files
+[DEBUG] Slash commands included in SlashCommand tool: /research, /validate-and-fix, /handoff, /code-review, /checkpoint:list, /checkpoint:restore, /checkpoint:create, /git:checkout, /git:ignore-init, /git:push, /git:status, /git:commit, /gh:repo-init, /dev:cleanup
+[DEBUG] Stream started - received first chunk
+[DEBUG] executePreToolHooks called for tool: Grep
+[DEBUG] Executing hooks for PreToolUse:Grep
+[DEBUG] Getting matching hook commands for PreToolUse with query: Grep
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Grep" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Executing hooks for PostToolUse:Grep
+[DEBUG] Getting matching hook commands for PostToolUse with query: Grep
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Grep" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Hooks: getAsyncHookResponseAttachments called
+[DEBUG] Hooks: checkForNewResponses called
+[DEBUG] Hooks: Found 0 total hooks in registry
+[DEBUG] Hooks: checkForNewResponses returning 0 responses
+[DEBUG] Slash commands included in SlashCommand tool: /research, /validate-and-fix, /handoff, /code-review, /checkpoint:list, /checkpoint:restore, /checkpoint:create, /git:checkout, /git:ignore-init, /git:push, /git:status, /git:commit, /gh:repo-init, /dev:cleanup
+[DEBUG] Stream started - received first chunk
+[DEBUG] executePreToolHooks called for tool: Grep
+[DEBUG] Executing hooks for PreToolUse:Grep
+[DEBUG] Getting matching hook commands for PreToolUse with query: Grep
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Grep" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Executing hooks for PostToolUse:Grep
+[DEBUG] Getting matching hook commands for PostToolUse with query: Grep
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Grep" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Hooks: getAsyncHookResponseAttachments called
+[DEBUG] Hooks: checkForNewResponses called
+[DEBUG] Hooks: Found 0 total hooks in registry
+[DEBUG] Hooks: checkForNewResponses returning 0 responses
+[DEBUG] Slash commands included in SlashCommand tool: /research, /validate-and-fix, /handoff, /code-review, /checkpoint:list, /checkpoint:restore, /checkpoint:create, /git:checkout, /git:ignore-init, /git:push, /git:status, /git:commit, /gh:repo-init, /dev:cleanup
+[DEBUG] Stream started - received first chunk
+[DEBUG] executePreToolHooks called for tool: Read
+[DEBUG] Executing hooks for PreToolUse:Read
+[DEBUG] Getting matching hook commands for PreToolUse with query: Read
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] executePreToolHooks called for tool: Read
+[DEBUG] Executing hooks for PreToolUse:Read
+[DEBUG] Getting matching hook commands for PreToolUse with query: Read
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Executing hooks for PostToolUse:Read
+[DEBUG] Getting matching hook commands for PostToolUse with query: Read
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Executing hooks for PostToolUse:Read
+[DEBUG] Getting matching hook commands for PostToolUse with query: Read
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Hooks: getAsyncHookResponseAttachments called
+[DEBUG] Hooks: checkForNewResponses called
+[DEBUG] Hooks: Found 0 total hooks in registry
+[DEBUG] Hooks: checkForNewResponses returning 0 responses
+[DEBUG] Slash commands included in SlashCommand tool: /research, /validate-and-fix, /handoff, /code-review, /checkpoint:list, /checkpoint:restore, /checkpoint:create, /git:checkout, /git:ignore-init, /git:push, /git:status, /git:commit, /gh:repo-init, /dev:cleanup
+[DEBUG] Stream started - received first chunk
+[DEBUG] AutoUpdaterWrapper: Installation type: npm-global, using native: false
+[DEBUG] MCP server "context7": HTTP connection dropped after 304s uptime
+[DEBUG] MCP server "context7": Connection error: SSE stream disconnected: TypeError: terminated
+[DEBUG] executePreToolHooks called for tool: Edit
+[DEBUG] Executing hooks for PreToolUse:Edit
+[DEBUG] Getting matching hook commands for PreToolUse with query: Edit
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Edit" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Permission suggestions for Edit: [
+  {
+    "type": "setMode",
+    "mode": "acceptEdits",
+    "destination": "session"
+  }
+]
+[DEBUG] MCP server "context7": No token data found
+[DEBUG] AutoUpdaterWrapper: Installation type: npm-global, using native: false
+[DEBUG] FileHistory: Tracked file modification for /home/matt/.claude/project-guidance/musashi/vue/code-quality-standards.md
+[DEBUG] Writing to temp file: /home/matt/.claude/project-guidance/musashi/vue/code-quality-standards.md.tmp.860124.1760036476525
+[DEBUG] Preserving file permissions: 100644
+[DEBUG] Temp file written successfully, size: 1242 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /home/matt/.claude/project-guidance/musashi/vue/code-quality-standards.md.tmp.860124.1760036476525 to /home/matt/.claude/project-guidance/musashi/vue/code-quality-standards.md
+[DEBUG] File /home/matt/.claude/project-guidance/musashi/vue/code-quality-standards.md written atomically
+[DEBUG] Executing hooks for PostToolUse:Edit
+[DEBUG] Getting matching hook commands for PostToolUse with query: Edit
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 4 unique hooks for query "Edit" (4 before deduplication)
+[DEBUG] Found 4 hook commands to execute
+[DEBUG] Executing hook command: /home/matt/.claude/hooks/eslint-autocorrect-notify.sh with timeout 60000ms
+[DEBUG] Executing hook command: /home/matt/.claude/hooks/rubocop-autocorrect-notify.sh with timeout 60000ms
+[DEBUG] Executing hook command: /home/matt/.claude/hooks/rubocop-lint-ruby-file.sh with timeout 60000ms
+[DEBUG] Executing hook command: /home/matt/.claude/hooks/run-spec-for-ruby-file.sh with timeout 60000ms
+[DEBUG] Hook command completed with status 0: /home/matt/.claude/hooks/run-spec-for-ruby-file.sh
+[DEBUG] Hook output does not start with {, treating as plain text
+[DEBUG] Hook command completed with status 0: /home/matt/.claude/hooks/rubocop-lint-ruby-file.sh
+[DEBUG] Hook output does not start with {, treating as plain text
+[DEBUG] Hook command completed with status 0: /home/matt/.claude/hooks/rubocop-autocorrect-notify.sh
+[DEBUG] Hook output does not start with {, treating as plain text
+[DEBUG] Hook command completed with status 0: /home/matt/.claude/hooks/eslint-autocorrect-notify.sh
+[DEBUG] Hook output does not start with {, treating as plain text
+[DEBUG] executePreToolHooks called for tool: Edit
+[DEBUG] Executing hooks for PreToolUse:Edit
+[DEBUG] Getting matching hook commands for PreToolUse with query: Edit
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Edit" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Permission suggestions for Edit: [
+  {
+    "type": "setMode",
+    "mode": "acceptEdits",
+    "destination": "session"
+  }
+]
+[DEBUG] AutoUpdaterWrapper: Installation type: npm-global, using native: false
+[DEBUG] FileHistory: Tracked file modification for /home/matt/.claude/project-guidance/musashi/rails/crud-controllers.md
+[DEBUG] Writing to temp file: /home/matt/.claude/project-guidance/musashi/rails/crud-controllers.md.tmp.860124.1760036477567
+[DEBUG] Preserving file permissions: 100644
+[DEBUG] Temp file written successfully, size: 1797 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /home/matt/.claude/project-guidance/musashi/rails/crud-controllers.md.tmp.860124.1760036477567 to /home/matt/.claude/project-guidance/musashi/rails/crud-controllers.md
+[DEBUG] File /home/matt/.claude/project-guidance/musashi/rails/crud-controllers.md written atomically
+[DEBUG] Executing hooks for PostToolUse:Edit
+[DEBUG] Getting matching hook commands for PostToolUse with query: Edit
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 4 unique hooks for query "Edit" (4 before deduplication)
+[DEBUG] Found 4 hook commands to execute
+[DEBUG] Executing hook command: /home/matt/.claude/hooks/eslint-autocorrect-notify.sh with timeout 60000ms
+[DEBUG] Executing hook command: /home/matt/.claude/hooks/rubocop-autocorrect-notify.sh with timeout 60000ms
+[DEBUG] Executing hook command: /home/matt/.claude/hooks/rubocop-lint-ruby-file.sh with timeout 60000ms
+[DEBUG] Executing hook command: /home/matt/.claude/hooks/run-spec-for-ruby-file.sh with timeout 60000ms
+[DEBUG] Hook command completed with status 0: /home/matt/.claude/hooks/eslint-autocorrect-notify.sh
+[DEBUG] Hook output does not start with {, treating as plain text
+[DEBUG] Hook command completed with status 0: /home/matt/.claude/hooks/run-spec-for-ruby-file.sh
+[DEBUG] Hook output does not start with {, treating as plain text
+[DEBUG] Hook command completed with status 0: /home/matt/.claude/hooks/rubocop-autocorrect-notify.sh
+[DEBUG] Hook output does not start with {, treating as plain text
+[DEBUG] Hook command completed with status 0: /home/matt/.claude/hooks/rubocop-lint-ruby-file.sh
+[DEBUG] Hook output does not start with {, treating as plain text
+[DEBUG] Hooks: getAsyncHookResponseAttachments called
+[DEBUG] Hooks: checkForNewResponses called
+[DEBUG] Hooks: Found 0 total hooks in registry
+[DEBUG] Hooks: checkForNewResponses returning 0 responses
+[DEBUG] Slash commands included in SlashCommand tool: /research, /validate-and-fix, /handoff, /code-review, /checkpoint:list, /checkpoint:restore, /checkpoint:create, /git:checkout, /git:ignore-init, /git:push, /git:status, /git:commit, /gh:repo-init, /dev:cleanup
+[DEBUG] Stream started - received first chunk
+[DEBUG] executePreToolHooks called for tool: Bash
+[DEBUG] Executing hooks for PreToolUse:Bash
+[DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Permission suggestions for Bash: [
+  {
+    "type": "addRules",
+    "rules": [
+      {
+        "toolName": "Bash",
+        "ruleContent": "git diff:*"
+      }
+    ],
+    "behavior": "allow",
+    "destination": "localSettings"
+  }
+]
+[DEBUG] AutoUpdaterWrapper: Installation type: npm-global, using native: false
+[DEBUG] Bash tool invoked with command: git diff --color=always project-guidance/musashi/vue/code-quality-standards.md project-guidance/musashi/rails/crud-controllers.md
+[DEBUG] Bash tool description: Show the changes made to both guidance files
+[DEBUG] Executing hooks for PostToolUse:Bash
+[DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Hooks: getAsyncHookResponseAttachments called
+[DEBUG] Hooks: checkForNewResponses called
+[DEBUG] Hooks: Found 0 total hooks in registry
+[DEBUG] Hooks: checkForNewResponses returning 0 responses
+[DEBUG] Slash commands included in SlashCommand tool: /research, /validate-and-fix, /handoff, /code-review, /checkpoint:list, /checkpoint:restore, /checkpoint:create, /git:checkout, /git:ignore-init, /git:push, /git:status, /git:commit, /gh:repo-init, /dev:cleanup
+[DEBUG] Stream started - received first chunk
+[DEBUG] executePreToolHooks called for tool: Bash
+[DEBUG] Executing hooks for PreToolUse:Bash
+[DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+[DEBUG] Found 0 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Permission suggestions for Bash: [
+  {
+    "type": "addRules",
+    "rules": [
+      {
+        "toolName": "Bash",
+        "ruleContent": "git diff:*"
+      }
+    ],
+    "behavior": "allow",
+    "destination": "localSettings"
+  }
+]
+[DEBUG] AutoUpdaterWrapper: Installation type: npm-global, using native: false
+[DEBUG] Bash tool invoked with command: git diff --color=always project-guidance/musashi/vue/code-quality-standards.md
+[DEBUG] Bash tool description: Show changes to Vue code quality standards
+[DEBUG] Executing hooks for PostToolUse:Bash
+[DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+[DEBUG] Found 0 hook commands to execute
+[DEBUG] Hooks: getAsyncHookResponseAttachments called
+[DEBUG] Hooks: checkForNewResponses called
+[DEBUG] Hooks: Found 0 total hooks in registry
+[DEBUG] Hooks: checkForNewResponses returning 0 responses
+[DEBUG] Slash commands included in SlashCommand tool: /research, /validate-and-fix, /handoff, /code-review, /checkpoint:list, /checkpoint:restore, /checkpoint:create, /git:checkout, /git:ignore-init, /git:push, /git:status, /git:commit, /gh:repo-init, /dev:cleanup
+[DEBUG] Stream started - received first chunk
