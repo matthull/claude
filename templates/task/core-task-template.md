@@ -32,6 +32,39 @@ This handoff provides **guidance**, NOT implementations:
 
 ---
 
+## CRITICAL: Handling Unexpected Situations (ABSOLUTE)
+
+**You MUST IMMEDIATELY STOP when handoff assumptions are wrong.**
+
+**RATIONALE:** Wrong assumptions = wrong implementation.
+
+**IF codebase differs from handoff (missing classes, different APIs, wrong schema), invoke Stop and Ask:**
+```
+STOP immediately.
+
+Report:
+1. Handoff assumed: [Expected X]
+2. Actually found: [Y instead/doesn't exist]
+3. Impact: [Cannot proceed because...]
+4. Need guidance: [Should I... OR...?]
+
+AWAIT user decision.
+```
+
+**Handoff is NOT written in stone - re-plan when reality differs.**
+
+**You MUST NEVER**:
+- ❌ Guess what was intended
+- ❌ Adapt handoff silently
+- ❌ Proceed when unsure
+
+**You MUST ALWAYS**:
+- ✅ Stop when assumptions wrong
+- ✅ Explain discrepancy
+- ✅ Wait for guidance
+
+---
+
 ## Quick Context
 
 ```bash
@@ -177,6 +210,7 @@ Never skip without explicit user permission.
 - [ ] {CRITERION_1}
 - [ ] {CRITERION_2}
 - [ ] {CRITERION_3}
+- [ ] **No handoff assumptions violated** (used Stop and Ask if discrepancies found)
 - [ ] **Guidance only (no complete implementations provided)**
 - [ ] **All tests passing (zero failures)**
 - [ ] Loop 1 verification passing
