@@ -10,41 +10,26 @@ source_guidance:
     - code-quality/immediately-runnable-code
 ---
 
-## Test Strategy
+## Test Scenarios
 
-### Test Scenarios
+**Required**:
+- [ ] Happy path: {HAPPY_PATH}
+- [ ] Edge cases: {EDGE_CASES}
+- [ ] Error handling: {ERROR_SCENARIOS}
 
-**Scenario Coverage**:
-- [ ] **Happy path**: {HAPPY_PATH_DESCRIPTION}
-- [ ] **Edge cases**: {EDGE_CASES_LIST}
-- [ ] **Error handling**: {ERROR_SCENARIOS}
-- [ ] **Integration points**: {INTEGRATION_SCENARIOS}
-
-**Detailed Scenarios**:
-
-#### Scenario 1: {SCENARIO_NAME}
-**Given**: {PRECONDITIONS}
-**When**: {ACTION}
-**Then**: {EXPECTED_OUTCOME}
-
-**Test Implementation**:
+### {SCENARIO_1}
 ```ruby
-it '{behavior description}' do
-  # Arrange: {SETUP_DESCRIPTION}
-  {SETUP_CODE}
+it '{description}' do
+  # Arrange
+  {SETUP}
 
-  # Act: {ACTION_DESCRIPTION}
-  {ACTION_CODE}
+  # Act
+  {ACTION}
 
-  # Assert: {EXPECTATION_DESCRIPTION}
+  # Assert
   expect({RESULT}).to {MATCHER}
 end
 ```
-
-#### Scenario 2: {SCENARIO_NAME}
-**Given**: {PRECONDITIONS}
-**When**: {ACTION}
-**Then**: {EXPECTED_OUTCOME}
 
 ### Test Coverage Summary
 
@@ -68,60 +53,8 @@ end
 - **Integration tests**: {INTEGRATION_TEST_COUNT} (testing component interactions)
 - **System tests**: {SYSTEM_TEST_COUNT} (testing full workflows, if applicable)
 
-### Debugging Approach
-
-**Layered Testing Strategy** (when tests fail):
-
-1. **Lowest Level First**: Test in isolation
-   ```bash
-   # Backend example
-   rails console
-   {ISOLATED_COMPONENT_TEST}
-
-   # Verify basic functionality works
-   ```
-
-2. **Service/Component Level**: Test with minimal dependencies
-   ```ruby
-   # Minimal test setup
-   service = ServiceName.new(minimal_dependencies)
-   result = service.call
-   result.inspect
-   ```
-
-3. **Integration Level**: Test with real collaborators
-   ```ruby
-   # Integration test with actual database, APIs (stubbed), etc.
-   it 'integrates correctly' do
-     # Real ActiveRecord, stubbed external APIs
-   end
-   ```
-
-4. **Full System**: End-to-end testing
-   ```ruby
-   # Full request/response cycle
-   # OR browser-based system test
-   ```
-
-**Common Debugging Steps**:
-```ruby
-# 1. Add debug output to understand what's happening
-pp variable_name
-
-# 2. Check assumptions
-raise "Expected X, got #{actual}" unless condition
-
-# 3. Use debugger
-binding.pry  # (REMOVE before committing)
-
-# 4. Verify test data
-User.count  # Are records being created?
-user.reload # Is state what you expect?
-
-# 5. Check for order dependencies
-# Run single test: bundle exec rspec spec/file_spec.rb:42
-# Run in random order: bundle exec rspec --order random
-```
+<!-- PLANNER NOTE: Debugging approach usually not needed - implementers know -->
+<!-- Include only for complex debugging scenarios -->
 
 ### Test Quality Checklist
 

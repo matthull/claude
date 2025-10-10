@@ -3,205 +3,113 @@ type: task-template
 name: core-task-template
 description: Universal task handoff template for all coding tasks
 applies_to: all
-source_guidance:
-  global:
-    - development-process/tdd-human-review-cycle
-    - testing/test-driven-development
-    - code-quality/immediately-runnable-code
-    - ai-development/ultra-concise-enforcement
 ---
 
-# Task Handoff: {TASK_ID}
+<!-- PLANNER NOTE: This template provides guidance, NOT implementations
+     - Include: Method signatures, test structure, API contracts
+     - NEVER include: Complete implementations or solution code
+     - Apply ultra-concise principles throughout
+-->
 
-**Task ID**: {TASK_ID} | **Date**: {DATE}
+# Task: {TASK_ID}
+
 **Goal**: {TASK_GOAL}
 **Status**: {STATUS}
 
 ---
 
-## CRITICAL: Code Guidance Format
+## CRITICAL: Test Every New Method (ABSOLUTE)
 
-This handoff provides **guidance**, NOT implementations:
+**You MUST NEVER add a public method without its own test.**
 
-- ✅ Method signatures and interfaces
-- ✅ Expected test structure
-- ✅ API contracts and data shapes
-- ✅ Code pattern references
-- ❌ **NEVER complete implementations** - defeats TDD purpose
-- ❌ **NEVER pre-written solution code** - must write minimal code to pass tests
+**RATIONALE:** Untested methods = hidden bugs + broken contracts.
+
+**You MUST test at the layer where defined:**
+- Client method → Client spec
+- Service method → Service spec
+- Controller → Request spec
+- Model method → Model spec
+
+**WRONG:** Adding Client#update_file without client_spec.rb test
+**RIGHT:** Write client_spec.rb test FIRST (TDD red), then implement
 
 ---
 
-## CRITICAL: Handling Unexpected Situations (ABSOLUTE)
+## CRITICAL: Wrong Assumptions Stop and Ask Protocol (ABSOLUTE)
 
-**You MUST IMMEDIATELY STOP when handoff assumptions are wrong.**
+**You MUST IMMEDIATELY STOP if handoff assumptions are wrong.**
 
 **RATIONALE:** Wrong assumptions = wrong implementation.
 
-**IF codebase differs from handoff (missing classes, different APIs, wrong schema), invoke Stop and Ask:**
 ```
-STOP immediately.
-
-Report:
-1. Handoff assumed: [Expected X]
-2. Actually found: [Y instead/doesn't exist]
-3. Impact: [Cannot proceed because...]
-4. Need guidance: [Should I... OR...?]
-
+STOP when codebase differs from handoff.
+Report: Expected [X], found [Y]
+Impact: Cannot proceed because [reason]
+Need: Should I [option A] OR [option B]?
 AWAIT user decision.
 ```
 
-**Handoff is NOT written in stone - re-plan when reality differs.**
-
-**You MUST NEVER**:
-- ❌ Guess what was intended
-- ❌ Adapt handoff silently
-- ❌ Proceed when unsure
-
-**You MUST ALWAYS**:
-- ✅ Stop when assumptions wrong
-- ✅ Explain discrepancy
-- ✅ Wait for guidance
+**You MUST NEVER**: Guess, adapt silently, proceed when unsure
+**You MUST ALWAYS**: Stop immediately, explain clearly, wait for guidance
 
 ---
 
-## Quick Context
+## Context
 
 ```bash
-# Load ONLY relevant sections
+# Find relevant code
 {GREP_COMMANDS}
 
-# Key files
+# Check current implementation
 {CAT_COMMANDS}
-
-# Canonical examples (read and follow patterns)
-{CANONICAL_EXAMPLE_COMMANDS}
 ```
 
-**Note**: Canonical examples are exemplar implementations. Read them BEFORE implementing to understand codebase patterns and conventions.
+<!-- PLANNER NOTE: Include canonical examples ONLY if creating NEW class or major rewrite -->
+<!-- {CANONICAL_EXAMPLE_COMMANDS} -->
 
 ---
 
-## Current State
+## Task
 
-- **Done**: {LIST_OF_COMPLETED_ITEMS}
-- **Next**: {LIST_OF_UPCOMING_ITEMS}
-- **Blocked**: {LIST_OF_BLOCKING_ITEMS}
-- **Deferred**: {LIST_OF_DEFERRED_ITEMS_WITH_REASONS}
+**Fix**: {TASK_DESCRIPTION}
+**File**: {FILE_PATH}
 
----
+**Requirements**:
+{REQUIREMENTS_LIST}
 
-## Task Details
-
-### {TASK_ID}: {TASK_DESCRIPTION}
-
-**Location**: {FILE_PATH}
-**Scope**: {SCOPE_DESCRIPTION}
-
-**Test Scenarios**:
+**Tests**:
 - {SCENARIO_1}
 - {SCENARIO_2}
 - {SCENARIO_N}
 
-**Reference**: {LINK_TO_RESEARCH_DOC}
-
-<!-- SECTION HOOK: Technology-specific patterns
-     Insert sections like:
-     - ruby-rails-code.md (method signatures, RSpec patterns, console commands)
-     - vue-component.md (component structure, Storybook patterns, Vitest)
-     - architecture-design.md (layer context, integration flows)
-     - bug-fix-resolution.md (root cause, solution, lessons learned)
--->
+<!-- SECTION HOOK: Insert technology-specific sections here based on task type -->
 
 ---
 
-## Dependencies
+## Verification
 
-{LIST_OF_DEPENDENCIES}
+<!-- PLANNER NOTE: Commands filled by technology sections -->
 
-<!-- SECTION HOOK: Domain-specific guidance
-     Insert sections like:
-     - api-integration.md (API contracts, VCR cassettes, error handling)
-     - testing.md (test scenarios, coverage, debugging strategies)
-     - manual-qa.md (QA checklists, verification procedures)
--->
+**Loop 1 (TDD)**: {FOCUSED_TEST_COMMAND}
 
----
+**Task Review**: After Loop 1 passes, run `/task-review` to review implementation
+- Reviews uncommitted code against task handoff quality gates
+- Validates adherence to guidelines and standards
+- Fix any critical issues before Loop 2
+- Ensures quality before project-wide impact
 
-## Task Completion Gate (MANDATORY)
+**Loop 2 (Scoped)**: {PROJECT_TEST_COMMAND}
+**Loop 3 (Manual)**: {CONSOLE_OR_BROWSER_COMMAND}
 
-<!-- NOTE: Verification commands below ({FOCUSED_TEST_COMMAND}, {PROJECT_TEST_COMMAND}, etc.)
-     are provided by technology sections (ruby-rails-code.md, vue-component.md)
--->
+**You MUST NEVER proceed with failing tests.**
 
-### Loop 1: TDD Inner Loop
+**Loop 3 Required When**:
+- External APIs
+- Database changes
+- Complex logic
+- Integration points
 
-```bash
-{FOCUSED_TEST_COMMAND}
-```
-
-**Purpose**: Focused development on single component/test file
-
-**Technology-specific examples** (see section templates for details):
-- **Backend (Ruby)**: `bundle exec rspec spec/services/foo_spec.rb`
-- **Frontend (Vue)**: `npm run storybook` → Verify component at http://localhost:6006
-
-### Loop 2: Project-Wide Verification
-
-```bash
-{PROJECT_TEST_COMMAND}
-```
-
-**MANDATORY before marking ANY task complete - must complete in < 30 seconds**
-
-**Technology-specific examples** (see section templates for details):
-- **Backend (Ruby)**: `bundle exec rspec` or `./specs/{PROJECT}/verify-specs.sh`
-- **Frontend (Vue/Vitest)**: `npm run test` or `vitest`
-- **Python**: `pytest`
-- **Go**: `go test ./...`
-
-### Loop 3: Manual QA (OPTIONAL - requires user approval to skip)
-
-**This loop may be skipped ONLY when**:
-- Unit tests provide 100% confidence (rare)
-- Pure logic with no external dependencies or integrations
-- User explicitly approves skipping
-
-**You MUST perform Loop 3 when**:
-- Integrating multiple components
-- External APIs or databases involved
-- Complex business logic with side effects
-- ANY uncertainty about correctness
-
-**Stop and Ask Protocol**:
-```
-Before skipping Loop 3, you MUST ask user for approval.
-Never skip without explicit user permission.
-```
-
-**Backend**: Console verification
-```bash
-{CONSOLE_VERIFICATION_COMMANDS}
-```
-
-**Frontend**: Browser verification
-```bash
-{BROWSER_VERIFICATION_COMMANDS}
-```
-
-**When to perform**:
-- **Claude Code**: Automated QA for deterministic scenarios
-- **Human**: Complex workflows, visual verification, edge cases
-
-### Failure Protocol
-
-**You MUST NEVER proceed with failing tests**
-
-- FAILING SPECS = INCOMPLETE TASK
-- You **MUST** fix immediately
-- **Stop and Ask** if you need clarification on expected behavior
-- NO EXCEPTIONS
-- NO PROCEEDING
+**Skip Loop 3 ONLY with user approval.**
 
 ---
 
@@ -210,25 +118,18 @@ Never skip without explicit user permission.
 - [ ] {CRITERION_1}
 - [ ] {CRITERION_2}
 - [ ] {CRITERION_3}
-- [ ] **No handoff assumptions violated** (used Stop and Ask if discrepancies found)
-- [ ] **Guidance only (no complete implementations provided)**
-- [ ] **All tests passing (zero failures)**
-- [ ] Loop 1 verification passing
-- [ ] Loop 2 verification passing (all project tests)
-- [ ] Loop 3 manual QA complete (if applicable)
+- [ ] API doc extraction completed (if API integration)
+- [ ] Implementation matches extracted specs exactly (if API integration)
+- [ ] Every new public method has its own test
+- [ ] All tests pass
+- [ ] Stop and Ask used if needed
+- [ ] Loop 3 complete (if required)
 
 ---
 
-## Completion Summary
+<!-- PLANNER NOTE: Completion section filled after task done -->
+## Completion
 
-**Date Completed**: {DATE_COMPLETED}
-**Final Test State**: {TEST_STATE_SUMMARY}
-
-**Key Changes**:
-{SUMMARY_OF_CHANGES}
-
-**Files Changed**:
-{LIST_OF_FILES_CHANGED}
-
-**Test Coverage**:
-{TEST_COVERAGE_SUMMARY}
+**Date**: {DATE_COMPLETED}
+**Changes**: {SUMMARY_OF_CHANGES}
+**Tests**: {TEST_STATE_SUMMARY}

@@ -8,6 +8,7 @@
       "Edit(/home/matt/code/musashi)"
     ]
   },
+  "model": "opus",
   "hooks": {
     "PostToolUse": [],
     "PreToolUse": [],
@@ -21,6 +22,5 @@
     "SessionStart": [],
     "UserPromptSubmit": []
   },
-  "alwaysThinkingEnabled": true,
-  "model": "opus"
+  "alwaysThinkingEnabled": false
 }

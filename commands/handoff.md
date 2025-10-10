@@ -54,7 +54,7 @@ core_template=~/.claude/templates/task/core-task-template.md
 
 **Technology sections** (add to Hook 1):
 - If Ruby/Rails: `sections/ruby-rails-code.md`
-- If Vue: `sections/vue-component.md` (TODO: create this)
+- If Vue: `sections/vue-component.md`
 
 **Domain sections** (add to Hook 2):
 - If API/integration: `sections/api-integration.md`

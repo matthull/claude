@@ -36,6 +36,7 @@ Generated task handoff (task-specific)
 - `ruby-rails-code.md` - Rails patterns, RSpec, console verification
 - `vue-component.md` - Vue components, Storybook, Vitest
 - `api-integration.md` - API contracts, VCR, error handling
+- `dependency-modifications.md` - **CRITICAL**: Required when adding methods to existing classes
 - `testing.md` - Test scenarios, coverage, debugging
 - `manual-qa.md` - QA checklists, verification procedures
 - `bug-fix-resolution.md` - Root cause, solution, lessons learned
@@ -314,15 +315,22 @@ You MUST NEVER [forbidden action]
 
 **Why**: TDD requires writing minimal code to pass tests. Pre-written solutions defeat the purpose.
 
-## Three-Loop Verification
+## Verification Workflow with Task Review
 
-Every task handoff enforces three verification loops:
+Every task handoff enforces a structured verification workflow:
 
 ### Loop 1: TDD Inner Loop
 **Purpose**: Focused development on single component/test
 **Technology-specific**: Defined in section templates
 - Ruby: `bundle exec rspec spec/path/to/file_spec.rb`
 - Vue: `npm run storybook` → Browser verification
+
+### Task Review Gate (Between Loop 1 and 2)
+**Purpose**: Quality check before project-wide impact
+**Command**: `/task-review` (after Loop 1 passes)
+**Reviews**: Uncommitted code against task handoff quality gates and guidelines
+**Action**: Fix any critical issues before proceeding to Loop 2
+**Benefit**: Catches problems early, ensures adherence to standards
 
 ### Loop 2: Project-Wide Verification
 **Purpose**: Ensure no regressions across entire codebase
@@ -373,6 +381,15 @@ Templates reinforce system-level directives:
 - ✅ `core-task-template.md` (always)
 - ✅ `sections/ruby-rails-code.md` (Ruby detected)
 - ⚠️ `sections/testing.md` (optional - skip if unit tests provide 100% confidence)
+
+### Example 4: Service with Client Modifications
+
+**Templates to compose**:
+- ✅ `core-task-template.md` (always)
+- ✅ `sections/ruby-rails-code.md` (Ruby detected)
+- ✅ `sections/dependency-modifications.md` (CRITICAL - modifying existing Client class)
+- ✅ `sections/api-integration.md` (API calls detected)
+- ✅ `sections/testing.md` (comprehensive test coverage needed)
 
 ## Next Steps
 

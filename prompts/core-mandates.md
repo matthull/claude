@@ -61,7 +61,7 @@
 
 ### A. THE "STOP AND ASK" PROTOCOL
 
-When a CORE MANDATE requires you to 'STOP and Ask', you **MUST** perform the following actions:
+When a directive requires you to 'STOP and Ask', you **MUST** perform the following actions:
 
 1. **HALT ALL CURRENT WORK.**
 2. **GENERATE A CONCISE, DETAILED MESSAGE** to the user. This message **MUST** clearly state:

@@ -30,31 +30,22 @@ source_guidance:
 - ✅ Add exactly ONE fixture per new model
 - ✅ Regenerate: `rake db:fixtures:dump` or `FIXTURES=true bundle exec rspec`
 
+<!-- CONDITIONAL: Include migration section ONLY if needs_migration: true -->
+<!-- BEGIN_IF_MIGRATION -->
 ## CRITICAL: Safe Database Migrations (ABSOLUTE)
 
 **You MUST NEVER create breaking migrations**
 
 **RATIONALE:** Breaking migrations cause production downtime.
 
-**You MUST IMMEDIATELY STOP** if a migration:
-- ❌ Adds column and uses it in same deploy
-- ❌ Removes column without `ignored_columns` first
-- ❌ Changes column type used by running code
-- ❌ Adds constraint on existing data
-- ❌ Renames column used by running code
+**You MUST IMMEDIATELY STOP** if migration:
+- Adds column and uses it in same deploy
+- Removes column without `ignored_columns` first
+- Changes column type on active column
 
-**Safe Patterns ONLY:**
-
-**Adding Column:**
-1. Add column (migration only)
-2. Deploy
-3. Use column (code in next PR)
-
-**Removing Column:**
-1. Remove code usage
-2. Add to `ignored_columns`
-3. Deploy
-4. Drop column (migration in next PR)
+**Safe Add**: Migration only → Deploy → Use in next PR
+**Safe Remove**: Stop usage → ignored_columns → Deploy → Drop in next PR
+<!-- END_IF_MIGRATION -->
 
 ---
 
@@ -96,6 +87,68 @@ params.require(:user).permit(:name, :email)
 
 # In jbuilder
 json.extract! @user, :name, :email, :created_at
+```
+
+---
+
+## CRITICAL: API Documentation First (ABSOLUTE)
+
+**You MUST NEVER write API client methods without doc extraction**
+
+**RATIONALE:** Guessing API specs = broken integration.
+
+**BEFORE writing any client method:**
+1. WebFetch the API documentation
+2. Complete extraction template
+3. Show extracted specs to user
+4. ONLY THEN write implementation
+
+---
+
+## CRITICAL: Test Every New Public Method (ABSOLUTE)
+
+**You MUST NEVER add a public method without its own test**
+
+**RATIONALE:** Untested methods = hidden bugs + broken contracts.
+
+**You MUST ALWAYS test at the layer where the method is defined:**
+- ✅ Controller action → Request spec (NOT controller spec)
+- ✅ Client method → Client spec
+- ✅ Service method → Service spec
+- ✅ Model method → Model spec
+- ✅ Helper method → Helper spec
+
+**WRONG:**
+```ruby
+# Adding method to Client class
+def update_file_version(id, file)
+  # implementation
+end
+# ❌ Only testing through Service that uses Client
+```
+
+**CORRECT:**
+```ruby
+# spec/services/seismic/client_spec.rb
+describe '#update_file_version' do
+  it 'updates the file version' do
+    # Direct test of Client#update_file_version
+  end
+end
+
+# spec/services/seismic/sync_service_spec.rb
+describe '#call' do
+  it 'uses client to update' do
+    # Service test that may mock/stub Client
+  end
+end
+
+# spec/requests/api/v2/assets_spec.rb (NOT spec/controllers/)
+describe 'POST /api/v2/assets' do
+  it 'creates asset' do
+    # Request spec for controller action
+  end
+end
 ```
 
 ---
@@ -183,75 +236,34 @@ before do
 end
 ```
 
-### Loop Commands
+### Verification Commands
 
-**Loop 1: TDD Inner Loop**
+**Loop 1 (TDD)**:
 ```bash
 bundle exec rspec spec/{path}/{filename}_spec.rb
 ```
 
-**Loop 2: Project-Wide Verification**
+**Loop 2 (Scoped)**:
 ```bash
-bundle exec rspec
-# OR if project has verify script:
 ./specs/{PROJECT_NAME}/verify-specs.sh
+# OR scoped to directory:
+bundle exec rspec spec/services/
 ```
 
-**Loop 3: Rails Console Verification (OPTIONAL - requires user approval to skip)**
+**Loop 3 (Console)**:
 
-**When Loop 3 is REQUIRED**:
-- ✅ Integration of multiple components
-- ✅ External API interactions
-- ✅ Complex business logic with side effects
-- ✅ Database queries or ActiveRecord relationships
-- ✅ State transitions or workflow logic
+**Required for**: External APIs, database changes, integrations
+**Skip ONLY with user approval**
 
-**When Loop 3 MAY BE SKIPPED** (with user approval):
-- ⚠️ Pure service objects with no external dependencies
-- ⚠️ Simple data transformations
-- ⚠️ Unit tests provide 100% confidence in behavior
-
-**Stop and Ask Protocol**:
-```
-Before skipping Loop 3, you MUST ask:
-"This task involves [description]. Unit tests provide [level] confidence.
-May I skip Loop 3 console verification, or would you like me to perform manual QA?"
-```
-
-**Console Verification Procedure**:
 ```bash
 rails console
-
-# Test the implementation with real data
 {CONSOLE_VERIFICATION_COMMANDS}
-```
-
-**Console Testing Examples**:
-```ruby
-# Load relevant data
-resource = Resource.find({ID})
-
-# Test service/method directly
-service = ServiceName.new(resource)
-result = service.call
-
-# Verify result
-result.inspect
-# => Expected output
-
-# Check side effects
-resource.reload
-resource.attribute_name
-# => Expected value
-
-# Test edge cases
-edge_case_resource = Resource.where({condition}).first
-ServiceName.new(edge_case_resource).call
 ```
 
 ### Code Quality Checklist
 
 **Before Completing Task**:
+- [ ] **CRITICAL: Every new public method has its own test** (test at the layer where defined)
 - [ ] **CRITICAL: No manual fixture .yml files created or edited** (must use fixture_builder.rb)
 - [ ] **CRITICAL: No breaking migrations** (add/remove columns follow safe patterns)
 - [ ] **CRITICAL: No `Rails.env.production?` usage** (use positive environment checks)
@@ -303,113 +315,22 @@ def action_name
 end
 ```
 
-### Canonical Examples (Project-Specific)
+<!-- CONDITIONAL: Include ONLY if needs_canonical: true (creating NEW class/major rewrite) -->
+<!-- BEGIN_IF_CANONICAL -->
+### Canonical Examples
 
-**These are exemplar implementations in the codebase. Read and follow their patterns when implementing similar functionality.**
+**Creating NEW controller?** Read: `app/api/v2/video_link_assets_controller.rb`
+**Creating NEW service?** Read: `services/highspot/client.rb`
+**Creating NEW model?** Read: `models/seismic_integration.rb`
+**Creating NEW worker?** Read: `HighspotPublicSyncWorker`
 
-#### Controllers
-
-**CRUD Controllers** - Read: `app/api/v2/video_link_assets_controller.rb`
-```
-Use when: Building standard REST API endpoints (index, show, create, update, destroy)
-Follow patterns for:
-- Strong parameters
-- Response formatting (success/error)
-- Status codes (200, 201, 204, 422, 404)
-- Resource loading and authorization
-```
-
-**Integration Controllers** - Read: `app/api/v2/seismic/teamsites_controller.rb`
-```
-Use when: Integrating with 3rd party APIs via controller actions
-Follow patterns for:
-- External service orchestration
-- Error handling from external APIs
-- Response mapping (external → internal format)
-- Async job triggering for long-running operations
-```
-
-#### Models
-
-**Asset Models** - Read: `models/video_link_asset.rb`
-```
-Use when: Creating asset-type models (files, links, media)
-Follow patterns for:
-- Asset-specific validations
-- Type hierarchies (STI or polymorphism)
-- Associated metadata handling
-- File/URL processing
-```
-
-**General Models** - Read: `models/seismic_integration.rb`
-```
-Use when: Creating any model class
-Follow patterns for:
-- Validations and callbacks
-- Associations (has_many, belongs_to, etc.)
-- Scopes and class methods
-- Instance methods for business logic
-- State management (if applicable)
-```
-
-#### Services
-
-**API Clients** - Read: `services/highspot/client.rb`
-```
-Use when: Building HTTP clients for external APIs
-Follow patterns for:
-- HTTP client setup (Faraday, HTTParty)
-- Authentication (headers, tokens)
-- Request/response handling
-- Error handling (4xx, 5xx responses)
-- Retry logic and timeouts
-```
-
-**General Services** - Read: `services/highspot/asset_metadata.rb`
-```
-Use when: Extracting business logic from models/controllers
-Follow patterns for:
-- Service object structure (initialize, call)
-- Dependency injection
-- Error handling and result objects
-- Single responsibility focus
-- Private helper methods
-```
-
-#### Workers
-
-**Async Jobs** - Read: `HighspotPublicSyncWorker`
-```
-Use when: Creating background jobs (Sidekiq, ActiveJob)
-Follow patterns for:
-- Job structure and perform method
-- Error handling and retries
-- Job queuing and priority
-- Idempotency considerations
-- Progress tracking (if applicable)
-```
-
-**Instructions for Handoff Creator**:
-```
-When generating a task handoff:
-1. Identify which pattern(s) apply to the task
-2. Add instruction to read relevant canonical example(s)
-3. Format: "Read and follow patterns from: {FILE_PATH}"
-4. Include in Task Details or Quick Context section
-```
-
-**Instructions for Task Implementer**:
-```
-When working on a task with canonical examples:
-1. Read the canonical example BEFORE implementing
-2. Follow its patterns (structure, error handling, naming)
-3. Adapt patterns to your specific use case
-4. Maintain consistency with codebase conventions
-```
+Follow their patterns for structure, error handling, naming.
+<!-- END_IF_CANONICAL -->
 
 ### Common Anti-patterns to Avoid
 
 **You MUST NEVER**:
+- ❌ **Add public methods without tests** (every method needs its own spec)
 - ❌ **Create or edit manual fixture .yml files** (use fixture_builder.rb ONLY)
 - ❌ **Create breaking migrations** (follow safe add/remove patterns)
 - ❌ **Use `Rails.env.production?`** (use positive environment checks)

@@ -7,6 +7,33 @@ source_guidance:
   global:
     - testing/test-driven-development
     - architecture/api-integration
+    - api-development/doc-extraction-mandatory
+
+## CRITICAL: Documentation Extraction Required (ABSOLUTE)
+
+**You MUST NEVER implement API client without doc extraction**
+
+**RATIONALE:** Guessing API specs = broken integration.
+
+**You MUST ALWAYS:**
+1. WebFetch the API documentation URL
+2. Extract ALL specifications into template
+3. Quote exact text from docs (no paraphrasing)
+4. Show extraction BEFORE writing any code
+
+**STOP if docs unavailable:** Request docs URL from user.
+
+**Extraction Template** (complete BEFORE coding):
+```markdown
+**Doc URL**: [exact URL]
+**HTTP Method**: [QUOTE from docs]
+**Endpoint Path**: [QUOTE from docs]
+**Content-Type**: [QUOTE from docs]
+**Field Names**: [QUOTE exact field names]
+```
+
+---
+
 ## CRITICAL: API Security Requirements (ABSOLUTE)
 
 **You MUST NEVER merge code without authentication and authorization**
@@ -78,137 +105,93 @@ end
 
 ---
 
+## CRITICAL: Client Method Testing (ABSOLUTE)
+
+**You MUST NEVER add API client methods without dedicated tests**
+
+**RATIONALE:** Untested client methods = broken API contracts + runtime failures.
+
+**When adding methods to API clients, you MUST:**
+- ✅ Write client spec FIRST (TDD red phase)
+- ✅ Test success response handling
+- ✅ Test each error status (404, 401, 422, 500)
+- ✅ Use VCR cassettes for each scenario
+- ✅ Verify request format matches API docs
+
+**WRONG:**
+```ruby
+# Adding to services/seismic/client.rb
+def update_file_version(id, file)
+  # implementation
+end
+# ❌ No spec/services/seismic/client_spec.rb test
+```
+
+**CORRECT:**
+```ruby
+# spec/services/seismic/client_spec.rb
+describe '#update_file_version' do
+  it 'updates file version', :vcr do
+    # Test the client method directly
+  end
+
+  it 'handles 404', :vcr do
+    # Test error handling
+  end
+end
+```
+
+---
+
 ## API Integration Details
 
 ### API Contract
 
-**Service**: {API_SERVICE_NAME}
 **Endpoint**: {HTTP_METHOD} `{API_ENDPOINT}`
+**Auth**: Bearer {TOKEN_TYPE}
 
-**Request Headers**:
-```
-Authorization: Bearer {TOKEN_TYPE}
-Content-Type: application/json
-{ADDITIONAL_HEADERS}
-```
-
-**Request Body**:
+**Request**:
 ```json
 {API_REQUEST_BODY_EXAMPLE}
 ```
 
-**Expected Response**:
+**Response (200)**:
 ```json
 {API_RESPONSE_BODY_EXAMPLE}
 ```
 
-**Status Codes**:
-- `200 OK`: {SUCCESS_DESCRIPTION}
-- `201 Created`: {CREATION_DESCRIPTION}
-- `204 No Content`: {NO_CONTENT_DESCRIPTION}
-- `400 Bad Request`: {BAD_REQUEST_DESCRIPTION}
-- `401 Unauthorized`: {AUTH_FAILURE_DESCRIPTION}
-- `404 Not Found`: {NOT_FOUND_DESCRIPTION}
-- `409 Conflict`: {CONFLICT_DESCRIPTION}
-- `422 Unprocessable Entity`: {VALIDATION_FAILURE_DESCRIPTION}
-- `500 Server Error`: {SERVER_ERROR_DESCRIPTION}
+**Errors**: 401 (auth), 404 (not found), 422 (validation)
 
-### VCR Cassette Evidence
+### VCR Cassettes
 
-**You MUST record real API interactions with VCR cassettes**
+**Location**: `spec/vcr_cassettes/{service_name}/{scenario}.yml`
 
-**Cassette Location**:
-```
-spec/vcr_cassettes/{service_name}/{endpoint_name}/{scenario}.yml
-```
+**Required**:
+- `{scenario_1}.yml`
+- `{scenario_2}.yml`
+- `error_{status}.yml`
 
-**Required Cassettes**:
-- [ ] `{scenario_1}.yml` - {DESCRIPTION}
-- [ ] `{scenario_2}.yml` - {DESCRIPTION}
-- [ ] `error_{status_code}.yml` - {ERROR_SCENARIO_DESCRIPTION}
-
-**VCR Configuration**:
 ```ruby
-# In spec file
 VCR.use_cassette('{cassette_name}') do
-  # API call happens here
   result = ApiClient.call(params)
   expect(result).to be_successful
 end
 ```
 
-**Recording New Cassettes**:
-```bash
-# Delete old cassette
-rm spec/vcr_cassettes/{path}/{cassette_name}.yml
+**You MUST scrub sensitive data from cassettes.**
 
-# Run test with real API credentials
-# VCR will record the interaction
-bundle exec rspec spec/{path}/{file}_spec.rb
+### Error Handling
 
-# Verify cassette was created
-ls -la spec/vcr_cassettes/{path}/
-```
-
-**Cassette Verification Checklist**:
-- [ ] Cassette contains expected request (method, URL, body)
-- [ ] Cassette contains expected response (status, body)
-- [ ] Sensitive data scrubbed (tokens, passwords, API keys)
-- [ ] Cassette committed to git
-- [ ] Test passes with cassette (no real API call)
-
-### Error Handling Patterns
-
-**Common HTTP Error Scenarios**:
-
-#### 401 Unauthorized (Token Expired/Invalid)
 ```ruby
-def handle_unauthorized_response
-  # Refresh token and retry
-  refresh_access_token
-  retry_request
-end
-```
-
-#### 404 Not Found (Resource Doesn't Exist)
-```ruby
-def handle_not_found
-  # Create resource if appropriate
-  # OR return meaningful error to caller
-  create_resource if should_create?
-end
-```
-
-#### 409 Conflict (Resource Already Exists)
-```ruby
-def handle_conflict_response(response)
-  # Implement upsert pattern
-  existing_id = extract_id_from_conflict(response)
-  update_existing_resource(existing_id)
-end
-```
-
-#### 422 Unprocessable Entity (Validation Error)
-```ruby
-def handle_validation_error(response)
-  # Parse validation errors
-  errors = JSON.parse(response.body)['errors']
-
-  # Map to local validation or raise meaningful error
-  raise ValidationError, format_errors(errors)
-end
-```
-
-#### 500 Server Error (External Service Down)
-```ruby
-def handle_server_error
-  # Log error for investigation
-  Rails.logger.error("API server error: #{response.body}")
-
-  # Retry with exponential backoff OR
-  # Queue for later processing OR
-  # Return error to user
-  raise ExternalServiceError, "Service temporarily unavailable"
+def handle_response(response)
+  case response.status
+  when 200 then SuccessResult.new(response.body)
+  when 401 then refresh_token_and_retry
+  when 404 then create_resource_or_error
+  when 409 then update_existing(response)
+  when 422 then raise ValidationError
+  when 500 then raise ExternalServiceError
+  end
 end
 ```
 
@@ -333,6 +316,9 @@ DELETE /api/v2/resources/:id      - Delete resource
 ### API Security Checklist
 
 **Before Completing Task**:
+- [ ] **CRITICAL: API documentation fetched and extracted** (all 9 fields quoted)
+- [ ] **CRITICAL: Implementation matches extracted specs exactly** (HTTP method, endpoint, content-type)
+- [ ] **CRITICAL: Every new client method has dedicated tests** (with VCR cassettes)
 - [ ] **CRITICAL: Authentication required** (before_action :authenticate_user!)
 - [ ] **CRITICAL: Authorization verified** (resource scoped to current user)
 - [ ] **CRITICAL: Strong parameters used** (never permit!)
@@ -346,6 +332,9 @@ DELETE /api/v2/resources/:id      - Delete resource
 ### Anti-patterns to Avoid
 
 **You MUST NEVER**:
+- ❌ **Implement API client without doc extraction** (must WebFetch and quote specs first)
+- ❌ **Guess HTTP method from similar endpoints** (must quote from docs)
+- ❌ **Add client methods without tests** (every client method needs specs)
 - ❌ **Skip authentication checks**
 - ❌ **Skip authorization checks**
 - ❌ **Use `params.permit!`**
