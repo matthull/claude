@@ -15,9 +15,57 @@ description: Create a task handoff using the template system
 
 ## Implementation
 
+### 0. CRITICAL: Read Prerequisite Documents First (ABSOLUTE)
+
+**You MUST ALWAYS read ALL prerequisite documents BEFORE creating any handoff.**
+
+**RATIONALE:** Handoffs without context = wrong assumptions = wasted implementation.
+
+**You MUST IMMEDIATELY:**
+1. Check if task references a file path (e.g., `@specs/003-seismic-automated-sync/tasks.md T001-T003`)
+2. Read that file to extract task details
+3. Check file header for "Prerequisites" or "Input" section
+4. Read ALL listed prerequisite documents (plan.md, data-model.md, research.md, contracts/, etc.)
+5. ONLY THEN proceed with handoff creation
+
+**Common prerequisite patterns:**
+```bash
+# In tasks.md:
+**Prerequisites**: plan.md, research.md, data-model.md, contracts/, quickstart.md
+
+# In specs/ directory:
+specs/XXX-feature-name/
+├── plan.md           # ← READ THIS FIRST
+├── research.md       # ← READ THIS SECOND
+├── data-model.md     # ← READ THIS THIRD
+├── contracts/        # ← READ RELEVANT CONTRACT
+├── quickstart.md     # ← READ FOR TEST SCENARIOS
+└── tasks.md          # ← THEN parse task details
+```
+
+**You MUST NEVER:**
+- ❌ Create handoff without reading prerequisites
+- ❌ Guess at architecture or design decisions
+- ❌ Skip design docs "to save time"
+- ❌ Assume you know the approach
+
+**You MUST ALWAYS:**
+- ✅ Read ALL prerequisite documents in order
+- ✅ Verify understanding of design decisions
+- ✅ Extract key architecture patterns from design docs
+- ✅ Reference specific line numbers from design docs in handoff
+
+**IF prerequisites are missing:**
+1. **IMMEDIATELY STOP** handoff creation
+2. Report: "Cannot create handoff - missing prerequisite: [file]"
+3. Ask: "Should I proceed without [file] or wait for it?"
+4. AWAIT user decision
+
+---
+
 ### 1. Parse Task Description & Detect Project Stack
 
-**Input**: `$ARGUMENTS` contains task description
+**Input**: `$ARGUMENTS` contains task description or file reference
 
 **Project Technology Detection** (Priority Order):
 1. **Check for project indicators** (Gemfile, package.json, etc.)
@@ -253,6 +301,12 @@ echo "$content" > "$save_path"
 
 ```
 ✅ Created task handoff: {save_path}
+
+Prerequisites read:
+  - specs/XXX/plan.md (architecture decisions)
+  - specs/XXX/data-model.md (entity design)
+  - specs/XXX/research.md (implementation approach)
+  - specs/XXX/contracts/YYY.yaml (API contract)
 
 Templates used:
   - core-task-template.md

@@ -54,6 +54,30 @@ AWAIT user decision.
 
 ---
 
+## CRITICAL: Maintain Handoff as Living Document (ABSOLUTE)
+
+**You MUST update this handoff file during implementation.**
+
+**RATIONALE:** Handoffs capture evolving understanding, not just initial plan.
+
+**Update handoff when:**
+- Implementation approach changes
+- New dependencies discovered
+- Assumptions proven wrong
+- Scope adjustments needed
+- Architecture insights gained
+
+**Update these sections:**
+- Task description (if scope changes)
+- Requirements (if new ones discovered)
+- Tests (if scenarios expand)
+- Success Criteria (if gates change)
+
+**You MUST NEVER**: Let handoff drift from reality, work from outdated plan
+**You MUST ALWAYS**: Keep handoff synchronized with actual implementation
+
+---
+
 ## Context
 
 ```bash
@@ -124,12 +148,39 @@ AWAIT user decision.
 - [ ] All tests pass
 - [ ] Stop and Ask used if needed
 - [ ] Loop 3 complete (if required)
+- [ ] Handoff updated with implementation changes
+- [ ] Completion section filled with final summary
+- [ ] tasks.md updated (if project has one)
 
 ---
 
 <!-- PLANNER NOTE: Completion section filled after task done -->
 ## Completion
 
+**You MUST fill this section after final verification.**
+
 **Date**: {DATE_COMPLETED}
-**Changes**: {SUMMARY_OF_CHANGES}
-**Tests**: {TEST_STATE_SUMMARY}
+
+**Implementation Summary**:
+{SUMMARY_OF_CHANGES}
+<!-- What was implemented? Key technical decisions? -->
+
+**Files Changed**:
+{LIST_OF_FILES_CHANGED}
+<!-- List all modified/created files with brief description -->
+
+**Test Results**:
+{TEST_STATE_SUMMARY}
+<!-- Loop 1, 2, 3 outcomes. Coverage stats if available. -->
+
+**Deviations from Plan**:
+{DEVIATIONS_IF_ANY}
+<!-- What changed from original handoff? Why? -->
+
+**Known Limitations**:
+{LIMITATIONS_IF_ANY}
+<!-- Technical debt, edge cases, future improvements -->
+
+**Project Tasks Updated**:
+- [ ] tasks.md updated (if applicable)
+- [ ] Related task handoffs cross-referenced

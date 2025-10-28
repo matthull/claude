@@ -3,7 +3,7 @@ type: bundle
 layer: domain
 parent: foundation/software-dev.md
 context: Developing AI systems, prompts, agents, and LLM integrations
-estimated_lines: 550
+estimated_lines: 655
 focus_levels:
 - design
 - implementation
@@ -30,6 +30,7 @@ Comprehensive guidance for developing AI-powered systems, including prompt engin
 @../../ai-development/claude-prompting.md
 
 ## Agent & System Design
+@../../ai-development/claude-code-components.md
 @../../ai-development/command-task-isolation.md
 
 ## Communication Patterns

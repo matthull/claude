@@ -15,6 +15,14 @@ category: rails
 - Request specs: `spec/requests/`
 - Avoid controller specs - use request specs instead
 
+### Spec File Organization (CRITICAL)
+- **One spec file per class** - NEVER create multiple spec files for individual methods
+- Controllers: One spec file per controller (all endpoints in single file)
+- Models: One spec file per model (all methods in single file)
+- Services: One spec file per service class (all methods in single file)
+- Jobs: One spec file per job class (all methods in single file)
+- Use contexts and describe blocks to organize tests within the file
+
 ### Running Tests
 - Full suite: `docker exec musashi-web-1 bundle exec rspec`
 - Single file: `docker exec musashi-web-1 bundle exec rspec path/to/spec.rb`

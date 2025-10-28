@@ -5,10 +5,11 @@
   "permissions": {
     "allow": [
       "Edit(/home/matt/code/village)",
-      "Edit(/home/matt/code/musashi)"
+      "Edit(/home/matt/code/musashi)",
+      "Read(/home/matt/.claude/guidance/**)",
+      "Read(/home/matt/code/musashi/.claude/guidance/**)"
     ]
   },
-  "model": "opus",
   "hooks": {
     "PostToolUse": [],
     "PreToolUse": [],
@@ -22,5 +23,8 @@
     "SessionStart": [],
     "UserPromptSubmit": []
   },
-  "alwaysThinkingEnabled": false
+  "enabledPlugins": {
+    "example-skills@anthropic-agent-skills": true
+  },
+  "alwaysThinkingEnabled": true
 }

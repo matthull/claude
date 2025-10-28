@@ -91,7 +91,11 @@
       "Read(//home/matt/.local/**)",
       "WebFetch(domain:www.eesel.ai)",
       "Read(//home/matt/code/**)",
-      "Bash(for:*)"
+      "Bash(for:*)",
+      "Bash(git diff:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(xargs -I {} sh -c 'echo \"\"\"\"=== {} ===\"\"\"\" && head -30 {}')",
+      "Bash(xargs -I {} sh -c 'echo \"\"\"\"File: {}\"\"\"\" && head -15 {} | grep -A 10 \"\"\"\"^---\"\"\"\" || echo \"\"\"\"No frontmatter\"\"\"\"')"
     ],
     "deny": [],
     "ask": []

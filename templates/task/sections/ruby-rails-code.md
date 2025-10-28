@@ -153,6 +153,53 @@ end
 
 ---
 
+## CRITICAL: Spec File Organization (ABSOLUTE)
+
+**You MUST NEVER create multiple spec files for individual methods**
+
+**RATIONALE:** One spec file per class maintains organization and reduces file sprawl.
+
+**File Organization Rules:**
+- ✅ Controllers: ONE spec file per controller (all endpoints in single file)
+- ✅ Models: ONE spec file per model (all methods in single file)
+- ✅ Services: ONE spec file per service class (all methods in single file)
+- ✅ Jobs: ONE spec file per job class (all methods in single file)
+- ✅ Use `describe` and `context` blocks to organize tests within the file
+
+**WRONG:**
+```
+spec/services/seismic/asset_exporter_get_asset_url_spec.rb     # ❌ Method-specific file
+spec/services/seismic/asset_exporter_upload_url_spec.rb        # ❌ Method-specific file
+spec/services/seismic/asset_exporter_url_detection_spec.rb     # ❌ Method-specific file
+```
+
+**CORRECT:**
+```
+spec/services/seismic/asset_exporter_spec.rb                   # ✅ Single file for entire class
+
+RSpec.describe Seismic::AssetExporter do
+  describe '#get_asset_url' do
+    # Tests for get_asset_url method
+  end
+
+  describe '#upload_url' do
+    # Tests for upload_url method
+  end
+
+  describe '#detect_url_type' do
+    # Tests for detect_url_type method
+  end
+end
+```
+
+**IF you find multiple spec files for one class:**
+1. **IMMEDIATELY STOP** creating new method-specific files
+2. Consolidate into single spec file
+3. Use describe blocks for each method
+4. Delete redundant files
+
+---
+
 ## Ruby/Rails Implementation Details
 
 ### Method Signature
@@ -263,6 +310,7 @@ rails console
 ### Code Quality Checklist
 
 **Before Completing Task**:
+- [ ] **CRITICAL: ONE spec file per class** (no method-specific spec files)
 - [ ] **CRITICAL: Every new public method has its own test** (test at the layer where defined)
 - [ ] **CRITICAL: No manual fixture .yml files created or edited** (must use fixture_builder.rb)
 - [ ] **CRITICAL: No breaking migrations** (add/remove columns follow safe patterns)
@@ -330,6 +378,7 @@ Follow their patterns for structure, error handling, naming.
 ### Common Anti-patterns to Avoid
 
 **You MUST NEVER**:
+- ❌ **Create multiple spec files for individual methods** (ONE spec file per class)
 - ❌ **Add public methods without tests** (every method needs its own spec)
 - ❌ **Create or edit manual fixture .yml files** (use fixture_builder.rb ONLY)
 - ❌ **Create breaking migrations** (follow safe add/remove patterns)

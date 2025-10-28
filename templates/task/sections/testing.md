@@ -59,6 +59,7 @@ end
 ### Test Quality Checklist
 
 **Before Marking Task Complete**:
+- [ ] **ONE spec file per class (no method-specific spec files)**
 - [ ] **Tests written BEFORE implementation (TDD red-green-refactor)**
 - [ ] **No execution order dependencies (tests pass when run in random order)**
 - [ ] **No `.only` or `.skip` in committed code (or documented exception)**
@@ -87,6 +88,7 @@ end
 ### Anti-patterns Avoided
 
 **You MUST NEVER**:
+- ❌ **Create multiple spec files for individual methods** (ONE spec file per class)
 - ❌ Skip tests to "make it work first" (TDD red-green-refactor)
 - ❌ Use `sleep` to fix timing issues (find root cause)
 - ❌ Stub methods on the object under test

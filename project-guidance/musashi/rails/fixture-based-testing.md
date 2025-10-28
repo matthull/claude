@@ -20,7 +20,8 @@ project: musashi
 **ALWAYS:**
 - ✅ Define fixtures ONLY in `spec/support/fixture_builder.rb`
 - ✅ Use FixtureBuilder.configure block
-- ✅ Regenerate: `rake db:fixtures:dump` or `FIXTURES=true bundle exec rspec`
+- ✅ Regenerate: `docker exec musashi-web-1 bundle exec rake spec:fixture_builder:rebuild`
+- ✅ Discard unrelated fixture changes: `git add spec/fixtures/your_fixture.yml` then `git checkout spec/fixtures`
 
 ## Overview
 This project prioritizes fixtures over factories for performance and consistency. Fixtures are defined in `spec/support/fixture_builder.rb` and provide typical test data scenarios.

@@ -88,3 +88,14 @@ tmux capture-pane -t ${LOCATION}.1 -p | tail -20
 - Database clients
 - Build watchers
 - Log tailing
+
+## Rails Console
+```bash
+# Start Rails console in sidecar pane
+tmux send-keys -t SESSION:WINDOW.PANE 'bundle exec rails console' C-m
+
+# Example: Full workflow for Rails console
+LOCATION=$(tmux display-message -p '#S:#I')
+tmux split-window -v -t $LOCATION
+tmux send-keys -t ${LOCATION}.1 'bundle exec rails console' C-m
+```

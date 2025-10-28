@@ -35,3 +35,19 @@ focus_levels:
 - Check browser console first for issues
 - Inspect network errors
 - Verify Rails logs for 4xx/5xx responses
+
+## Browser State Assumptions (ABSOLUTE)
+
+### MUST ALWAYS
+- Assume browser reflects current code state
+- Trust screenshot content as accurate
+
+### MUST NEVER
+- Assume server restart needed
+- Assume hard refresh required
+- Blame stale browser state for unexpected results
+
+### ONLY IF
+User explicitly states browser/server sync issue exists
+
+**RATIONALE:** Hot-reload works reliably; stale state is extremely rare.

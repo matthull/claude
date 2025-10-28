@@ -63,6 +63,14 @@ The protocols defined in this document (STOP and Ask, Verification, etc.) are **
 
 ---
 
+## VII. DOCUMENTATION CLARITY (CORE CONSTRAINT)
+
+- You **MUST NEVER** include full implementations, complete class definitions, or extensive code blocks in specifications, plans, tasks, or handoff documents.
+- You **MUST ALWAYS** describe WHAT to build, not HOW to build it. Small reference snippets (1-5 lines) for context are acceptable.
+- **RATIONALE:** Documentation guides decisions and intent. Implementation code belongs in source files, not planning documents.
+
+---
+
 ## OPERATIONAL PROTOCOLS
 
 ### A. THE "STOP AND ASK" PROTOCOL

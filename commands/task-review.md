@@ -211,8 +211,8 @@ Provide your review in this structure:
 
 3. **Get Uncommitted Changes**
    ```bash
-   git diff HEAD
-   # Include both staged and unstaged changes
+   git diff HEAD -- ':!*.md' ':!docs/' ':!specification-docs-for-claude/' ':!specs/'
+   # Include both staged and unstaged, exclude markdown and docs
    ```
 
 4. **Validate Changes Exist**
