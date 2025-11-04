@@ -7,6 +7,17 @@ tags:
 focus_levels:
 - design
 - implementation
+
+# Automatic triggers
+file_triggers:
+  - "*.js"
+  - "*.ts"
+  - "*.jsx"
+  - "*.tsx"
+  - "*.vue"
+directory_triggers:
+  - "src/**"
+  - "app/javascript/**"
 ---
 
 # Frontend Debugging Workflow

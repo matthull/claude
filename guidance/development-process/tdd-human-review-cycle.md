@@ -9,6 +9,18 @@ tags:
 focus_levels:
 - strategic
 - design
+
+# Automatic triggers
+file_triggers:
+  - "*_spec.rb"
+  - "*.spec.rb"
+  - "*.spec.js"
+  - "*.spec.ts"
+  - "*.test.js"
+  - "*.test.ts"
+directory_triggers:
+  - "spec/**"
+  - "test/**"
 ---
 
 # TDD with Mandatory Human Review

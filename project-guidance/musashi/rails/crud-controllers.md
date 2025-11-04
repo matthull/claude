@@ -2,6 +2,14 @@
 type: guidance
 status: current
 category: rails
+
+# Automatic triggers
+file_triggers:
+  - "*_controller.rb"
+  - "*_controller_spec.rb"
+directory_triggers:
+  - "app/controllers/**"
+  - "spec/requests/**"
 ---
 
 # CRUD Controller Patterns

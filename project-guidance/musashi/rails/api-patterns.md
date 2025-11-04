@@ -2,6 +2,16 @@
 type: guidance
 status: current
 category: rails
+
+# Automatic triggers
+file_triggers:
+  - "*_controller.rb"
+  - "*_controller_spec.rb"
+directory_triggers:
+  - "app/controllers/api/**"
+  - "app/controllers/**/api/**"
+  - "spec/requests/api/**"
+  - "spec/requests/**/api/**"
 ---
 
 # Rails API Patterns

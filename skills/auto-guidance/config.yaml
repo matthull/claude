@@ -1,0 +1,53 @@
+# Auto-Guidance Skill Configuration
+
+# Master switch - set to false to disable auto-guidance entirely
+enabled: true
+
+# Maximum number of guidance files to load per trigger event
+# Prevents context window overload when multiple patterns match
+max_per_trigger: 2
+
+# Notification style when guidance is loaded
+# Options: "brief", "detailed", "silent"
+#   brief: "📚 Loaded testing guidance (test-driven-development.md)"
+#   detailed: "📚 Loaded testing guidance from ~/.claude/guidance/testing/test-driven-development.md (matched: *_spec.rb)"
+#   silent: No notifications (guidance still loads)
+notification: "brief"
+
+# Performance tracking - logs timing data for analysis
+# When enabled, tracks pattern matching and guidance loading times
+performance_tracking: false
+
+# Where to write performance logs (only if performance_tracking: true)
+# Logs include: timestamp, operation, file_path, duration_ms, matched, loaded
+performance_log: "/tmp/claude-auto-guidance-perf.log"
+
+# Report performance summary every N file operations
+# Set to 0 to disable periodic reporting
+report_interval: 20
+
+# Warn if pattern matching exceeds this threshold (milliseconds)
+# Helps identify performance issues early
+max_pattern_time_ms: 50
+
+# Prioritization when multiple guidance files match
+# Options: "project_first", "global_first", "alphabetical"
+#   project_first: Load project-specific guidance before global
+#   global_first: Load global guidance before project-specific
+#   alphabetical: Load in alphabetical order
+priority: "project_first"
+
+# Skip auto-guidance for these file patterns
+# Useful for excluding generated files, assets, etc.
+exclude_patterns:
+  - "*.log"
+  - "*.tmp"
+  - "*.cache"
+  - "node_modules/**"
+  - ".git/**"
+  - "vendor/**"
+  - "coverage/**"
+
+# Verbose mode - additional debug information
+# Useful for troubleshooting pattern matching issues
+verbose: false

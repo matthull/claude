@@ -27,6 +27,7 @@ Load the gemini review guidance and execute review based on request.
 3. Use mcp__gemini-bridge__consult_gemini_with_files with:
    - All relevant files (kitchen sink approach)
    - User's specific review request as the query
+   - **timeout_seconds: 300** (5 minutes for in-depth analysis)
 4. Return Gemini's feedback directly
 
 ## File Selection Strategy
@@ -36,5 +37,10 @@ Based on the review request, include:
 - Project documentation (.claude/, working-docs/)
 - Configuration files
 - Dependencies and related modules
+
+## Important Configuration
+- **Timeout**: Set to 300 seconds (5 minutes) to allow for thorough analysis
+- **Model**: Use default or specify "pro" for complex reviews
+- **Mode**: Use "inline" for most reviews
 
 Remember: Send everything that might be relevant. Let Gemini handle the context.

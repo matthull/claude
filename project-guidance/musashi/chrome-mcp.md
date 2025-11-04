@@ -13,7 +13,7 @@ Chrome MCP provides browser automation for testing and visual verification.
 
 ### Test Environment
 - App: `http://localhost:3000`
-- Storybook: `http://localhost:6006`
+- Storybook: `http://localhost:6006` (runs automatically in Docker - never start manually)
 - Test credentials: `db/seeds.rb` (evan@userevidence.com)
 
 ### Key Paths
@@ -22,6 +22,8 @@ Chrome MCP provides browser automation for testing and visual verification.
 - Research library: `/user-research-library`
 
 ### Storybook Testing
+Access Storybook via Chrome MCP: `navigate to http://localhost:6006`
+
 Story content renders in iframe `#storybook-preview-iframe`. Access via:
 ```javascript
 const iframe = document.querySelector('#storybook-preview-iframe');

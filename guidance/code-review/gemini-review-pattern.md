@@ -32,6 +32,8 @@ Keep Claude context minimal. Give Gemini everything.
 
 ## Required Tool
 **ALWAYS use:** `mcp__gemini-bridge__consult_gemini_with_files`
+- **ALWAYS set:** `timeout_seconds: 300` (5 minutes) for comprehensive reviews
+- **Default timeout is only 60 seconds** which is too short for in-depth analysis
 
 **NEVER use:** `mcp__gemini-bridge__consult_gemini` (no file context)
 
@@ -42,12 +44,14 @@ mcp__gemini-bridge__consult_gemini_with_files
   query: "Review this Rails controller for patterns, security, performance"
   directory: "/path/to/project"
   files: ["app/controllers/", "app/models/", "spec/controllers/", "config/routes.rb"]
+  timeout_seconds: 300  # 5 minutes for thorough analysis
 
 # Architecture validation
 mcp__gemini-bridge__consult_gemini_with_files
   query: "Does this follow our architecture patterns? Check against all project docs"
   directory: "/path/to/project"
   files: ["app/services/", "working-docs/", ".claude/", "spec/"]
+  timeout_seconds: 300  # Allow time for deep analysis
 ```
 
 ## Key Patterns
@@ -56,6 +60,7 @@ mcp__gemini-bridge__consult_gemini_with_files
 3. **Include project context** - Send .claude/ and working-docs/
 4. **Ask specific questions** - "Check X against Y patterns"
 5. **Use after Claude changes** - Not during (keep Claude fast)
+6. **Set adequate timeout** - Use timeout_seconds: 300 for comprehensive reviews
 
 ## Don't Load in Claude
 - Large test outputs

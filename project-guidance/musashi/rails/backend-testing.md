@@ -2,6 +2,12 @@
 type: guidance
 status: current
 category: rails
+
+# Automatic triggers
+file_triggers:
+  - "*_spec.rb"
+directory_triggers:
+  - "spec/**"
 ---
 
 # Backend Testing Patterns

@@ -8,6 +8,13 @@ tags:
 focus_levels:
 - design
 - implementation
+
+# Automatic triggers
+file_triggers:
+  - "*.css"
+  - "*.scss"
+  - "*.sass"
+  - "*.less"
 ---
 
 # CSS Architecture Principles

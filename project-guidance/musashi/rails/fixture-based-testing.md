@@ -3,6 +3,14 @@ type: guidance
 status: current
 category: rails
 project: musashi
+
+# Automatic triggers
+file_triggers:
+  - "*_spec.rb"
+  - "fixture_builder.rb"
+directory_triggers:
+  - "spec/**"
+  - "spec/support/**"
 ---
 
 # Fixture-Based Testing Strategy

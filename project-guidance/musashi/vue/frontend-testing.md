@@ -2,6 +2,16 @@
 type: guidance
 status: current
 category: vue
+
+# Automatic triggers
+file_triggers:
+  - "*.spec.js"
+  - "*.spec.ts"
+  - "*.test.js"
+  - "*.test.ts"
+directory_triggers:
+  - "spec/javascript/**"
+  - "test/javascript/**"
 ---
 
 # Frontend Testing Patterns

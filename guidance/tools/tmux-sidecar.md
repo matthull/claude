@@ -35,6 +35,16 @@ tmux send-keys -t SESSION:WINDOW.PANE 'command here' C-m
 # Without C-m, text appears but doesn't execute
 ```
 
+## Shell Escaping
+Use double quotes when command contains `!` (history expansion):
+```bash
+# Wrong - fails with history expansion
+tmux send-keys -t SESSION:WINDOW.PANE 'echo "test!"' C-m
+
+# Correct - use double quotes for commands with !
+tmux send-keys -t SESSION:WINDOW.PANE "echo 'test!'" C-m
+```
+
 ## Read Output
 ```bash
 # Capture entire pane buffer

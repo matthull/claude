@@ -2,6 +2,14 @@
 type: guidance
 status: current
 category: rails
+
+# Automatic triggers
+file_triggers:
+  - "*_service.rb"
+  - "*_service_spec.rb"
+directory_triggers:
+  - "app/services/**"
+  - "spec/services/**"
 ---
 
 # Service Object Patterns

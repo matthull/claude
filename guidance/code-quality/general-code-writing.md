@@ -7,6 +7,15 @@ focus_levels:
 tags:
 - code-quality
 - code
+
+# Automatic triggers
+file_triggers:
+  - "*.rb"
+  - "*.js"
+  - "*.ts"
+  - "*.py"
+  - "*.java"
+  - "*.go"
 ---
 
 # General Code Writing Guidance

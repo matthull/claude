@@ -6,6 +6,18 @@ tags:
 - testing
 focus_levels:
 - implementation
+
+# Automatic triggers
+file_triggers:
+  - "*_spec.rb"
+  - "*.spec.rb"
+  - "*.spec.js"
+  - "*.spec.ts"
+  - "*.test.js"
+  - "*.test.ts"
+directory_triggers:
+  - "spec/**"
+  - "test/**"
 ---
 
 # Test-Driven Development

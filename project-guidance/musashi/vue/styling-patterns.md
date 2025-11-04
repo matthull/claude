@@ -2,6 +2,15 @@
 type: guidance
 status: current
 category: vue
+
+# Automatic triggers
+file_triggers:
+  - "*.vue"
+  - "*.scss"
+  - "*.css"
+directory_triggers:
+  - "src/components/**"
+  - "app/assets/stylesheets/**"
 ---
 
 # Frontend Styling Patterns

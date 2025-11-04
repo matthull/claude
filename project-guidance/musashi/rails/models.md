@@ -2,6 +2,11 @@
 type: guidance
 status: current
 category: rails
+
+# Automatic triggers
+directory_triggers:
+  - "app/models/**"
+  - "spec/models/**"
 ---
 
 # Rails Model Patterns

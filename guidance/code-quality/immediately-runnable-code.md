@@ -7,6 +7,14 @@ tags:
 - code
 focus_levels:
 - implementation
+
+# Automatic triggers
+file_triggers:
+  - "*.rb"
+  - "*.js"
+  - "*.ts"
+  - "*.py"
+  - "*.java"
 ---
 
 # Immediately Runnable Code

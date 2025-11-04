@@ -3,7 +3,7 @@ type: bundle
 layer: practice
 parent: domain/coding.md
 context: Musashi backend development with Ruby on Rails
-estimated_lines: 400
+estimated_lines: 468
 ---
 # Practice: Backend (Musashi)
 
@@ -23,10 +23,12 @@ All project-specific Rails patterns and conventions:
 @../../rails/fixture-based-testing.md
 @../../rails/models.md
 @../../rails/service-objects.md
+@../../rails/safe-migrations.md
 @../../backend-patterns.md
 @../../testing-patterns.md
 @../../testing/guard-tdd-workflow.md
 @../../docker-commands.md
+@../../devops/command-failure-protocol.md
 
 ### Rails-Vue Integration (Backend Side)
 Backend patterns for supporting Vue.js frontend:

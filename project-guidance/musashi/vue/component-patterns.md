@@ -2,6 +2,13 @@
 type: guidance
 status: current
 category: vue
+
+# Automatic triggers
+file_triggers:
+  - "*.vue"
+directory_triggers:
+  - "src/components/**"
+  - "app/javascript/components/**"
 ---
 
 # Vue Component Patterns
