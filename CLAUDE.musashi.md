@@ -35,13 +35,80 @@ For detailed specifications and architectural decisions, see the `specification-
 
 ## Build/Test/Lint Commands
 
-- Run RSpec: `docker exec musashi-web-1 bundle exec rspec`
-- Run single test: `docker exec musashi-web-1 bundle exec rspec path/to/spec.rb:LINE_NUMBER`
-- Run JS tests: `docker exec musashi-web-1 yarn test` or single: `docker exec musashi-web-1 npx vitest app/javascript/src/lib/file_name.test.ts`
-- TDD workflow: `docker exec -ti musashi-web-1 bundle exec guard`
+- Run RSpec: `docker compose exec web bundle exec rspec`
+- Run single test: `docker compose exec web bundle exec rspec path/to/spec.rb:LINE_NUMBER`
+- Run JS tests: `docker compose exec web yarn test` or single: `docker compose exec web npx vitest app/javascript/src/lib/file_name.test.ts`
+- Run Vitest (pure logic tests): `docker compose exec web npx vitest run path/to/test.ts --environment=node --no-browser`
+  - **Note:** Browser-dependent tests requiring DOM/Playwright won't work without further setup. Use `--environment=node --no-browser` for pure logic tests.
+- TDD workflow: `docker compose exec web bundle exec guard`
 - Lint Ruby: `rubocop` (use `-a` for auto-fix, `-A` for aggressive fixes)
-- Lint JS: `yarn eslint`
+- Lint JS: `docker compose exec web yarn eslint`
 - **See Docker workflow guidance: @.claude/guidance/docker-commands.md**
+
+### Vitest Testing Strategy
+
+**Test Categories:**
+
+1. **Pure Logic Tests** (`lib/` directory utilities):
+   - Run in Node.js environment for speed (no browser overhead)
+   - No DOM or browser APIs required
+   - Test data transformations, validators, formatters, utilities
+   - Examples: `lib/validation/`, `lib/formatters.test.js`, `lib/assetUtils/*.test.ts`, `lib/classifierUtils/*.test.ts`
+
+2. **Browser-Dependent Tests** (components, stores, some lib utilities):
+   - Require browser APIs: `window`, `document`, `localStorage`, etc.
+   - Use default vitest.config.ts settings (Playwright/happy-dom)
+   - Examples: `lib/tracking.test.ts`, `lib/SvgTestimonial.test.ts`, `lib/contentUtils.test.ts`
+
+**Running Tests:**
+
+```bash
+# All tests (default - uses browser mode, requires Playwright)
+docker compose exec web yarn test
+
+# Pure logic tests only (fast - no browser, ~1.8s for 36 test files)
+docker compose exec web yarn test:lib
+
+# Pure logic tests in watch mode (TDD workflow)
+docker compose exec web yarn test:lib:watch
+
+# Specific pure logic test file
+docker compose exec web npx vitest run path/to/test.ts --environment=node --no-browser
+
+# Single test pattern
+docker compose exec web npx vitest run app/javascript/src/lib/validation/ --environment=node --no-browser
+```
+
+**Writing New Tests for lib/ Utilities:**
+
+When creating tests for utilities in `lib/` (especially Phase 2 chartUtils):
+- Write pure functions that don't depend on browser APIs
+- Mock Vue if needed (see `lib/validation/validator.test.ts` for pattern)
+- Run with node environment for faster feedback
+- Use `--environment=node --no-browser` flags for execution
+
+**Performance Comparison:**
+- Browser mode (default): Requires Playwright setup, slower execution
+- Node environment mode: ~1.8s for 36 test files (327 tests), 60-70% faster
+
+**Note**: Docker Compose automatically uses the correct project name from `COMPOSE_PROJECT_NAME` in `.env`. Worktrees use `musashi-wt-NNN`, main repo uses `musashi`.
+
+## Docker node_modules Management
+
+We use Docker anonymous volumes to isolate node_modules from the host system. This prevents:
+- Platform-specific binary conflicts
+- Host's empty node_modules overriding container's dependencies
+- Race conditions from multiple services installing simultaneously
+
+**How it works:**
+- Dependencies are installed during `docker compose build`
+- Anonymous volumes (`/musashi/node_modules`) keep them isolated from host
+- When package.json or yarn.lock changes, just run `docker compose build` - dependencies refresh automatically
+- No manual `yarn install` needed
+
+**References:**
+- [Docker best practices for Node.js](https://www.docker.com/blog/keep-nodejs-rockin-in-docker/)
+- [Why anonymous volumes for node_modules](https://stackoverflow.com/questions/30043872/docker-compose-node-modules-not-present-in-a-volume-after-npm-install-succeeds)
 
 ## GitHub Actions CI
 
@@ -60,6 +127,16 @@ For detailed specifications and architectural decisions, see the `specification-
 - Other workflows: `Rspec`, `Eslint Code`, `Vitest`, `Lint Code`, `Chromatic`
 
 ## Accessing local dev resources
-- The app lives at `http://localhost:3000`
+
+### Worktree-Specific Ports
+**IMPORTANT**: Before accessing Storybook or other local services, check if you're in a worktree:
+- Check for `.worktree-id` file in the project root
+- If present, read `STORYBOOK_PORT` from `.env` file (worktrees use custom ports like 6206, 6306, etc.)
+- Main repo uses default port 6006
+
+### Service URLs
+- The app lives at `http://localhost:3000` (same for all worktrees)
+- **Storybook**: Check `.env` for `STORYBOOK_PORT` value
+  - Main repo: `http://localhost:6006`
+  - Worktrees: `http://localhost:{STORYBOOK_PORT}` (e.g., `http://localhost:6206`)
 - When using Puppeteer to navigate in the app, don't try to guess URLs and navigate directly since we don't have a consistent URL structure, navigate via URL unless you know the URL from visiting it already.
-- The storybook server is at `http://localhost:6006`

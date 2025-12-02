@@ -10,26 +10,25 @@ source_guidance:
     - code-quality/immediately-runnable-code
 ---
 
+<!-- PLANNER NOTE: Describe test scenarios, do NOT write test code
+     - List scenarios as plain English descriptions
+     - Reference line numbers from existing test files
+     - Maximum 1-5 lines of code for context only
+     - Implementer will write actual tests following TDD
+-->
+
 ## Test Scenarios
 
 **Required**:
-- [ ] Happy path: {HAPPY_PATH}
-- [ ] Edge cases: {EDGE_CASES}
-- [ ] Error handling: {ERROR_SCENARIOS}
+- [ ] Happy path: {HAPPY_PATH_DESCRIPTION}
+- [ ] Edge cases: {EDGE_CASE_DESCRIPTIONS}
+- [ ] Error handling: {ERROR_SCENARIO_DESCRIPTIONS}
 
-### {SCENARIO_1}
-```ruby
-it '{description}' do
-  # Arrange
-  {SETUP}
+**Reference existing test patterns:**
+- Similar to: `{existing_spec_file}:{line_numbers}`
+- Follow structure in: `{canonical_test_example}`
 
-  # Act
-  {ACTION}
-
-  # Assert
-  expect({RESULT}).to {MATCHER}
-end
-```
+<!-- PLANNER NOTE: Do NOT include test code blocks - describe scenarios only -->
 
 ### Test Coverage Summary
 
@@ -55,6 +54,27 @@ end
 
 <!-- PLANNER NOTE: Debugging approach usually not needed - implementers know -->
 <!-- Include only for complex debugging scenarios -->
+
+### MANDATORY: Test Failure Stop Protocol
+
+**This is an ABSOLUTE constraint with NO exceptions:**
+
+```
+WHEN running tests:
+  IF output contains ANY failure indicators:
+    IMMEDIATELY output: "🛑 STOP: Test failures detected"
+    DO NOT analyze failures
+    DO NOT explain why they might have occurred
+    DO NOT categorize as "pre-existing" or "unrelated"
+    EXECUTE: STOP and Ask protocol
+    REPORT: "Tests failing. Need guidance."
+    AWAIT: User decision
+  ELSE:
+    Output: "✅ All tests passing"
+    PROCEED: To next step
+```
+
+**Rationale**: Test failures indicate broken functionality. Proceeding compounds errors. Analysis happens AFTER stopping, not before.
 
 ### Test Quality Checklist
 

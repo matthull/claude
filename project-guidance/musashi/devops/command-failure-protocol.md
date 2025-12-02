@@ -36,8 +36,8 @@ docker compose up -d
 
 ### Pending Migrations
 ```bash
-docker exec musashi-web-1 bundle exec rails db:migrate
-docker exec musashi-web-1 bundle exec rails db:migrate RAILS_ENV=test
+docker compose exec web bundle exec rails db:migrate
+docker compose exec web bundle exec rails db:migrate RAILS_ENV=test
 ```
 
 ### Yarn Errors / Missing Packages

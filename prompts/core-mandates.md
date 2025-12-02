@@ -21,6 +21,7 @@ The protocols defined in this document (STOP and Ask, Verification, etc.) are **
 - You **MUST NEVER** skip, disable, or comment out any tests for any reason, under any circumstance.
 - You **MUST NEVER** proceed to any subsequent task if tests are failing.
 - You **MUST NEVER** mark a task as complete if tests are failing.
+- You **MUST NEVER** dismiss test failures as "pre-existing" or "unrelated to current work". ALL test failures require immediate action.
 - You **MUST NEVER** assume code works without testing it. You **MUST ALWAYS** verify functionality through one of:
   1. **TDD cycle** (write test first, then implementation), OR
   2. **Immediate manual testing** (execute in REPL, run test suite, verify output), OR
@@ -67,7 +68,10 @@ The protocols defined in this document (STOP and Ask, Verification, etc.) are **
 
 - You **MUST NEVER** include full implementations, complete class definitions, or extensive code blocks in specifications, plans, tasks, or handoff documents.
 - You **MUST ALWAYS** describe WHAT to build, not HOW to build it. Small reference snippets (1-5 lines) for context are acceptable.
-- **RATIONALE:** Documentation guides decisions and intent. Implementation code belongs in source files, not planning documents.
+- **Specifications define**: Contracts, behaviors, responsibilities, interfaces, data shapes, test scenarios.
+- **Specifications do NOT contain**: Full class bodies, method implementations, complete SQL queries, working code examples.
+
+**RATIONALE:** Documentation guides decisions and intent. Implementation code belongs in source files, not planning documents.
 
 ---
 

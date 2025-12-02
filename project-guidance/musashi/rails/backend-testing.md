@@ -30,10 +30,10 @@ directory_triggers:
 - Use contexts and describe blocks to organize tests within the file
 
 ### Running Tests
-- Full suite: `docker exec musashi-web-1 bundle exec rspec`
-- Single file: `docker exec musashi-web-1 bundle exec rspec path/to/spec.rb`
-- Single test: `docker exec musashi-web-1 bundle exec rspec path/to/spec.rb:LINE_NUMBER`
-- TDD workflow: `docker exec -ti musashi-web-1 bundle exec guard`
+- Full suite: `docker compose exec web bundle exec rspec`
+- Single file: `docker compose exec web bundle exec rspec path/to/spec.rb`
+- Single test: `docker compose exec web bundle exec rspec path/to/spec.rb:LINE_NUMBER`
+- TDD workflow: `docker compose exec web bundle exec guard`
 
 ## Request Spec Organization
 
@@ -189,6 +189,7 @@ directory_triggers:
 - Using instance variables instead of `let`
 - Using `RSpec.describe` instead of `describe`
 - One spec per response attribute (use comprehensive specs)
+- Testing logging statements
 
 ### Performance Issues
 - Using factories when fixtures exist

@@ -42,7 +42,7 @@ cd "$project_root"
 echo "🔧 Running auto-correction..."
 
 # Use docker exec to run eslint in the container
-eslint_fix_output=$(docker exec musashi-web-1 yarn eslint --fix "$relative_path" 2>&1)
+eslint_fix_output=$(docker compose exec web yarn eslint --fix "$relative_path" 2>&1)
 fix_exit_code=$?
 
 # Capture file hash after changes
@@ -57,7 +57,7 @@ fi
 
 # Now check for remaining issues (run without --fix)
 echo "🔍 Checking for remaining issues..."
-eslint_output=$(docker exec musashi-web-1 yarn eslint "$relative_path" --format=json 2>/dev/null)
+eslint_output=$(docker compose exec web yarn eslint "$relative_path" --format=json 2>/dev/null)
 eslint_exit_code=$?
 
 # Check if Docker is running
@@ -119,7 +119,7 @@ if [ -n "$eslint_output" ] && [ "$eslint_output" != "[]" ]; then
   fi
 
   echo "To see detailed eslint output, run:" >&2
-  echo "   docker exec musashi-web-1 yarn eslint $relative_path" >&2
+  echo "   docker compose exec web yarn eslint $relative_path" >&2
   echo "" >&2
   echo "═══════════════════════════════════════════════════════════════════" >&2
 

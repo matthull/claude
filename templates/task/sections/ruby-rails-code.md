@@ -25,10 +25,10 @@ source_guidance:
 - ❌ Copy fixture patterns from standard Rails documentation
 
 **You MUST ALWAYS:**
-- ✅ Define fixtures ONLY in `spec/support/fixture_builder.rb`
+- ✅ Define fixtures ONLY in `spec/support/test_data_factory.rb`
 - ✅ Use FixtureBuilder.configure block
 - ✅ Add exactly ONE fixture per new model
-- ✅ Regenerate: `rake db:fixtures:dump` or `FIXTURES=true bundle exec rspec`
+- ✅ Regenerate: `rake spec:fixture_builder_rebuild`
 
 <!-- CONDITIONAL: Include migration section ONLY if needs_migration: true -->
 <!-- BEGIN_IF_MIGRATION -->
@@ -46,62 +46,6 @@ source_guidance:
 **Safe Add**: Migration only → Deploy → Use in next PR
 **Safe Remove**: Stop usage → ignored_columns → Deploy → Drop in next PR
 <!-- END_IF_MIGRATION -->
-
----
-
-## CRITICAL: Rails Environment Checks (ABSOLUTE)
-
-**You MUST NEVER use `Rails.env.production?`**
-
-**RATIONALE:** Positive checks = easier staging/review app logic.
-
-**CORRECT:**
-```ruby
-['development', 'test'].include?(Rails.env)
-```
-
-**WRONG:**
-```ruby
-Rails.env.production?  # ❌ FORBIDDEN
-```
-
----
-
-## CRITICAL: Strong Parameters vs Jbuilder Separation (ABSOLUTE)
-
-**You MUST NEVER share constants between strong_params and jbuilder**
-
-**RATIONALE:** Input acceptance (strong_params) and output presentation (jbuilder) are separate concerns.
-
-**WRONG:**
-```ruby
-FIELDS = [:name, :email]  # ❌ Shared constant
-params.require(:user).permit(FIELDS)
-json.extract! @user, *FIELDS
-```
-
-**CORRECT:**
-```ruby
-# In controller
-params.require(:user).permit(:name, :email)
-
-# In jbuilder
-json.extract! @user, :name, :email, :created_at
-```
-
----
-
-## CRITICAL: API Documentation First (ABSOLUTE)
-
-**You MUST NEVER write API client methods without doc extraction**
-
-**RATIONALE:** Guessing API specs = broken integration.
-
-**BEFORE writing any client method:**
-1. WebFetch the API documentation
-2. Complete extraction template
-3. Show extracted specs to user
-4. ONLY THEN write implementation
 
 ---
 
@@ -200,88 +144,40 @@ end
 
 ---
 
+<!-- PLANNER NOTE: This section describes WHAT to implement, never HOW
+     - Describe method names and purpose, not implementations
+     - Reference existing code by line numbers, don't reproduce it
+     - List test scenarios, don't write complete tests
+     - Keep any code snippets to 1-5 lines maximum for context
+-->
+
 ## Ruby/Rails Implementation Details
 
-### Method Signature
+### Method Signatures Required
 
-```ruby
-{METHOD_SIGNATURE}
-```
+**List method names with brief descriptions only:**
+- `method_name(param1, param2)` - {purpose}
+- `other_method` - {purpose}
 
-**Pattern Examples**:
-```ruby
-# Class method
-def self.method_name(param1, param2)
+**Reference existing patterns:**
+- Similar to: `{existing_file}:{line_numbers}`
+- Follow pattern in: `{canonical_example}`
 
-# Instance method
-def method_name(param1, param2)
+<!-- PLANNER NOTE: Do NOT include full method implementations or class structures -->
 
-# Service pattern
-class ServiceName
-  def initialize(resource)
-    @resource = resource
-  end
+### Test Coverage Required
 
-  def call
-    # implementation
-  end
-end
-```
+**Spec file**: `spec/{path}/{filename}_spec.rb`
 
-### Expected Test Structure
+**Test scenarios to cover:**
+- {Scenario 1 description} - verify {behavior}
+- {Scenario 2 description} - verify {edge case}
+- {Scenario 3 description} - verify {error handling}
 
-**File**: `spec/{path}/{filename}_spec.rb`
+**Reference existing test patterns:**
+- Similar to: `{existing_spec_file}:{line_numbers}`
 
-```ruby
-require 'rails_helper'
-
-RSpec.describe {ClassName} do
-  # Test data setup
-  let(:resource) { create(:resource) }
-  let(:service) { described_class.new(resource) }
-
-  describe '{method_name}' do
-    context 'when {condition}' do
-      it '{expected behavior}' do
-        # Arrange
-        {SETUP}
-
-        # Act
-        result = {ACTION}
-
-        # Assert
-        expect(result).to {EXPECTATION}
-      end
-    end
-
-    context 'when {different_condition}' do
-      it '{different expected behavior}' do
-        # ...
-      end
-    end
-  end
-end
-```
-
-**Test Data Setup Patterns**:
-```ruby
-# Factory usage
-let(:user) { create(:user) }
-let(:attributes) { attributes_for(:resource) }
-
-# Manual setup
-let(:valid_params) do
-  {
-    key1: 'value1',
-    key2: 'value2'
-  }
-end
-
-# Stubbing
-before do
-  allow(ExternalService).to receive(:call).and_return(stubbed_response)
-end
-```
+<!-- PLANNER NOTE: Describe scenarios, do NOT write complete test code -->
 
 ### Verification Commands
 
@@ -292,8 +188,10 @@ bundle exec rspec spec/{path}/{filename}_spec.rb
 
 **Loop 2 (Scoped)**:
 ```bash
+# CRITICAL: ALWAYS include verify-specs.sh for project-level verification
 ./specs/{PROJECT_NAME}/verify-specs.sh
-# OR scoped to directory:
+
+# Alternative (if verify-specs.sh doesn't exist yet):
 bundle exec rspec spec/services/
 ```
 
@@ -312,7 +210,7 @@ rails console
 **Before Completing Task**:
 - [ ] **CRITICAL: ONE spec file per class** (no method-specific spec files)
 - [ ] **CRITICAL: Every new public method has its own test** (test at the layer where defined)
-- [ ] **CRITICAL: No manual fixture .yml files created or edited** (must use fixture_builder.rb)
+- [ ] **CRITICAL: No manual fixture .yml files created or edited** (must use test_data_factory.rb)
 - [ ] **CRITICAL: No breaking migrations** (add/remove columns follow safe patterns)
 - [ ] **CRITICAL: No `Rails.env.production?` usage** (use positive environment checks)
 - [ ] **CRITICAL: No shared constants between strong_params and jbuilder**
@@ -380,7 +278,7 @@ Follow their patterns for structure, error handling, naming.
 **You MUST NEVER**:
 - ❌ **Create multiple spec files for individual methods** (ONE spec file per class)
 - ❌ **Add public methods without tests** (every method needs its own spec)
-- ❌ **Create or edit manual fixture .yml files** (use fixture_builder.rb ONLY)
+- ❌ **Create or edit manual fixture .yml files** (use test_data_factory.rb ONLY)
 - ❌ **Create breaking migrations** (follow safe add/remove patterns)
 - ❌ **Use `Rails.env.production?`** (use positive environment checks)
 - ❌ **Share constants between strong_params and jbuilder**

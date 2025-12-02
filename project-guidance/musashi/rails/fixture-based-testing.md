@@ -28,7 +28,7 @@ directory_triggers:
 **ALWAYS:**
 - ✅ Define fixtures ONLY in `spec/support/fixture_builder.rb`
 - ✅ Use FixtureBuilder.configure block
-- ✅ Regenerate: `docker exec musashi-web-1 bundle exec rake spec:fixture_builder:rebuild`
+- ✅ Regenerate: `docker compose exec web bundle exec rake spec:fixture_builder:rebuild`
 - ✅ Discard unrelated fixture changes: `git add spec/fixtures/your_fixture.yml` then `git checkout spec/fixtures`
 
 ## Overview

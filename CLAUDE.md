@@ -106,6 +106,27 @@ When you encounter @-references in any markdown file (e.g., `@~/.claude/guidance
 
 @~/.claude/guidance/documentation/project-file-organization.md
 
+## File Creation Best Practices
+
+**CRITICAL: Avoid Heredoc Pattern for File Creation**
+**NEVER** use the `cat > file << 'EOF'` heredoc pattern to create files. This pattern cannot be easily whitelisted and prompts for permission every time.
+
+**DON'T DO THIS:**
+```bash
+cat > /path/to/file.sh << 'EOFSCRIPT'
+#!/bin/bash
+# script content
+EOFSCRIPT
+```
+
+**DO THIS INSTEAD:**
+Use the Write tool directly to create files. This allows for proper whitelisting and avoids permission prompts:
+```
+# Use the Write tool with the file_path and content parameters
+```
+
+**Why:** The heredoc pattern with cat creates complex shell commands that can't be whitelisted efficiently, causing unnecessary permission prompts for every file creation. The Write tool is designed for file creation and integrates properly with the permission system.
+
 ## Clipboard Operations
 
 **Protocol for wl-copy:** When user says "copy [something] to clipboard" or "ready to send", use wl-copy with `run_in_background: true` to avoid hanging. The content is copied immediately even though the command may appear to hang.

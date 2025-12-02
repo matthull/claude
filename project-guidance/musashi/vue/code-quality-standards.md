@@ -38,7 +38,7 @@ focus_levels:
 ## Linting Requirements
 
 ### ESLint
-- Run: `docker exec musashi-web-1 yarn eslint`
+- Run: `docker compose exec web yarn eslint`
 - All warnings in new code **MUST** be resolved
 - Existing warnings resolved unless scope increases significantly
 

@@ -15,7 +15,9 @@ category: testing
 - Only write capybara specs when prompted by user
 - **Never** write controller specs, use request specs instead
 - When writing request specs, avoid writing one spec per attribute when testing response payloads, instead write a single spec that checks all attributes for a given scenario.
-- When running automated tests to check for regression, the whole test suite is too slow (10+ min.) to run except occasionally. Identify specific spec files to run that are relevant to the changes.
+- You **MUST NEVER** run full RSpec suite - takes ~1 hour
+- Run targeted spec files relevant to changes
+- CI runs full suite
 
 ## RSpec Guidelines
 - **Always** prefer `let` over instance variables

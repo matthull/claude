@@ -68,7 +68,7 @@ run_spec() {
     echo "✅ Running spec: $spec_file" >&2
     # Capture RSpec output to process it
     local rspec_output
-    rspec_output=$(docker exec musashi-web-1 bundle exec rspec "$spec_file" \
+    rspec_output=$(docker compose exec web bundle exec rspec "$spec_file" \
       --format documentation \
       --force-color 2>&1)
     local spec_exit_code=$?

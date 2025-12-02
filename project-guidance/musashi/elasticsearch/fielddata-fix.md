@@ -23,7 +23,7 @@ like aggregations and sorting. Set fielddata=true on [FIELD_NAME]
 Enable fielddata directly on ES index without modifying models:
 
 ```bash
-docker exec musashi-elasticsearch-1 curl -X PUT \
+docker compose exec elasticsearch curl -X PUT \
   "localhost:9200/INDEX_NAME/_mapping" \
   -H 'Content-Type: application/json' \
   -d'{
@@ -40,7 +40,7 @@ docker exec musashi-elasticsearch-1 curl -X PUT \
 ## Get Index Name
 From Musashi Rails logs:
 ```bash
-docker logs musashi-web-1 --tail 500 | grep "Text fields are not optimised"
+docker compose logs web --tail 500 | grep "Text fields are not optimised"
 ```
 
 Look for `"index":"INDEX_NAME"` in the 400 error response.
@@ -77,7 +77,7 @@ Example: `recipients_development_20251030151724758`
 ```bash
 # Get index name from error, then:
 for field in seniority company_name volunteer_activities tags; do
-  docker exec musashi-elasticsearch-1 curl -s -X PUT \
+  docker compose exec elasticsearch curl -s -X PUT \
     "localhost:9200/INDEX_NAME/_mapping" \
     -H 'Content-Type: application/json' \
     -d"{\"properties\":{\"$field\":{\"type\":\"text\",\"fielddata\":true,\"analyzer\":\"standard\"}}}"

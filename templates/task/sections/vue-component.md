@@ -8,17 +8,95 @@ source_guidance:
     - frontend/css-architecture
     - frontend/debugging-workflow
     - code-quality/immediately-runnable-code
-## CRITICAL: Vue 3 Composition API (ABSOLUTE)
+## CRITICAL: Vue 2.7+ Composition API (ABSOLUTE)
+
+**IMPORTANT: This project uses Vue 2.7 with Composition API support, NOT Vue 3**
 
 **You MUST NEVER use Options API**
 
 **RATIONALE:** Options API = technical debt during Vue 2→3 migration.
 
-**REQUIRED:**
+---
+
+### ⚠️ COMMON BUG: v-model Event Mismatch (Vue 2 vs Vue 3)
+
+**THE TRAP:** Seeing `<script setup>` + Composition API triggers Vue 3 assumptions.
+**BUT THIS IS VUE 2.7** - v-model behavior is different!
+
+| Feature | Vue 2 (this project) | Vue 3 |
+|---------|---------------------|-------|
+| v-model prop | `value` | `modelValue` |
+| v-model event | `@input` | `@update:modelValue` |
+
+**SYMPTOMS:** Checkboxes/inputs don't update parent state, forms appear broken.
+
+**ROOT CAUSE:** Component emits Vue 3 event, parent expects Vue 2 event.
+
+---
+
+**CRITICAL Vue 2.7 Differences:**
+- **v-model**: Uses `value` prop and `input` event (NOT `modelValue`/`update:modelValue`)
+- **For compatibility**: Emit BOTH `input` (Vue 2) AND `update:modelValue` (Vue 3) events
+- **Props**: Accept BOTH `value` AND `modelValue` props for maximum compatibility
+- **Component registration**: May need BootstrapVue registration in Storybook decorators
+
+**CHILD COMPONENT (emitting v-model):**
 ```vue
 <script setup lang="ts">
-// Composition API only
+// Composition API only - but remember this is Vue 2.7!
+interface Props {
+  value?: string      // Vue 2 v-model
+  modelValue?: string // Vue 3 v-model (for future compatibility)
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits<{
+  (e: 'input', value: string): void      // Vue 2 v-model
+  (e: 'update:modelValue', value: string): void // Vue 3 v-model
+}>()
+
+// Use whichever prop is provided
+const currentValue = computed(() => props.value ?? props.modelValue)
+
+// Emit both events for compatibility
+function updateValue(newValue: string) {
+  emit('input', newValue)
+  emit('update:modelValue', newValue)
+}
 </script>
+```
+
+**PARENT COMPONENT (consuming v-model) - PREFER v-model directive:**
+```vue
+<template>
+  <!-- BEST: Use v-model - Vue handles event binding automatically -->
+  <!-- Works in Vue 2 AND Vue 3 without changes -->
+  <ChildComponent v-model="localValue" />
+</template>
+```
+
+**PARENT COMPONENT (manual binding - use sparingly):**
+```vue
+<template>
+  <!-- WRONG: Only Vue 3 event (BREAKS in Vue 2!) -->
+  <ChildComponent
+    :model-value="localValue"
+    @update:modelValue="localValue = $event"
+  />
+
+  <!-- RIGHT: Bind to :value and listen for @input (Vue 2 native) -->
+  <ChildComponent
+    :value="localValue"
+    @input="localValue = $event"
+  />
+
+  <!-- ALSO RIGHT: Listen for BOTH events (forwards-compatible) -->
+  <ChildComponent
+    :value="localValue"
+    @input="localValue = $event"
+    @update:modelValue="localValue = $event"
+  />
+</template>
 ```
 
 **FORBIDDEN:**
@@ -210,8 +288,12 @@ function handleSelect(item: Item) {
 
 **For Components**:
 ```bash
-npm run storybook
-# Browser: http://localhost:6006
+# CRITICAL: Storybook is ALREADY RUNNING in Docker container
+# Check .env for STORYBOOK_PORT (worktree-specific port)
+# Find port: grep APP_HOST .env or docker compose ps
+# Browser: Check APP_HOST in .env, replace port with 640X
+# Example: If APP_HOST=http://localhost:3400, Storybook is at http://localhost:6406
+
 # Navigate to: Components → {ComponentName}
 # Verify: Component renders and interactions work
 # Test: All stories display correctly
@@ -219,9 +301,9 @@ npm run storybook
 
 **For Utilities/Composables**:
 ```bash
-vitest src/utils/{utilityName}.spec.ts
+docker compose exec web npx vitest src/utils/{utilityName}.spec.ts
 # OR
-vitest src/composables/{composableName}.spec.ts
+docker compose exec web npx vitest src/composables/{composableName}.spec.ts
 ```
 
 **Purpose**: Primary development loop - Storybook for UI, Vitest for logic
@@ -229,10 +311,13 @@ vitest src/composables/{composableName}.spec.ts
 **Loop 2: Storybook Story Verification (MANDATORY)**
 
 ```bash
-# Open Storybook
-npm run storybook
+# CRITICAL: Storybook is ALREADY RUNNING - DO NOT start it
+# Check .env for worktree-specific port:
+# - APP_HOST shows main app port (e.g., 3400)
+# - Storybook port follows pattern: 640X (e.g., 6406)
+# - Find actual port: docker compose ps | grep storybook
 
-# Browser: http://localhost:6006
+# Browser: http://localhost:{STORYBOOK_PORT}
 # Manually verify ALL created/modified component stories:
 # 1. Navigate to each modified component
 # 2. Check ALL stories render without errors
@@ -274,14 +359,16 @@ May I skip Loop 3 browser verification, or would you like me to perform manual Q
 
 **Browser Verification Procedure**:
 ```bash
-npm run dev
-# Browser: http://localhost:{PORT}
+# CRITICAL: App is ALREADY RUNNING in Docker container
+# Find URL: grep APP_HOST .env
+# Example: APP_HOST=http://localhost:3400
 
+# Browser: Check APP_HOST value in .env
 # CRITICAL: Check console FIRST (frontend debugging workflow)
 # 1. Open browser DevTools (F12)
 # 2. Check console for errors BEFORE any interaction
 # 3. Check network tab for failed requests
-# 4. If errors found, check Rails logs for backend issues
+# 4. If errors found, check Rails logs: docker compose logs web
 
 # Navigate to: {ROUTE_PATH}
 # Test: {MANUAL_VERIFICATION_STEPS}
@@ -289,7 +376,20 @@ npm run dev
 
 ### Storybook Stories Structure (MANDATORY)
 
-**File**: `src/components/{ComponentName}.stories.ts`
+**File**: `stories/components/{ComponentName}.stories.js` (Note: .js not .ts in this project)
+
+**CRITICAL for Vue 2.7 + BootstrapVue Components**:
+```javascript
+// If using BootstrapVue components (b-dropdown, b-button, etc.):
+import { appPackDecorator } from '@stories/utilities/appDecorator'
+
+export default {
+  title: 'Components/ComponentName',
+  component: ComponentName,
+  decorators: [...appPackDecorator], // REQUIRED for BootstrapVue components!
+  // ...
+}
+```
 
 **You MUST create stories for**:
 - Default/typical state
@@ -298,29 +398,44 @@ npm run dev
 - Error state (if applicable)
 - Edge cases (long text, many items, etc.)
 
-```typescript
-import type { Meta, StoryObj } from '@storybook/vue3'
-import ComponentName from './ComponentName.vue'
+```javascript
+// Vue 2.7 Storybook format (different from Vue 3!)
+import { ref } from 'vue'
+import { appPackDecorator } from '@stories/utilities/appDecorator'  // If using BootstrapVue
+import ComponentName from '@components/ComponentName.vue'
 
-const meta: Meta<typeof ComponentName> = {
+export default {
   title: 'Components/ComponentName',
   component: ComponentName,
-  tags: ['autodocs'],
+  decorators: [...appPackDecorator], // Add if using BootstrapVue components
   argTypes: {
+    value: { control: 'text' },      // Vue 2 v-model
+    modelValue: { control: 'text' }, // Vue 3 v-model compatibility
     variant: {
       control: 'select',
       options: ['primary', 'secondary']
-    },
-    onSelect: { action: 'select' },
-    onClose: { action: 'close' }
+    }
   }
 }
 
-export default meta
-type Story = StoryObj<typeof ComponentName>
-
-// Default state (REQUIRED)
-export const Default: Story = {
+// Template-based story for v-model handling
+export const Default = {
+  render: (args) => ({
+    components: { ComponentName },
+    setup() {
+      const value = ref('initial value')
+      return { value, args }
+    },
+    template: `
+      <div>
+        <ComponentName
+          v-model="value"
+          v-bind="args"
+        />
+        <div class="mt-3">Current value: {{ value }}</div>
+      </div>
+    `
+  }),
   args: {
     title: 'Example Title',
     items: [
@@ -331,15 +446,18 @@ export const Default: Story = {
 }
 
 // Empty state (REQUIRED if applicable)
-export const Empty: Story = {
+export const Empty = {
+  ...Default,
   args: {
+    ...Default.args,
     title: 'No Items',
     items: []
   }
 }
 
 // Variants (REQUIRED if component has variants)
-export const Secondary: Story = {
+export const Secondary = {
+  ...Default,
   args: {
     ...Default.args,
     variant: 'secondary'
@@ -347,8 +465,10 @@ export const Secondary: Story = {
 }
 
 // Edge cases (REQUIRED)
-export const ManyItems: Story = {
+export const ManyItems = {
+  ...Default,
   args: {
+    ...Default.args,
     title: 'Many Items',
     items: Array.from({ length: 20 }, (_, i) => ({
       id: i + 1,
@@ -357,8 +477,10 @@ export const ManyItems: Story = {
   }
 }
 
-export const LongText: Story = {
+export const LongText = {
+  ...Default,
   args: {
+    ...Default.args,
     title: 'Very Long Title That Should Handle Text Wrapping Gracefully',
     items: [
       { id: 1, name: 'Item with very long name that tests text overflow behavior' }
@@ -455,10 +577,12 @@ describe('useItemSelection', () => {
 
 ### Vue/TypeScript Patterns
 
-**Props Definition**:
+**Props Definition (Vue 2.7 with v-model compatibility)**:
 ```typescript
-// GOOD: Strongly typed with interface
+// GOOD: Strongly typed with interface + v-model compatibility
 interface Props {
+  value?: string        // Vue 2 v-model
+  modelValue?: string   // Vue 3 v-model (for compatibility)
   title: string
   count?: number
   variant?: 'primary' | 'secondary'
@@ -468,17 +592,28 @@ const props = withDefaults(defineProps<Props>(), {
   variant: 'primary'
 })
 
+// Handle both Vue 2 and Vue 3 v-model props
+const currentValue = computed(() => props.value ?? props.modelValue)
+
 // BAD: No types
 const props = defineProps(['title', 'count'])  // ❌
 ```
 
-**Emits Definition**:
+**Emits Definition (Vue 2.7 with v-model compatibility)**:
 ```typescript
-// GOOD: Typed emits
+// GOOD: Typed emits with both Vue 2 and Vue 3 patterns
 const emit = defineEmits<{
-  update: [value: string]
-  close: []
+  'input': [value: string]              // Vue 2 v-model
+  'update:modelValue': [value: string]  // Vue 3 v-model
+  'update': [value: string]              // Custom event
+  'close': []
 }>()
+
+// When updating v-model value, emit both:
+function updateValue(newValue: string) {
+  emit('input', newValue)              // For Vue 2 v-model
+  emit('update:modelValue', newValue)  // For Vue 3 compatibility
+}
 
 // BAD: Untyped
 const emit = defineEmits(['update', 'close'])  // ❌

@@ -12,7 +12,7 @@ tags:
 ## Record Cassette
 
 ```bash
-docker exec musashi-web-1 bash -c 'TOKEN=$(bundle exec rake seismic:vcr:token 2>/dev/null) && SEISMIC_VCR_TOKEN="$TOKEN" bundle exec rspec spec/path/to/spec.rb:LINE'
+docker compose exec web bash -c 'TOKEN=$(bundle exec rake seismic:vcr:token 2>/dev/null) && SEISMIC_VCR_TOKEN="$TOKEN" bundle exec rspec spec/path/to/spec.rb:LINE'
 ```
 
 ## Test Pattern
@@ -47,7 +47,7 @@ end
 ## Replay Test
 
 ```bash
-docker exec musashi-web-1 bundle exec rspec spec/path/to/spec.rb:LINE
+docker compose exec web bundle exec rspec spec/path/to/spec.rb:LINE
 ```
 
 No token needed - uses cassette.

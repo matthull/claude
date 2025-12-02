@@ -19,9 +19,9 @@ directory_triggers:
 ## Test Environment Setup
 
 ### Running Tests
-- Vitest: `docker exec musashi-web-1 yarn test`
-- Single file: `docker exec musashi-web-1 npx vitest app/javascript/src/lib/file_name.test.ts`
-- ESLint: `docker exec musashi-web-1 yarn eslint`
+- Vitest: `docker compose exec web yarn test`
+- Single file: `docker compose exec web npx vitest app/javascript/src/lib/file_name.test.ts`
+- ESLint: `docker compose exec web yarn eslint`
 - Always run inside Docker for consistency
 
 ### Test File Organization

@@ -4,18 +4,101 @@ description: Create a task handoff using the template system
 
 ## Usage
 ```
-/handoff <task-description>
+/handoff <task-reference-or-description>
 ```
 
 **Examples:**
-- `/handoff implement Seismic property assignment with Rails service`
-- `/handoff fix rendering bug in SeismicFolderSelector component`
-- `/handoff add custom_properties table with indexes`
-- `/handoff create API client for Highspot integration`
+- `/handoff @specs/project-docs/seismic-bulk-sync/TASKS.md task 1.1` - Single task from TASKS.md
+- `/handoff @specs/project-docs/seismic-bulk-sync/TASKS.md task 1.1 1.2 1.3` - Multiple tasks in parallel
+- `/handoff implement Seismic property assignment with Rails service` - Freeform description
+- `/handoff @specs/003-feature/tasks.md T001-T003` - Task range
 
-## Implementation
+## Implementation Strategy
 
-### 0. CRITICAL: Read Prerequisite Documents First (ABSOLUTE)
+**CRITICAL: This command uses parallel subagents for efficiency**
+
+When multiple tasks are requested (e.g., `task 1.1 1.2 1.3`), spawn **parallel Task tool subagents** - one per task. Each subagent independently:
+1. Reads prerequisite documents
+2. Extracts task requirements
+3. Composes handoff using template system
+4. Saves handoff document
+
+**DO NOT** process tasks sequentially in the main conversation. **ALWAYS** use parallel subagents for scalability.
+
+### Step 1: Parse Arguments & Detect Mode
+
+**Parse `$ARGUMENTS`** to determine handoff mode:
+
+**Mode A: Task File Reference** (Preferred)
+- Pattern: `@<file-path> task <task-numbers>`
+- Example: `@specs/project-docs/seismic-bulk-sync/TASKS.md task 1.1 1.2 1.3`
+- Action: Extract file path and task numbers → spawn subagents
+
+**Mode B: Freeform Description** (Legacy)
+- Pattern: Any text without `@` or `task` keyword
+- Example: `implement Seismic property sync`
+- Action: Process directly in main conversation (legacy behavior)
+
+**Mode C: Task Range** (Alternative)
+- Pattern: `@<file-path> T001-T003` or similar
+- Example: `@specs/003-feature/tasks.md T001-T003`
+- Action: Parse range, extract tasks → spawn subagents
+
+### Step 2: Spawn Parallel Subagents (Mode A & C)
+
+**For each identified task number**, spawn a **Task tool subagent** with `subagent_type: general-purpose`.
+
+**Critical: Use parallel tool calls** - invoke ALL Task tools in a **single message** with multiple tool use blocks.
+
+**Example (3 tasks requested)**:
+```
+User: /handoff @specs/project-docs/seismic-bulk-sync/TASKS.md task 1.1 1.2 1.3
+
+Claude sends ONE message with THREE Task tool calls:
+  - Task(subagent_type: general-purpose, description: "Create handoff for task 1.1", prompt: ...)
+  - Task(subagent_type: general-purpose, description: "Create handoff for task 1.2", prompt: ...)
+  - Task(subagent_type: general-purpose, description: "Create handoff for task 1.3", prompt: ...)
+```
+
+**Subagent Prompt Template**:
+```
+Create a task handoff document for Task {TASK_NUMBER} from {TASKS_FILE_PATH}.
+
+TASK FILE: {TASKS_FILE_PATH}
+TASK NUMBER: {TASK_NUMBER}
+
+INSTRUCTIONS:
+1. Read the tasks file at {TASKS_FILE_PATH}
+2. Extract requirements for Task {TASK_NUMBER}
+3. Follow the handoff creation process defined in Steps 3-7 below
+4. Save the handoff to the appropriate location
+5. Report what was created
+
+Follow the handoff template composition process:
+{INCLUDE_STEPS_3_TO_7_HERE}
+```
+
+### Step 3: Freeform Description Mode (Mode B)
+
+**If no task file reference detected**, process in main conversation using legacy behavior (Steps 3-7 below).
+
+---
+
+## Handoff Creation Process (Executed by Subagents or Main Conversation)
+
+**NOTE**: The following steps (0-7) are executed by:
+- **Subagents** when using Mode A/C (task file references)
+- **Main conversation** when using Mode B (freeform descriptions)
+
+### 0. Core Mandates (Already Embedded in Template)
+
+**NOTE:** Core mandates are now embedded directly in `~/.claude/templates/task/core-task-template.md`.
+
+No action needed - the template includes all core constraints (Testing Discipline, Verification Principle, Stop and Ask protocol, etc.). A comment at the top of the embedded mandates references the source file (`~/.claude/prompts/core-mandates.md`) for sync purposes.
+
+---
+
+### 0b. CRITICAL: Read Prerequisite Documents First (ABSOLUTE)
 
 **You MUST ALWAYS read ALL prerequisite documents BEFORE creating any handoff.**
 
@@ -63,6 +146,58 @@ specs/XXX-feature-name/
 
 ---
 
+### 0c. Code Discovery for Reuse
+
+**After reading prerequisites**, invoke Explore agent to find existing implementations that can be reused.
+
+**Purpose**: Discover existing code to prevent duplicate work and encourage reuse of proven patterns.
+
+**Invoke**: Task tool with `subagent_type='Explore'`, thoroughness `'very thorough'`
+
+**Search for**:
+1. **Services/classes** doing similar things (e.g., other metrics services, sync workers)
+2. **Utilities/helpers** providing needed functionality (date ranges, calculators, validators)
+3. **Similar features** (similar components, services, controllers, models with similar behavior)
+4. **Test patterns** (existing specs, VCR cassettes, test utilities)
+
+**Agent prompt template**:
+```
+Find existing code in the codebase that could be reused for: {TASK_DESCRIPTION}
+
+Detected stack: {DETECTED_STACK}
+Task type: {TASK_TYPE}
+
+Search for:
+- Existing services or classes implementing similar functionality
+- Utility methods, helpers, or mixins that provide needed capabilities
+- Similar features (components, services, controllers, models with similar behavior)
+- Relevant test patterns, fixtures, or VCR cassettes
+
+Return file paths with line numbers and brief descriptions of what's reusable.
+Format: `file_path:line_range  # what it does / why it's relevant`
+```
+
+**Store results** in `{REUSABLE_CODE_FINDINGS}` variable for template substitution.
+
+**Output format** (bash commands with inline comments):
+```bash
+# Similar service pattern
+cat app/services/asset_engagement_metrics_service.rb:15-45  # handle_social_post_metrics method
+
+# Reusable helper methods
+cat app/services/concerns/metrics_calculator.rb:23-30  # calculate_engagement_rate
+cat lib/date_range_builder.rb:10-18  # build_date_range helper
+
+# Related test patterns
+cat spec/services/asset_engagement_metrics_service_spec.rb:50-75  # VCR setup for metrics
+```
+
+**Fallback**: If agent fails or times out, set `{REUSABLE_CODE_FINDINGS}=""` and continue.
+
+**Important**: This discovers *reusable code specific to the task*. Handpicked canonical examples in section templates remain the trusted patterns for architecture.
+
+---
+
 ### 1. Parse Task Description & Detect Project Stack
 
 **Input**: `$ARGUMENTS` contains task description or file reference
@@ -83,6 +218,8 @@ specs/XXX-feature-name/
 **Technology**:
 - Ruby/Rails: `service`, `model`, `controller`, `Rails`, `Ruby`, `RSpec`, `ActiveRecord`, `backend`
 - Vue/Frontend: `Vue`, `component`, `Storybook`, `Vitest`, `UI`, `frontend`
+- Bash/Docker: `bash`, `shell`, `script`, `.sh`, `bats`, `docker`, `container`, `verify-specs`
+- Config Files: `.yml`, `.yaml`, `.json`, `.toml`, `gitignore`, `Dockerfile`, `.env`, `config file`, `CI config`, `docker-compose`, `workflow`
 - API/Integration: `API`, `integration`, `client`, `HTTP`, `endpoint`
 
 **Task Type**:
@@ -137,6 +274,15 @@ if [[ "$description" =~ (frontend|Vue|component|Storybook|UI) ]] && [ "$project_
   templates+=("~/.claude/templates/task/sections/vue-component.md")
 elif [[ "$description" =~ (Vue|component|Storybook|frontend|UI) ]]; then
   templates+=("~/.claude/templates/task/sections/vue-component.md")
+fi
+
+if [[ "$description" =~ (bash|shell|\.sh|bats|script.*test|docker.*script|verify-specs|container) ]]; then
+  templates+=("~/.claude/templates/task/sections/bash-docker-scripts.md")
+fi
+
+# Add config file section
+if [[ "$description" =~ (\.yml|\.yaml|\.json|\.toml|gitignore|Dockerfile|\.env|config.*file|CI.*config|environment.*file|docker-compose|workflow) ]]; then
+  templates+=("~/.claude/templates/task/sections/config-files.md")
 fi
 
 # Add domain sections
@@ -205,7 +351,20 @@ If task mentions (model) → General Model example
    - `{DATE}` → `date +%Y-%m-%d`
    - `{TASK_ID}` → Generate from project context or prompt user
    - `{CANONICAL_EXAMPLE_COMMANDS}` → `cat <extracted-canonical-files>`
+   - `{REUSABLE_CODE_FINDINGS}` → Bash commands from Step 0b code discovery
+   - `{PROJECT_NAME}` → Detect from save location (e.g., "001-seismic-integration" from `specs/001-seismic-integration/`)
 5. **Leave other variables as placeholders** for manual filling
+
+**Project Name Detection**:
+```bash
+# If saving to specs/001-seismic-integration/task-handoffs/
+# Extract: PROJECT_NAME=001-seismic-integration
+if [[ "$save_path" =~ specs/([^/]+)/task-handoffs ]]; then
+  project_name="${BASH_REMATCH[1]}"
+  # Replace {PROJECT_NAME} with actual project
+  content="${content//\{PROJECT_NAME\}/$project_name}"
+fi
+```
 
 **Frontmatter**:
 ```yaml
@@ -292,6 +451,7 @@ fi
 # Fill variables
 content="${content//\{DATE\}/$(date +%Y-%m-%d)}"
 content="${content//\{TASK_ID\}/$task_id}"
+content="${content//\{REUSABLE_CODE_FINDINGS\}/$reusable_code_findings}"
 
 # Save
 echo "$content" > "$save_path"
@@ -314,14 +474,25 @@ Templates used:
   - sections/api-integration.md
   - sections/testing.md
 
+Variables filled:
+  - DATE: 2025-11-05
+  - TASK_ID: T001
+  - PROJECT_NAME: 001-seismic-integration (detected from save location)
+
 Canonical examples included:
   - services/highspot/client.rb
 
+Reusable code found:
+  - app/services/asset_engagement_metrics_service.rb:15-45 (similar metrics service)
+  - lib/date_range_builder.rb:10-18 (date range helper)
+
 Next steps:
 1. Review handoff and fill in remaining variables (marked with {})
-2. Read canonical examples before implementing
-3. Follow TDD cycle: RED → GREEN → REFACTOR
-4. Complete all three verification loops
+2. **VERIFY verify-specs.sh path is correct** (Loop 2 verification)
+3. Read canonical examples before implementing
+4. Follow TDD cycle: RED → GREEN → REFACTOR
+5. Complete all three verification loops
+6. After completion, move handoff to completed/ subfolder (see Archival section)
 ```
 
 ## Error Handling
