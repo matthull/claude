@@ -1,7 +1,7 @@
 ---
 type: task-template
 section: manual-qa
-description: Manual QA procedures, console verification, browser testing, and QA checklists
+description: Claude QA Engineer procedures - automated AND "manual" testing via tools before human UAT
 applies_to: all
 source_guidance:
   global:
@@ -9,19 +9,118 @@ source_guidance:
     - code-quality/immediately-runnable-code
 ---
 
-## Manual QA Verification
+## Claude QA Engineer: "Manual" Testing via Tools
+
+**Claude is the QA Engineer.** All testing (automated AND "manual") happens before handoff to human.
+
+**"Manual" testing means using tools** - not deferring to human:
+- **Mobile**: Waydroid + ADB screenshots, Maestro flows
+- **Web**: Browser automation, DevTools console, network inspection
+- **API**: curl/httpie, console verification, response inspection
+- **Backend**: Rails console, database queries, log inspection
+
+**Human (Product Manager) receives a thoroughly tested feature** for UAT sign-off.
+
+---
+
+### CRITICAL: Tools Unavailable Protocol
+
+**If Claude cannot complete verification because tools are unavailable:**
+
+1. **IMMEDIATELY STOP** - Do not proceed without verification
+2. **Do NOT hand off with "please manually verify"** - This is not acceptable
+3. **Report clearly:**
+   - What verification is needed
+   - What tool would normally do it
+   - Why the tool is unavailable (not configured, service down, etc.)
+4. **Ask for guidance:**
+   - "Should I help set up [tool]?"
+   - "Is there an alternative verification approach?"
+   - "Should we defer this task until tooling is available?"
+
+**Example STOP message:**
+> "🛑 STOP: Cannot complete visual verification. Waydroid is not running and I cannot start it.
+>
+> Needed: Screenshot verification of component rendering
+> Tool: Waydroid + ADB
+> Status: `waydroid status` shows 'not running'
+>
+> Options:
+> 1. Help you start Waydroid (need `waydroid show-full-ui`)
+> 2. Alternative: Write Maestro E2E test to verify (but needs device)
+> 3. Defer until Waydroid is available
+>
+> How should I proceed?"
+
+**You MUST NEVER:**
+- ❌ Hand off with "please manually test [X]" when Claude should have tested it
+- ❌ Skip verification and hope for the best
+- ❌ Assume human will catch issues Claude should have caught
+
+---
+
+### Available QA Tools
+
+**Mobile (React Native/Expo):**
+```bash
+# Screenshot verification
+adb exec-out screencap -p > /tmp/screen.png
+
+# Launch app
+adb shell am start -n com.anonymous.projectalfalfa/.MainActivity
+
+# Force stop (clean state)
+adb shell am force-stop com.anonymous.projectalfalfa
+
+# Get UI text (accessibility dump)
+~/.claude/skills/waydroid-adb/scripts/get-ui-text.sh
+
+# Tap by coordinates or button
+~/.claude/skills/waydroid-adb/scripts/tap-button.sh "Button Text"
+```
+
+**Web (Browser):**
+- Browser MCP tools (navigate, screenshot, click, fill)
+- DevTools console inspection
+- Network request inspection
+
+**Backend (Rails/API):**
+```bash
+# Rails console
+docker compose exec web rails console
+
+# Database queries
+docker compose exec web rails dbconsole
+
+# API testing
+curl -X GET http://localhost:3000/api/v2/endpoint
+```
+
+**General:**
+```bash
+# Log inspection
+docker logs container_name
+
+# Process monitoring
+docker ps
+
+# Port checking
+curl -v http://localhost:PORT
+```
+
+---
 
 ### QA Gate Checklist
 
-**This task is NOT complete until all items are checked**:
+**Claude completes ALL of these before handoff**:
 
-- [ ] Automated tests passing (Loop 2)
-- [ ] Manual verification complete (Loop 3)
-- [ ] Edge cases manually tested
-- [ ] Error states behave correctly
-- [ ] Data persists as expected
-- [ ] No console errors/warnings (if UI involved)
-- [ ] Performance acceptable (no obvious slowdowns)
+- [ ] Automated tests passing (Loop 1 + Loop 2)
+- [ ] "Manual" verification complete via tools (Loop 3)
+- [ ] All edge cases tested (via automated tests OR manual tool verification)
+- [ ] Error states verified (trigger errors, confirm behavior)
+- [ ] Data persistence verified (create, query, confirm in DB)
+- [ ] No console errors/warnings (checked via tools)
+- [ ] Performance acceptable (no obvious slowdowns observed)
 
 ### Backend Console Verification
 
@@ -247,37 +346,47 @@ Path: {SCREENSHOT_PATH}
 - [ ] Local storage/session storage correct
 - [ ] Cookies set appropriately
 
-### Manual QA Anti-patterns
+### QA Anti-patterns (Claude MUST Avoid)
 
 **You MUST NEVER**:
-- ❌ Skip manual QA because "tests pass"
-- ❌ Test only happy path (must test edge cases)
-- ❌ Assume UI works without visual verification
+- ❌ Defer "manual" testing to human - use tools instead
+- ❌ Hand off with "please verify [X]" when tools could verify it
+- ❌ Skip edge case testing because "tests pass"
+- ❌ Assume UI works without visual verification via tools
 - ❌ Mark complete without verifying data persistence
-- ❌ Ignore browser console errors
-- ❌ Test in development only (verify in staging if possible)
-- ❌ Skip testing with real data (not just fixtures)
+- ❌ Ignore console errors visible in tool output
+- ❌ Test only happy path (must test edge cases via tools)
+- ❌ Skip testing with realistic data scenarios
 
-**Prefer**:
+**Claude MUST**:
+- ✅ Use available tools for visual verification (Waydroid, browser MCP)
 - ✅ Test with production-like data volumes
-- ✅ Verify both UI and database state
+- ✅ Verify both UI (via screenshots) and database state
 - ✅ Test with multiple user roles/permissions
-- ✅ Clear browser cache between test runs
 - ✅ Test edge cases and error scenarios
-- ✅ Document unexpected behavior even if minor
+- ✅ Document unexpected behavior found during testing
+- ✅ Hand off with verification evidence (screenshots, console output)
 
-### When to Involve Human QA
+### Human UAT (After Claude QA Complete)
 
-**Claude Code Can Handle**:
-- Deterministic console verification
-- Database state checks
-- Log output verification
-- Simple UI rendering checks
+**Claude (QA Engineer) handles ALL testing:**
+- ✅ Deterministic console verification
+- ✅ Database state checks
+- ✅ Log output verification
+- ✅ UI rendering via screenshots (Waydroid, browser tools)
+- ✅ Multi-step user workflows (via Maestro, browser automation, or step-by-step tool execution)
+- ✅ Edge case testing
+- ✅ Error state verification
 
-**Human Should Handle**:
-- Complex multi-step user workflows
-- Visual design verification
-- Cross-browser compatibility
-- Accessibility testing
-- Subjective UX evaluation
-- Real user acceptance testing
+**Human (Product Manager) does UAT on thoroughly tested feature:**
+- Final product acceptance - does it meet requirements?
+- Subjective UX evaluation - does it feel right?
+- Exploratory testing (optional) - anything Claude might have missed
+- Sign-off for release
+
+**The handoff should be:**
+> "Feature is fully tested. All automated tests pass. I verified the full user flow via [tools used].
+> Edge cases tested: [list]. Error handling verified. Ready for your UAT sign-off."
+
+**NOT:**
+> "Tests pass. Please manually verify [list of things Claude should have tested]."

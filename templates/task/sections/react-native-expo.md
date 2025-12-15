@@ -5,6 +5,23 @@ description: React Native/Expo workflow - testing, Waydroid verification, PowerS
 applies_to: react-native, expo, mobile, powersync
 ---
 
+## Claude as QA Engineer for Mobile
+
+**Claude owns ALL testing for mobile features** - both automated tests AND visual verification via Waydroid/ADB.
+
+**Claude completes before handoff:**
+- Unit/component tests passing
+- Visual verification via Waydroid screenshots
+- Full user flow tested in app
+- Edge cases verified
+
+**Human (Product Manager) receives:**
+- A thoroughly tested feature
+- Screenshots as evidence
+- UAT sign-off only (not QA)
+
+---
+
 ## Conventions Reference
 
 **Project skills contain the conventions. Read them first:**
@@ -65,9 +82,11 @@ const renderWithPaper = (component: React.ReactElement) =>
   render(<PaperProvider>{component}</PaperProvider>);
 ```
 
-### Loop 2: Visual Verification (Waydroid + ADB)
+### Loop 2: Visual Verification (Waydroid + ADB) - CLAUDE OWNS THIS
 
-**Waydroid is the visual verification environment** (similar to Storybook for web).
+**Waydroid is Claude's visual verification environment** (similar to Storybook for web).
+
+**Claude MUST complete visual verification** - do NOT defer to human for "manual testing".
 
 ```bash
 # Ensure Waydroid is running
@@ -89,14 +108,44 @@ adb shell am start -n com.anonymous.projectalfalfa/.MainActivity
 
 # Take screenshot for verification
 adb exec-out screencap -p > /tmp/screen.png
+
+# Read screenshot to verify visually
+# (Use Read tool on /tmp/screen.png)
 ```
 
-**What to verify visually:**
-- Component renders correctly
+**Claude verifies visually:**
+- Component renders correctly (take screenshot, read it)
 - Layout looks right
-- Interactions work (tap, scroll)
+- Interactions work (use ADB tap commands)
 - Theme/styling applied
-- States visible (loading, empty, error)
+- All states visible (loading, empty, error) - navigate to each state and screenshot
+
+**Evidence for handoff:**
+- Include screenshot paths in completion notes
+- Document what was visually verified
+
+### CRITICAL: Waydroid Unavailable Protocol
+
+**If Waydroid/ADB is not available and visual verification is needed:**
+
+1. **IMMEDIATELY STOP** - Do not hand off without visual verification
+2. **Report clearly:**
+   - "🛑 STOP: Cannot complete visual verification"
+   - What verification is needed
+   - Why Waydroid is unavailable (check `waydroid status`, `adb devices`)
+3. **Ask for guidance:**
+   - "Should I help troubleshoot Waydroid connection?"
+   - "Is there an alternative verification approach?"
+   - "Should we defer until Waydroid is available?"
+
+**This is NOT acceptable:**
+> "Tests pass. Please manually verify the UI in the emulator."
+
+**This IS acceptable:**
+> "🛑 STOP: Waydroid not responding. `adb devices` shows no devices.
+> Needed: Visual verification of TaskList component.
+> Options: 1) Troubleshoot ADB, 2) Defer task, 3) Alternative approach?
+> How should I proceed?"
 
 ### Loop 3: End-to-End Flow
 
@@ -115,16 +164,20 @@ adb shell am start -n com.anonymous.projectalfalfa/.MainActivity
 
 ---
 
-## Pre-Handoff Checklist
+## Pre-Handoff Checklist (Claude Completes All)
 
-Before marking task complete:
+**Claude completes ALL of these before handing off to human:**
 
 - [ ] **All tests pass:** `npm test -- --watchAll=false` exits 0
 - [ ] **Types check:** `npx tsc --noEmit` exits 0
 - [ ] **Lint clean:** `npx expo lint` exits 0
-- [ ] **Visual verification:** Component looks correct in Waydroid
-- [ ] **Interactions work:** Tested manually in app
+- [ ] **Visual verification complete:** Took screenshots in Waydroid, read and verified
+- [ ] **Interactions tested:** Used ADB commands to test tap/scroll
+- [ ] **All states verified:** Loading, empty, error states all screenshotted
 - [ ] **No console errors:** Checked Metro bundler output
+- [ ] **Evidence collected:** Screenshot paths documented for handoff
+
+**Human receives:** A thoroughly tested feature with evidence. UAT sign-off only.
 
 ---
 
@@ -194,13 +247,18 @@ describe('Todo operations', () => {
 ## Anti-patterns
 
 **You MUST NEVER:**
-- Skip Waydroid verification for UI changes
-- Leave console errors unaddressed
-- Commit with failing tests
-- Skip type checking
+- ❌ Defer visual verification to human ("please test in emulator")
+- ❌ Hand off without Waydroid screenshots for UI changes
+- ❌ Skip visual verification because "tests pass"
+- ❌ Leave console errors unaddressed
+- ❌ Commit with failing tests
+- ❌ Skip type checking
 
 **You MUST ALWAYS:**
-- Run full test suite before handoff
-- Verify visually in Waydroid for UI work
-- Check Metro console for errors
-- Follow patterns from project skills
+- ✅ Run full test suite before handoff
+- ✅ Take and read Waydroid screenshots for UI work
+- ✅ Test interactions via ADB tap commands
+- ✅ Verify all states (loading, empty, error)
+- ✅ Check Metro console for errors
+- ✅ Document verification evidence in handoff
+- ✅ Follow patterns from project skills

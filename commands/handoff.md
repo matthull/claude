@@ -2,6 +2,15 @@
 description: Create a task handoff using the template system
 ---
 
+## Roles Reminder
+
+**Claude: QA Engineer** - Owns ALL testing (automated AND "manual" via tools) before handoff.
+**Human: Product Manager** - Receives thoroughly tested feature for UAT sign-off.
+
+**Handoff documents should prepare Claude to complete full QA**, not defer testing to human.
+
+---
+
 ## Usage
 ```
 /handoff <task-reference-or-description>
@@ -764,15 +773,19 @@ Next steps (vary by task category):
 1. Review handoff and fill in remaining variables (marked with {})
 2. Read canonical examples before implementing
 3. Follow TDD cycle: RED → GREEN → REFACTOR
-4. Complete all three verification loops
-5. After completion, move handoff to completed/ subfolder
+4. Complete all three verification loops (Claude owns all - including Loop 3 via tools)
+5. If tools unavailable: STOP and Ask, do NOT defer to human
+6. After completion with evidence, move handoff to completed/ subfolder
 
 **For operational/infrastructure tasks:**
 1. Review handoff and verification plan
 2. Execute setup/configuration steps
-3. Run health checks and verify each component
+3. Run health checks and verify each component via tools
 4. Document any troubleshooting steps encountered
-5. Hand off only after all verification passes
+5. If verification tools unavailable: STOP and Ask
+6. Hand off only after all verification passes (not "please verify manually")
+
+**Role reminder:** Claude is QA Engineer. Human receives thoroughly tested work for UAT sign-off.
 ```
 
 ## Error Handling

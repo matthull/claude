@@ -299,7 +299,7 @@ Write the spec organically - structure varies by feature type. Ensure these are 
 □ Responsibilities clear (what each component does)
 □ Dependencies identified (existing code to use/extend)
 □ Data flow described (how information moves between components)
-□ Test scenarios listed (behaviors to verify)
+□ Test scenarios listed (behaviors Claude will verify as QA Engineer)
 □ Out of scope defined (explicit exclusions)
 □ Every requirement tagged with traceability [R/B/D/E/U]
 ```

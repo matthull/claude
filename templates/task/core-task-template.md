@@ -36,27 +36,51 @@ The protocols defined in this document (STOP and Ask, Verification, etc.) are **
 
 ## III. VERIFICATION DISCIPLINE (CORE CONSTRAINT)
 
-**All work MUST be verified before handoff to user.**
+**Claude is the QA Engineer. All work MUST be verified before handoff to user.**
 
-**RATIONALE:** Unverified work wastes user time. Claude catches errors first.
+**RATIONALE:** Unverified work wastes user time. Human is Product Manager, not QA.
 
 **You MUST ALWAYS:**
 - Define how you will verify success BEFORE starting
 - Execute verification steps and confirm they pass
-- Document what you verified and how
+- Document what you verified and how (include evidence: screenshots, console output)
 - Hand off only when you have evidence the work is correct
 
 **You MUST NEVER:**
 - Assume work is correct without verification
 - Hand off with "should work" or "probably fine"
+- Hand off with "please manually verify [X]" when tools could verify it
 - Skip verification because it's tedious
 - Leave verification for the user to discover failures
 
 **Verification approaches vary by task type:**
-- **Coding tasks**: Tests (unit, integration, E2E)
-- **Operational tasks**: Health checks, status commands, smoke tests
+- **Coding tasks**: Tests (unit, integration, E2E via tools like Waydroid, Maestro, Playwright)
+- **Mobile UI tasks**: Unit tests + screenshot verification via Waydroid/ADB
+- **Operational tasks**: Health checks, status commands, smoke tests via tools
 - **Infrastructure tasks**: Connectivity tests, security validation
 - **Configuration tasks**: Syntax validation, integration checks
+
+### Tools Unavailable Protocol
+
+**If Claude cannot verify because tools are unavailable:**
+
+1. **IMMEDIATELY STOP** - Do not proceed without verification
+2. **Do NOT hand off with "please manually verify"** - This violates QA ownership
+3. **Report clearly:**
+   - What verification is needed
+   - What tool would normally do it
+   - Why the tool is unavailable (with diagnostic output)
+4. **Ask for guidance:**
+   - "Should I help set up [tool]?"
+   - "Is there an alternative verification approach?"
+   - "Should we defer until tooling is available?"
+
+**Example:**
+> "🛑 STOP: Cannot complete verification. [Tool] unavailable.
+> Needed: [What verification]
+> Status: [Diagnostic output]
+> Options: 1) Help set up tool, 2) Alternative approach, 3) Defer
+> How should I proceed?"
 
 ---
 
@@ -257,16 +281,30 @@ For maximum adherence, internally process these directives with the following li
 
 ---
 
-## Pre-Handoff Checklist
+## Pre-Handoff Checklist (Claude Completes All)
 
-Before handing off to user, Claude MUST verify:
+**Claude is QA Engineer. Complete ALL verification before handoff.**
+
+Before handing off to user (Product Manager), Claude MUST verify:
 
 - [ ] **Loop 1 passed** - Targeted verification succeeded
 - [ ] **Loop 2 passed** - Integration verification succeeded
-- [ ] **Loop 3 passed** - End-to-end verification succeeded (or documented why not needed)
+- [ ] **Loop 3 passed** - End-to-end verification via tools (not deferred to human)
 - [ ] **No errors or warnings** - All verification clean
-- [ ] **Documentation complete** - User knows how to verify themselves
+- [ ] **Evidence documented** - Screenshots, console output, test results
 - [ ] **Handoff updated** - Document reflects actual implementation
+
+**If any loop cannot be completed due to tool unavailability:**
+- [ ] **STOP and Ask protocol invoked** - Did not proceed without verification
+- [ ] **Options presented** - User chose how to proceed
+- [ ] **Decision documented** - Why verification was modified/deferred
+
+**The handoff message should be:**
+> "Feature complete and thoroughly tested. All loops passed. Evidence: [paths].
+> Ready for your UAT sign-off."
+
+**NOT:**
+> "Tests pass. Please manually verify [list of things Claude should have tested]."
 
 ---
 
