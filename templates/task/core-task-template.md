@@ -1,21 +1,18 @@
 ---
 type: task-template
 name: core-task-template
-description: Universal task handoff template for all coding tasks
+description: Universal task handoff template for all task types
 applies_to: all
 ---
 
-<!-- PLANNER NOTE: This template provides guidance, NOT implementations
+<!-- PLANNER NOTE: This is the UNIVERSAL core template.
+     - Applies to ALL task types (coding, operational, infrastructure, etc.)
+     - Contains universal principles (verification, collaboration, completion)
+     - Verification loops are GENERIC - section templates define specifics
+     - For coding tasks, ALSO include sections/software-development.md
      - DESCRIBE what needs to exist, do NOT IMPLEMENT how it should work
-     - REFERENCE existing code by line numbers, do NOT REPRODUCE code
-     - LIST test scenarios as descriptions, do NOT WRITE complete tests
-     - MAXIMUM 1-5 lines of code for context snippets
-     - Focus on CONTRACTS (method names, parameters, return values)
-     - Focus on SCENARIOS (test cases descriptions, edge cases)
-     - NEVER include: Complete class definitions, full method implementations, complete test code
 
      BEFORE WRITING: Read ~/.claude/templates/task/HANDOFF_VALIDATION.md
-     and perform self-check. Code blocks > 5 lines = FAIL (except bash commands)
 -->
 
 <!-- SOURCE: ~/.claude/prompts/core-mandates.md - Keep in sync if that file changes -->
@@ -37,25 +34,35 @@ The protocols defined in this document (STOP and Ask, Verification, etc.) are **
 
 ---
 
-## III. TESTING DISCIPLINE (CORE CONSTRAINT)
+## III. VERIFICATION DISCIPLINE (CORE CONSTRAINT)
 
-- You **MUST NEVER** skip, disable, or comment out any tests for any reason, under any circumstance.
-- You **MUST NEVER** proceed to any subsequent task if tests are failing.
-- You **MUST NEVER** mark a task as complete if tests are failing.
-- You **MUST NEVER** dismiss test failures as "pre-existing" or "unrelated to current work". ALL test failures require immediate action.
-- You **MUST NEVER** assume code works without testing it. You **MUST ALWAYS** verify functionality through one of:
-  1. **TDD cycle** (write test first, then implementation), OR
-  2. **Immediate manual testing** (execute in REPL, run test suite, verify output), OR
-  3. **User verification** (explicitly ask user to test and confirm before proceeding)
-- **IF TESTS FAIL:** You **MUST IMMEDIATELY STOP** all work and initiate the 'STOP and Ask' protocol to either fix the failures or request explicit user guidance.
+**All work MUST be verified before handoff to user.**
 
-**RATIONALE:** Untested code is unverified code. Assumptions about correctness lead to bugs. Test failures indicate broken functionality. Proceeding with failing tests compounds errors and wastes time.
+**RATIONALE:** Unverified work wastes user time. Claude catches errors first.
+
+**You MUST ALWAYS:**
+- Define how you will verify success BEFORE starting
+- Execute verification steps and confirm they pass
+- Document what you verified and how
+- Hand off only when you have evidence the work is correct
+
+**You MUST NEVER:**
+- Assume work is correct without verification
+- Hand off with "should work" or "probably fine"
+- Skip verification because it's tedious
+- Leave verification for the user to discover failures
+
+**Verification approaches vary by task type:**
+- **Coding tasks**: Tests (unit, integration, E2E)
+- **Operational tasks**: Health checks, status commands, smoke tests
+- **Infrastructure tasks**: Connectivity tests, security validation
+- **Configuration tasks**: Syntax validation, integration checks
 
 ---
 
 ## IV. VERIFICATION PRINCIPLE (CORE CONSTRAINT)
 
-- You **MUST NEVER** guess or assume interfaces, APIs, data structures, model properties, function signatures, or endpoints.
+- You **MUST NEVER** guess or assume interfaces, APIs, data structures, configurations, or expected behaviors.
 - You **MUST ALWAYS** actively search for and verify the actual implementation or definition before use.
 - **IF UNSURE OR UNABLE TO VERIFY:** You **MUST IMMEDIATELY STOP** all work and initiate the 'STOP and Ask' protocol to request user clarification or guidance on verification.
 
@@ -78,9 +85,9 @@ The protocols defined in this document (STOP and Ask, Verification, etc.) are **
 
 ## VI. COMPLETION STANDARDS (CORE CONSTRAINT)
 
-- You **MUST NEVER** submit placeholder code, TODOs, or incomplete implementations as 'done'.
+- You **MUST NEVER** submit placeholder work, TODOs, or incomplete implementations as 'done'.
 - You **MUST NEVER** claim a task is complete with partial implementation.
-- You **MUST ALWAYS** ensure all necessary imports are present and appropriate error handling is implemented for any code you write or modify.
+- You **MUST ALWAYS** verify completion criteria are met before marking done.
 - **IF BLOCKED FROM COMPLETION:** You **MUST IMMEDIATELY STOP** and initiate the 'STOP and Ask' protocol, explaining precisely why you are blocked and what assistance is required.
 
 ---
@@ -96,6 +103,44 @@ The protocols defined in this document (STOP and Ask, Verification, etc.) are **
 
 ---
 
+## VIII. FILE OPERATIONS (CORE CONSTRAINT)
+
+**Always use Claude Code's built-in tools for file operations.**
+
+**You MUST ALWAYS:**
+- Use the **Write** tool to create new files
+- Use the **Edit** tool to modify existing files
+- Use the **Read** tool to view file contents
+
+**You MUST NEVER:**
+- Use `cat > file << 'EOF'` heredoc patterns to create files
+- Use `sed`, `awk`, or other shell tools for file editing
+- Use `echo "content" > file` redirection for file creation
+- Use any shell-based workarounds for file operations
+
+**RATIONALE:** The Write and Edit tools integrate properly with Claude Code's permission system and can be whitelisted. Shell-based file operations (heredocs, sed, awk, echo redirection) cannot be efficiently whitelisted and cause unnecessary permission prompts, slowing down implementation.
+
+**Examples:**
+
+**CORRECT** - Use Write tool:
+```
+Write tool with file_path="/path/to/file.ts" and content="..."
+```
+
+**INCORRECT** - Do NOT use heredocs:
+```bash
+cat > /path/to/file.ts << 'EOF'
+// file content
+EOF
+```
+
+**INCORRECT** - Do NOT use sed for editing:
+```bash
+sed -i 's/old/new/g' /path/to/file.ts
+```
+
+---
+
 ## OPERATIONAL PROTOCOLS
 
 ### A. THE "STOP AND ASK" PROTOCOL
@@ -105,7 +150,7 @@ When ANY directive or constraint requires you to 'STOP and Ask', you **MUST** pe
 1. **HALT ALL CURRENT WORK.**
 2. **GENERATE A CONCISE, DETAILED MESSAGE** to the user. This message **MUST** clearly state:
    - Which constraint/rule was triggered (and its source).
-   - The exact reason for stopping (e.g., "Tests are failing," "Cannot verify API signature," "Missing resource: X").
+   - The exact reason for stopping (e.g., "Verification failed," "Cannot verify configuration," "Missing resource: X").
    - The specific problem encountered.
    - The precise assistance or decision required from the user.
    - Any relevant context or options for the user to consider.
@@ -127,23 +172,7 @@ For maximum adherence, internally process these directives with the following li
 
 **Goal**: {TASK_GOAL}
 **Status**: {STATUS}
-
----
-
-## CRITICAL: Test Every New Method (ABSOLUTE)
-
-**You MUST NEVER add a public method without its own test.**
-
-**RATIONALE:** Untested methods = hidden bugs + broken contracts.
-
-**You MUST test at the layer where defined:**
-- Client method → Client spec
-- Service method → Service spec
-- Controller → Request spec
-- Model method → Model spec
-
-**WRONG:** Adding Client#update_file without client_spec.rb test
-**RIGHT:** Write client_spec.rb test FIRST (TDD red), then implement
+**Task Type**: {TASK_TYPE} <!-- coding | operational | infrastructure | configuration -->
 
 ---
 
@@ -158,13 +187,7 @@ For maximum adherence, internally process these directives with the following li
 - New dependencies discovered
 - Assumptions proven wrong
 - Scope adjustments needed
-- Architecture insights gained
-
-**Update these sections:**
-- Task description (if scope changes)
-- Requirements (if new ones discovered)
-- Tests (if scenarios expand)
-- Success Criteria (if gates change)
+- Insights gained during work
 
 **You MUST NEVER**: Let handoff drift from reality, work from outdated plan
 **You MUST ALWAYS**: Keep handoff synchronized with actual implementation
@@ -174,106 +197,91 @@ For maximum adherence, internally process these directives with the following li
 ## Context
 
 ```bash
-# Find relevant code
-{GREP_COMMANDS}
+# Find relevant resources
+{DISCOVERY_COMMANDS}
 
-# Check current implementation
-{CAT_COMMANDS}
+# Check current state
+{STATUS_COMMANDS}
 
-# Existing implementations to reference or reuse
-{REUSABLE_CODE_FINDINGS}
+# Existing resources to reference or reuse
+{REUSABLE_RESOURCES}
 ```
 
-<!-- PLANNER NOTE: Include canonical examples ONLY if creating NEW class or major rewrite -->
-<!-- {CANONICAL_EXAMPLE_COMMANDS} -->
+---
+
+## Spec Context
+
+<!-- PLANNER NOTE: This section contains extracted excerpts from spec documents.
+     - Max 100 lines per spec doc to keep handoffs focused
+     - Line numbers included for reference to full spec
+     - If you need more detail, read the full spec at the referenced path
+-->
+
+{SPEC_CONTEXT}
+
+<!-- End Spec Context -->
 
 ---
 
 ## Task
 
-**Fix**: {TASK_DESCRIPTION}
-**File**: {FILE_PATH}
+**Goal**: {TASK_DESCRIPTION}
+**Scope**: {SCOPE_DESCRIPTION}
 
 **Requirements**:
 {REQUIREMENTS_LIST}
 
-**Tests**:
-- {SCENARIO_1}
-- {SCENARIO_2}
-- {SCENARIO_N}
+**Verification Plan**:
+- {VERIFICATION_STEP_1}
+- {VERIFICATION_STEP_2}
+- {VERIFICATION_STEP_N}
 
-<!-- SECTION HOOK: Insert technology-specific sections here based on task type -->
+<!-- SECTION HOOK: Insert task-type-specific sections here -->
+<!-- For coding tasks: include sections/software-development.md -->
+<!-- For operational tasks: include sections/dev-environment-setup.md or sections/infrastructure-ops.md -->
 
 ---
 
-## Verification
+## Verification Loops
 
-<!-- PLANNER NOTE: Commands filled by technology sections -->
+<!-- PLANNER NOTE: Loops are defined by section templates. These are generic placeholders. -->
 
-**Loop 1 (TDD)**: {FOCUSED_TEST_COMMAND}
+**Loop 1 (Targeted)**: {TARGETED_VERIFICATION}
+<!-- Verify the specific change works in isolation -->
 
-**🛑 MANDATORY TEST STATUS CHECK**
+**Loop 2 (Integration)**: {INTEGRATION_VERIFICATION}
+<!-- Verify the change works with related components -->
 
-Before proceeding to Loop 2 or marking this task complete, you MUST:
+**Loop 3 (End-to-End)**: {E2E_VERIFICATION}
+<!-- Verify the full flow works as user would experience it -->
 
-1. **Output this exact line**: `🛑 RUNNING MANDATORY TEST CHECK`
-2. **Run the test suite** (Loop 1 command above)
-3. **Check output for ANY failure indicators**:
-   - Look for: `FAILED`, `ERROR`, `0 passing`, `failures:`, `Failures:`, exit code ≠ 0
-4. **If ANY failures exist**:
-   - **IMMEDIATELY output**: `🛑 STOP: Test failures detected`
-   - **DO NOT analyze, explain, or categorize the failures**
-   - **Execute STOP and Ask protocol immediately**
-   - **Report**: "Tests are failing. Need guidance: [paste failure output]"
-   - **AWAIT user decision**
-5. **Only if ZERO failures**:
-   - Output: `✅ TEST CHECK PASSED: All tests green`
-   - Proceed to Task Review
+---
 
-**Task Review**: After Loop 1 passes, run `/task-review` to review implementation
-- Reviews uncommitted code against task handoff quality gates
-- Validates adherence to guidelines and standards
-- Fix any critical issues before Loop 2
-- Ensures quality before project-wide impact
+## Pre-Handoff Checklist
 
-**Loop 2 (Scoped)**: {PROJECT_TEST_COMMAND}
+Before handing off to user, Claude MUST verify:
 
-**🛑 LOOP 2 TEST CHECK**
-
-Repeat the MANDATORY TEST STATUS CHECK procedure above for Loop 2.
-
-**Loop 3 (Manual)**: {CONSOLE_OR_BROWSER_COMMAND}
-
-**Loop 3 Required When**:
-- External APIs
-- Database changes
-- Complex logic
-- Integration points
-
-**Skip Loop 3 ONLY with user approval.**
+- [ ] **Loop 1 passed** - Targeted verification succeeded
+- [ ] **Loop 2 passed** - Integration verification succeeded
+- [ ] **Loop 3 passed** - End-to-end verification succeeded (or documented why not needed)
+- [ ] **No errors or warnings** - All verification clean
+- [ ] **Documentation complete** - User knows how to verify themselves
+- [ ] **Handoff updated** - Document reflects actual implementation
 
 ---
 
 ## Success Criteria
 
-- [ ] 🛑 MANDATORY TEST CHECK executed and passed for Loop 1
-- [ ] 🛑 MANDATORY TEST CHECK executed and passed for Loop 2
 - [ ] {CRITERION_1}
 - [ ] {CRITERION_2}
 - [ ] {CRITERION_3}
-- [ ] API doc extraction completed (if API integration)
-- [ ] Implementation matches extracted specs exactly (if API integration)
-- [ ] Every new public method has its own test
-- [ ] All tests pass
+- [ ] All verification loops passed
 - [ ] Stop and Ask used if needed
-- [ ] Loop 3 complete (if required)
 - [ ] Handoff updated with implementation changes
 - [ ] Completion section filled with final summary
-- [ ] tasks.md updated (if project has one)
 
 ---
 
-<!-- PLANNER NOTE: Completion section filled after task done -->
 ## Completion
 
 **You MUST fill this section after final verification.**
@@ -282,15 +290,11 @@ Repeat the MANDATORY TEST STATUS CHECK procedure above for Loop 2.
 
 **Implementation Summary**:
 {SUMMARY_OF_CHANGES}
-<!-- What was implemented? Key technical decisions? -->
+<!-- What was implemented? Key decisions? -->
 
-**Files Changed**:
-{LIST_OF_FILES_CHANGED}
-<!-- List all modified/created files with brief description -->
-
-**Test Results**:
-{TEST_STATE_SUMMARY}
-<!-- Loop 1, 2, 3 outcomes. Coverage stats if available. -->
+**Verification Results**:
+{VERIFICATION_RESULTS}
+<!-- Loop 1, 2, 3 outcomes. What was verified and how? -->
 
 **Deviations from Plan**:
 {DEVIATIONS_IF_ANY}
@@ -298,11 +302,7 @@ Repeat the MANDATORY TEST STATUS CHECK procedure above for Loop 2.
 
 **Known Limitations**:
 {LIMITATIONS_IF_ANY}
-<!-- Technical debt, edge cases, future improvements -->
-
-**Project Tasks Updated**:
-- [ ] tasks.md updated (if applicable)
-- [ ] Related task handoffs cross-referenced
+<!-- Edge cases, future improvements, technical debt -->
 
 ---
 
@@ -313,8 +313,6 @@ Repeat the MANDATORY TEST STATUS CHECK procedure above for Loop 2.
 1. **Create completed subfolder** (if it doesn't exist):
    ```bash
    mkdir -p specs/{project}/task-handoffs/completed
-   # OR for simpler projects:
-   mkdir -p specs/tasks/completed
    ```
 
 2. **Move this handoff to completed**:
@@ -325,4 +323,4 @@ Repeat the MANDATORY TEST STATUS CHECK procedure above for Loop 2.
 
 3. **Update any references** in related documents to point to new location
 
-**RATIONALE:** Separating active from completed handoffs keeps task-handoffs/ directory focused on current work and makes it easier to find in-progress tasks.
+**RATIONALE:** Separating active from completed handoffs keeps task-handoffs/ directory focused on current work.

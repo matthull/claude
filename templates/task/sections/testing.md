@@ -109,6 +109,7 @@ WHEN running tests:
 
 **You MUST NEVER**:
 - ❌ **Create multiple spec files for individual methods** (ONE spec file per class)
+- ❌ **Add boilerplate comments** (no `# Arrange`, `# Act`, `# Assert`, `# Setup`, `# Given/When/Then` - let code structure speak for itself)
 - ❌ Skip tests to "make it work first" (TDD red-green-refactor)
 - ❌ Use `sleep` to fix timing issues (find root cause)
 - ❌ Stub methods on the object under test
@@ -127,3 +128,4 @@ WHEN running tests:
 - ✅ Integration tests for critical user flows
 - ✅ Fast, focused unit tests for edge cases
 - ✅ `let` statements over instance variables
+- ✅ Comments ONLY for non-obvious business logic or complex algorithms (rare)

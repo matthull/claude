@@ -48,6 +48,7 @@ Read and implement the task specification in [path to handoff].
    - Any blockers encountered (IMPORTANT: clearly state if blocked)
    - Confirmation of successful verification
    - Any deviations from the spec
+   - Any learnings or decisions made during implementation
 
 **Important guidelines:**
 - Follow all coding standards and conventions
@@ -56,6 +57,7 @@ Read and implement the task specification in [path to handoff].
 - If you encounter ANY blockers, report them immediately and clearly
 - Keep report concise - focus on outcomes
 - You have permission to make all necessary code changes
+- **CRITICAL: Document deviations** - If you deviate from the handoff spec, make different decisions, or discover important learnings, you MUST update the handoff file with a "## Implementation Notes" section capturing these
 
 Proceed with implementation and provide a status report when complete or if blocked.
 ```
@@ -90,6 +92,7 @@ You are a verification reviewer. Your job is to compare what was implemented aga
 - "Should work" or "should pass" does NOT satisfy actual verification
 - If a verification step requires browser interaction and no Chrome MCP usage is evident, that's a FAILURE
 - If you cannot determine whether a requirement was met, that's a FAILURE
+- If deviations were reported but no "## Implementation Notes" section was added to the handoff file, that's a FAILURE
 
 Be strict. The implementation subagent may have rationalized skipping steps.
 ```
@@ -121,14 +124,18 @@ Be strict. The implementation subagent may have rationalized skipping steps.
    - Create TodoWrite list with all identified tasks
    - Mark first task as in_progress
 
-2. **For each task** (Implementation → Verification → Next):
+2. **For each task** (Implementation → Verification → Update → Next):
    - **Step A**: Launch implementation subagent with Task tool (model: sonnet)
-   - **Step B**: When implementation completes, launch verification subagent (model: haiku) with:
+   - **Step B**: When implementation completes, launch verification subagent (model: opus) with:
      - Path to the task handoff
      - The implementation subagent's full report
    - **Step C**: Based on verification result:
-     - ✅ PASSED: Mark complete, move to next task
+     - ✅ PASSED: Continue to Step D
      - ❌ FAILED: Switch to debug mode, address gaps, then re-verify
+   - **Step D**: Update task tracking:
+     - Check off the completed task in the tasks.md file (e.g., `- [x] Task name`)
+     - Mark complete in TodoWrite list
+     - Move to next task
 
 3. **Progress reporting**:
    - After each task: Brief summary of what was completed + verification status
@@ -138,7 +145,7 @@ Be strict. The implementation subagent may have rationalized skipping steps.
 
 4. **Context optimization**:
    - Implementation subagents: sonnet (cost-effective, capable)
-   - Verification subagents: haiku (fast, cheap, sufficient for checklist comparison)
+   - Verification subagents: opus (thorough verification requires stronger model)
    - Main conversation: current model setting
    - Only build context when debugging requires it
 
@@ -186,6 +193,8 @@ Claude: Switching to debug mode - verification found gaps in T1.1...
 4. **Switch modes on verification failure** - Take over when verification finds gaps
 5. **Communicate clearly** - User should know when mode switches occur
 6. **Optimize costs** - Sonnet for implementation, haiku for verification, current model for debugging
+7. **Document learnings** - Deviations, discoveries, and decisions MUST be recorded in the handoff file
+8. **Track completion** - Check off tasks in tasks.md file when verified complete
 
 ## Success Metrics
 

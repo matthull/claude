@@ -336,26 +336,26 @@ docker compose exec web npx vitest src/composables/{composableName}.spec.ts
 
 **Note**: Vitest is NOT run in Loop 2 (local environment issues). Only utility tests run in Loop 1.
 
-**Loop 3: Browser Verification (OPTIONAL - requires user approval to skip)**
+**Loop 3: Browser E2E Verification**
 
-**When Loop 3 is REQUIRED**:
+**Loop 3 Determination (Binary - REQUIRED or NOT REQUIRED)**:
+
+Loop 3 is **REQUIRED** unless ALL code paths are 100% exercised by Storybook stories.
+
+**REQUIRED** (most frontend tasks):
+- ✅ Any component that fetches/displays API data
+- ✅ Any component that passes data to/from parent components
 - ✅ Multi-step user flows (forms, wizards)
-- ✅ Complex state management across routes
-- ✅ Browser-specific behavior (scroll, focus, resize)
+- ✅ Filter/parameter interactions
+- ✅ State management across routes
 - ✅ Integration with backend APIs
-- ✅ Responsive layout verification
 
-**When Loop 3 MAY BE SKIPPED** (with user approval):
-- ⚠️ Simple presentational components with complete Storybook coverage
-- ⚠️ Pure UI components with no backend integration
-- ⚠️ Storybook stories provide 100% confidence
+**NOT REQUIRED** (rare - purely presentational):
+- Purely presentational components with ZERO backend integration
+- Components where Storybook stories exercise 100% of code paths
+- Example: A button component with only visual variants
 
-**Stop and Ask Protocol**:
-```
-Before skipping Loop 3, you MUST ask:
-"This component is [description]. Storybook stories provide [level] confidence.
-May I skip Loop 3 browser verification, or would you like me to perform manual QA?"
-```
+**There is no "optional with approval" - determine which category applies and proceed.**
 
 **Browser Verification Procedure**:
 ```bash

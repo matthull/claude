@@ -129,14 +129,14 @@ We use Docker anonymous volumes to isolate node_modules from the host system. Th
 ## Accessing local dev resources
 
 ### Worktree-Specific Ports
-**IMPORTANT**: Before accessing Storybook or other local services, check if you're in a worktree:
-- Check for `.worktree-id` file in the project root
-- If present, read `STORYBOOK_PORT` from `.env` file (worktrees use custom ports like 6206, 6306, etc.)
-- Main repo uses default port 6006
+**IMPORTANT**: All ports are determined by the worktree ID from `.worktree-id` file:
+- Read `.worktree-id` to get the worktree number (e.g., `001`, `002`)
+- Port pattern: `3{worktree_id}00` for app, `6{worktree_id}06` for Storybook
+- Example for worktree `001`: App at `http://localhost:3100`, Storybook at `http://localhost:6106`
+- Main repo (no `.worktree-id`): App at `http://localhost:3000`, Storybook at `http://localhost:6006`
 
 ### Service URLs
-- The app lives at `http://localhost:3000` (same for all worktrees)
-- **Storybook**: Check `.env` for `STORYBOOK_PORT` value
-  - Main repo: `http://localhost:6006`
-  - Worktrees: `http://localhost:{STORYBOOK_PORT}` (e.g., `http://localhost:6206`)
-- When using Puppeteer to navigate in the app, don't try to guess URLs and navigate directly since we don't have a consistent URL structure, navigate via URL unless you know the URL from visiting it already.
+- **App**: `http://localhost:3{worktree_id}00` (e.g., worktree 001 = `http://localhost:3100`)
+- **Storybook**: `http://localhost:6{worktree_id}06` (e.g., worktree 001 = `http://localhost:6106`)
+- When using a browser to navigate in the app, don't try to guess URLs and navigate directly since we don't have a consistent URL structure, navigate via URL unless you know the URL from visiting it already.
+- Use username evan@userevidence.com, password B1ga$$b0ats to login to the local app

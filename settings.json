@@ -7,7 +7,8 @@
       "Edit(/home/matt/code/village)",
       "Edit(/home/matt/code/musashi)",
       "Read(/home/matt/.claude/guidance/**)",
-      "Read(/home/matt/code/musashi/.claude/guidance/**)"
+      "Read(/home/matt/code/musashi/.claude/guidance/**)",
+      "Read(/home/matt/.claude/skills/nfr-product-lens/**)"
     ]
   },
   "hooks": {
@@ -26,5 +27,5 @@
   "enabledPlugins": {
     "example-skills@anthropic-agent-skills": true
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": false
 }

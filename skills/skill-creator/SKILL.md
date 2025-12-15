@@ -166,6 +166,25 @@ Also, delete any example files and directories not needed for the skill. The ini
 
 **Writing Style:** Write the entire skill using **imperative/infinitive form** (verb-first instructions), not second person. Use objective, instructional language (e.g., "To accomplish X, do Y" rather than "You should do X" or "If you need to do X"). This maintains consistency and clarity for AI consumption.
 
+**Example Patterns:** Short code snippets (1-5 lines) for syntax or API usage are fine inline. However, for project-level skills where canonical examples exist in the codebase, reference those files instead of duplicating code:
+
+```markdown
+## Implementation Reference
+
+Read these files for established patterns:
+
+| File | Purpose | Read When |
+|------|---------|-----------|
+| `src/lib/powersync/schema.ts` | Table definitions | Adding new tables |
+| `src/stores/uiPreferencesStore.ts` | Zustand + MMKV pattern | Creating stores |
+```
+
+Benefits of referencing codebase files:
+- Examples stay in sync with actual implementation
+- No duplication to maintain
+- Skills remain lean and focused on guidance, not code
+- Claude reads the real, tested code when needed
+
 To complete SKILL.md, answer the following questions:
 
 1. What is the purpose of the skill, in a few sentences?

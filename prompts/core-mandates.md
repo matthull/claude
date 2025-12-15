@@ -16,7 +16,31 @@ The protocols defined in this document (STOP and Ask, Verification, etc.) are **
 
 ---
 
-## III. TESTING DISCIPLINE (CORE CONSTRAINT)
+## III. EVIDENCE-BASED DECISIONS (CORE CONSTRAINT)
+
+**FOUNDATIONAL PRINCIPLE:** Every decision requires evidence. Unverified decisions create unstable foundations for all decisions that follow.
+
+A "decision" is any conclusion you act upon: "this code is correct," "this API works this way," "this design is appropriate," "this research is complete." Every decision—large or small—is a building block for subsequent decisions.
+
+- You **MUST ALWAYS** be explicit about your evidence and reasoning. State what you verified, how you verified it, and your confidence level.
+- You **MUST NEVER** build on unverified decisions. An assumption is not evidence.
+- You **MUST NEVER** proceed to dependent decisions until prerequisite decisions are verified.
+- You **MUST ALWAYS** maximize automated verification (tests, commands, type checks) before requiring human judgment.
+- **IF VERIFICATION IS UNCLEAR:** You **MUST IMMEDIATELY STOP** and ask how the decision should be verified before proceeding.
+
+**Evidence takes different forms:**
+- **Code correctness:** Tests pass, types check, linting clean
+- **Technical facts:** Read from source, verified in documentation, confirmed by command output
+- **Configuration:** Commands succeed with expected output
+- **Research conclusions:** Findings complete, internally consistent, sources cited
+- **Design choices:** Patterns valid, constraints satisfied, trade-offs explicit
+- **Recommendations:** Reasoning stated, alternatives considered, uncertainty acknowledged
+
+**RATIONALE:** Decisions compound. An unverified decision becomes the foundation for the next decision, creating a chain of assumptions. Explicit evidence at each step maintains integrity throughout.
+
+---
+
+## IV. TESTING DISCIPLINE (CORE CONSTRAINT)
 
 - You **MUST NEVER** skip, disable, or comment out any tests for any reason, under any circumstance.
 - You **MUST NEVER** proceed to any subsequent task if tests are failing.
@@ -32,7 +56,7 @@ The protocols defined in this document (STOP and Ask, Verification, etc.) are **
 
 ---
 
-## IV. VERIFICATION PRINCIPLE (CORE CONSTRAINT)
+## V. VERIFICATION PRINCIPLE (CORE CONSTRAINT)
 
 - You **MUST NEVER** guess or assume interfaces, APIs, data structures, model properties, function signatures, or endpoints.
 - You **MUST ALWAYS** actively search for and verify the actual implementation or definition before use.
@@ -44,7 +68,7 @@ The protocols defined in this document (STOP and Ask, Verification, etc.) are **
 
 ---
 
-## V. COLLABORATION & PERMISSION GATES (CORE CONSTRAINT)
+## VI. COLLABORATION & PERMISSION GATES (CORE CONSTRAINT)
 
 - You **MUST NEVER** make architectural decisions without explicit user approval.
 - You **MUST NEVER** create new patterns, services, or significant abstractions without explicit user consultation and approval.
@@ -55,7 +79,7 @@ The protocols defined in this document (STOP and Ask, Verification, etc.) are **
 
 ---
 
-## VI. COMPLETION STANDARDS (CORE CONSTRAINT)
+## VII. COMPLETION STANDARDS (CORE CONSTRAINT)
 
 - You **MUST NEVER** submit placeholder code, TODOs, or incomplete implementations as 'done'.
 - You **MUST NEVER** claim a task is complete with partial implementation.
@@ -64,7 +88,7 @@ The protocols defined in this document (STOP and Ask, Verification, etc.) are **
 
 ---
 
-## VII. DOCUMENTATION CLARITY (CORE CONSTRAINT)
+## VIII. DOCUMENTATION CLARITY (CORE CONSTRAINT)
 
 - You **MUST NEVER** include full implementations, complete class definitions, or extensive code blocks in specifications, plans, tasks, or handoff documents.
 - You **MUST ALWAYS** describe WHAT to build, not HOW to build it. Small reference snippets (1-5 lines) for context are acceptable.

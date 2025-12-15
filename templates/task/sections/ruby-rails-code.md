@@ -195,14 +195,33 @@ bundle exec rspec spec/{path}/{filename}_spec.rb
 bundle exec rspec spec/services/
 ```
 
-**Loop 3 (Console)**:
+**Loop 3 (Console/Script Verification)**:
 
-**Required for**: External APIs, database changes, integrations
-**Skip ONLY with user approval**
+**Loop 3 Determination (Binary - REQUIRED or NOT REQUIRED)**:
+
+Loop 3 is **REQUIRED** unless ALL code paths are 100% exercised by unit tests (RSpec).
+
+**REQUIRED** (most backend tasks):
+- ✅ Service integrating with external APIs (verify real API behavior)
+- ✅ Multi-component integration (Service → Client → API)
+- ✅ Database changes (verify data persists correctly)
+- ✅ Worker/job orchestration (verify job enqueuing and execution)
+- ✅ Any integration flow not covered by e2e RSpec tests
+
+**NOT REQUIRED** (rare - fully unit tested):
+- Pure utility methods with 100% RSpec coverage of all code paths
+- Single-class changes where unit tests exercise every branch
+- Changes covered by existing integration/request specs
+
+**There is no "optional with approval" - determine which category applies and proceed.**
 
 ```bash
-rails console
+# Console verification
+docker compose exec web bundle exec rails console
 {CONSOLE_VERIFICATION_COMMANDS}
+
+# OR script verification (for complex flows)
+docker compose exec web bundle exec rails runner {SCRIPT_PATH}
 ```
 
 ### Code Quality Checklist
@@ -283,6 +302,7 @@ Follow their patterns for structure, error handling, naming.
 - ❌ **Use `Rails.env.production?`** (use positive environment checks)
 - ❌ **Share constants between strong_params and jbuilder**
 - ❌ **Add caching without justification** (optimize queries first)
+- ❌ **Add boilerplate comments** (no `# Arrange`, `# Act`, `# Assert`, `# Setup`, etc. - code should be self-documenting)
 - ❌ Skip writing tests first (TDD red phase)
 - ❌ Over-mock/stub in tests (test real behavior when possible)
 - ❌ Put business logic in controllers

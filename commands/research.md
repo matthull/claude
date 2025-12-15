@@ -1,7 +1,7 @@
 ---
 description: Deep research with parallel subagents and automatic citations
 argument-hint: "<question to investigate>"
-allowed-tools: Task, Read, Write, Edit, Grep, Glob
+allowed-tools: Task, Read, Write, Edit, Grep, Glob, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
 category: workflow
 model: opus
 ---
@@ -21,19 +21,30 @@ $ARGUMENTS
 
 #### Query Types:
 
-1. **BREADTH-FIRST QUERIES** (Wide exploration)
+1. **LIBRARY/API DOCUMENTATION QUERIES** (Context7 - PREFERRED FOR DOCS)
+   - Characteristics: Questions about library APIs, framework usage, package documentation
+   - Examples: "How do I use React hooks?", "PowerSync API for offline sync", "Zustand store patterns"
+   - Strategy: **USE CONTEXT7 FIRST** before spawning subagents
+   - Process:
+     1. Call `mcp__context7__resolve-library-id` with the library name
+     2. Call `mcp__context7__get-library-docs` with the resolved ID and relevant topic
+     3. If Context7 has sufficient docs, use that directly (no subagents needed)
+     4. If Context7 lacks coverage, fall back to web research subagents
+   - **Why Context7 First**: Curated docs are more accurate than web scraping for API details
+
+2. **BREADTH-FIRST QUERIES** (Wide exploration)
    - Characteristics: Multiple independent aspects, survey questions, comparisons
    - Examples: "Compare all major cloud providers", "List board members of S&P 500 tech companies"
    - Strategy: 5-10 parallel subagents, each exploring different aspects
    - Each subagent gets narrow, specific tasks
 
-2. **DEPTH-FIRST QUERIES** (Deep investigation)
+3. **DEPTH-FIRST QUERIES** (Deep investigation)
    - Characteristics: Single topic requiring thorough understanding, technical deep-dives
    - Examples: "How does transformer architecture work?", "Explain quantum entanglement"
    - Strategy: 2-4 subagents with overlapping but complementary angles
    - Each subagent explores the same topic from different perspectives
 
-3. **SIMPLE FACTUAL QUERIES** (Quick lookup)
+4. **SIMPLE FACTUAL QUERIES** (Quick lookup)
    - Characteristics: Single fact, recent event, specific data point
    - Examples: "When was GPT-4 released?", "Current CEO of Microsoft"
    - Strategy: 1-2 subagents for verification
@@ -135,8 +146,9 @@ The synthesized report (written to file) must include:
 - Identify gaps and contradictions in available information
 
 ### Effort Scaling by Query Type
+- **Library/API Docs**: Context7 first (0 subagents if sufficient), fallback to 1-2 subagents
 - **Simple Factual**: 1-2 subagents, 3-5 searches each (verification focus)
-- **Depth-First**: 2-4 subagents, 10-15 searches each (deep understanding)  
+- **Depth-First**: 2-4 subagents, 10-15 searches each (deep understanding)
 - **Breadth-First**: 5-10 subagents, 5-10 searches each (wide coverage)
 - **Maximum Complexity**: 10 subagents (Claude Code limit)
 
@@ -148,11 +160,19 @@ The synthesized report (written to file) must include:
 
 ## Execution
 
-**Step 1: CLASSIFY THE QUERY** (Breadth-first, Depth-first, or Simple factual)
+**Step 1: CLASSIFY THE QUERY** (Library/API docs, Breadth-first, Depth-first, or Simple factual)
 
 **Step 2: LAUNCH APPROPRIATE SUBAGENT CONFIGURATION**
 
 ### Example Execution Patterns:
+
+**LIBRARY/API DOCS Example:** "How do I implement offline sync with PowerSync?"
+- Classification: Library/API documentation query
+- Execute Context7 lookup FIRST (no subagents yet):
+  1. `mcp__context7__resolve-library-id(libraryName="powersync")` → get library ID
+  2. `mcp__context7__get-library-docs(context7CompatibleLibraryID="/powersync/...", topic="offline sync")` → get docs
+- If Context7 has good coverage: Synthesize answer directly from docs
+- If Context7 lacks detail: Fall back to web research subagents
 
 **BREADTH-FIRST Example:** "Compare AI capabilities of Google, OpenAI, and Anthropic"
 - Classification: Breadth-first (multiple independent comparisons)  
